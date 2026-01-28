@@ -19,42 +19,28 @@
             background-color: #2b2b2b;
         }
         
-        /* Header */
         header {
             background: linear-gradient(135deg, #0d7377 0%, #14a085 100%);
-            padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-        
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
+            padding: 60px 20px 40px;
+            text-align: center;
         }
         
         .logo {
-            height: 60px;
-            width: auto;
+            max-width: 50%;
+            height: auto;
+            margin: 0 auto 20px;
+            display: block;
         }
         
-        .header-text h1 {
+        .header-tagline {
             color: white;
-            font-size: 2em;
-            margin-bottom: 5px;
+            font-size: 1.8em;
+            font-weight: 300;
         }
         
-        .header-text p {
-            color: rgba(255,255,255,0.9);
-            font-size: 1.1em;
-        }
-        
-        /* Hero Section */
         .hero {
             background: linear-gradient(135deg, #0d7377 0%, #14a085 100%);
-            padding: 60px 20px;
+            padding: 40px 20px 60px;
             text-align: center;
             color: white;
         }
@@ -88,7 +74,6 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
         
-        /* Screenshot Section */
         .screenshot-section {
             max-width: 1200px;
             margin: -40px auto 0;
@@ -104,7 +89,6 @@
             border: 3px solid #3c3c3c;
         }
         
-        /* Features Section */
         .features-section {
             background-color: #1f1f1f;
             padding: 80px 20px;
@@ -153,7 +137,6 @@
             line-height: 1.8;
         }
         
-        /* Compression Modes */
         .modes-section {
             background-color: #2b2b2b;
             padding: 80px 20px;
@@ -183,7 +166,6 @@
             font-size: 0.95em;
         }
         
-        /* Pricing Section */
         .pricing-section {
             background-color: #1f1f1f;
             padding: 80px 20px;
@@ -224,7 +206,6 @@
             margin-right: 10px;
         }
         
-        /* Footer */
         footer {
             background-color: #1a1a1a;
             padding: 40px 20px;
@@ -241,8 +222,15 @@
             text-decoration: underline;
         }
         
-        /* Responsive */
         @media (max-width: 768px) {
+            .logo {
+                max-width: 80%;
+            }
+            
+            .header-tagline {
+                font-size: 1.3em;
+            }
+            
             .hero h2 {
                 font-size: 2em;
             }
@@ -259,13 +247,8 @@
 </head>
 <body>
     <header>
-        <div class="header-content">
-            <img src="logo.png" alt="CineCinch Logo" class="logo">
-            <div class="header-text">
-                <h1>CineCinch</h1>
-                <p>Professional Video Compression for Windows</p>
-            </div>
-        </div>
+        <img src="logo.png" alt="CineCinch Logo" class="logo">
+        <p class="header-tagline">Professional Video Compression for Windows</p>
     </header>
 
     <section class="hero">
@@ -314,6 +297,75 @@
                     <h3>📊 CSV Export</h3>
                     <p>Export complete scan results to CSV for analysis in Excel or other tools. Perfect for documentation and tracking compression results over time.</p>
                 </div>
-                
                 <div class="feature-card">
                     <h3>🎨 Clean, Modern Interface</h3>
+                    <p>Custom-designed dark theme with intuitive controls. Double-click files to open them in Explorer, double-click progress to view output files. Persistent settings remember your preferences.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>💾 Smart Output Options</h3>
+                    <p>Save to source folder or custom location. Optionally delete originals after successful compression. All compressed videos output as universally compatible MP4 files.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="modes-section">
+        <div class="container">
+            <h2 class="section-title">Four Compression Modes</h2>
+            <div class="modes-grid">
+                <div class="mode-card">
+                    <h4>High Quality</h4>
+                    <p>H.265, preset=slower, CRF 21<br>Best for preserving detail in poorly compressed or heavily artifacted videos</p>
+                </div>
+                
+                <div class="mode-card">
+                    <h4>Standard</h4>
+                    <p>H.265, preset=slow, CRF 25<br>Balanced quality, speed, and compression efficiency for everyday use</p>
+                </div>
+                
+                <div class="mode-card">
+                    <h4>High Compression</h4>
+                    <p>H.265, preset=medium, CRF 29<br>Greater file size reduction while maintaining good quality</p>
+                </div>
+                
+                <div class="mode-card">
+                    <h4>Max Compression</h4>
+                    <p>H.265, preset=fast, CRF 34<br>Maximum space savings for archive purposes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section">
+        <div class="container">
+            <h2 class="section-title">Simple, Fair Pricing</h2>
+            <div class="pricing-box">
+                <h3 style="color: #14a085; font-size: 1.5em;">CineCinch</h3>
+                <div class="price">Free Trial</div>
+                <p style="color: #b0b0b0; margin-bottom: 20px;">Try before you buy</p>
+                <ul class="pricing-features">
+                    <li>Full feature access</li>
+                    <li>All compression modes</li>
+                    <li>Unlimited file scanning</li>
+                    <li>Batch processing</li>
+                    <li>CSV export</li>
+                    <li>Free updates</li>
+                </ul>
+                <a href="#" class="cta-button">Download Free Trial</a>
+                <p style="margin-top: 20px; font-size: 0.9em; color: #b0b0b0;">Pricing details available in the Microsoft Store</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p style="margin-bottom: 15px; font-size: 1.1em;">Questions or need support?</p>
+            <p>Email: <a href="mailto:support@cinecinch.com">support@cinecinch.com</a></p>
+            <p style="margin-top: 30px; color: #888; font-size: 0.9em;">
+                © 2026 CineCinch Software. FFmpeg-powered under LGPL/GPL licensing.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
