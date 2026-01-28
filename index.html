@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CineCinch - Fast Video Compression for Windows</title>
-    <meta name="description" content="Fast, intuitive video compressor for Windows. FFmpeg-powered. Trial available.">
+    <title>CineCinch - Professional Video Compression for Windows</title>
+    <meta name="description" content="Fast, intuitive video compression software for Windows. H.265 encoding, batch processing, and intelligent file analysis. FFmpeg-powered.">
     <style>
         * {
             margin: 0;
@@ -13,145 +13,307 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            color: #e0e0e0;
+            background-color: #2b2b2b;
         }
         
-        .container {
-            max-width: 800px;
-            background: white;
-            border-radius: 20px;
-            padding: 60px 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            text-align: center;
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #0d7377 0%, #14a085 100%);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
         
         .logo {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 30px;
-            background: #667eea;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
+            height: 60px;
+            width: auto;
+        }
+        
+        .header-text h1 {
             color: white;
-            font-weight: bold;
+            font-size: 2em;
+            margin-bottom: 5px;
         }
         
-        h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            color: #2d3748;
-        }
-        
-        .tagline {
-            font-size: 1.5em;
-            color: #718096;
-            margin-bottom: 40px;
-        }
-        
-        .features {
-            text-align: left;
-            margin: 40px auto;
-            max-width: 500px;
-        }
-        
-        .feature {
-            padding: 15px 0;
+        .header-text p {
+            color: rgba(255,255,255,0.9);
             font-size: 1.1em;
-            color: #4a5568;
         }
         
-        .feature::before {
-            content: "✓";
-            color: #667eea;
-            font-weight: bold;
-            margin-right: 10px;
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0d7377 0%, #14a085 100%);
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
             font-size: 1.3em;
+            margin-bottom: 30px;
+            opacity: 0.95;
         }
         
         .cta-button {
             display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 18px 50px;
-            font-size: 1.3em;
+            background-color: white;
+            color: #0d7377;
+            padding: 15px 40px;
+            font-size: 1.2em;
             text-decoration: none;
-            border-radius: 50px;
-            margin: 30px 10px;
+            border-radius: 8px;
+            font-weight: bold;
             transition: transform 0.2s, box-shadow 0.2s;
-            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
         
-        .contact {
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 1px solid #e2e8f0;
-            color: #718096;
+        /* Screenshot Section */
+        .screenshot-section {
+            max-width: 1200px;
+            margin: -40px auto 0;
+            padding: 0 20px 60px;
+            position: relative;
+            z-index: 10;
         }
         
-        .contact a {
-            color: #667eea;
+        .screenshot {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            border: 3px solid #3c3c3c;
+        }
+        
+        /* Features Section */
+        .features-section {
+            background-color: #1f1f1f;
+            padding: 80px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: #14a085;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .feature-card {
+            background-color: #2b2b2b;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #3c3c3c;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #14a085;
+        }
+        
+        .feature-card h3 {
+            color: #14a085;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: #e0e0e0;
+            line-height: 1.8;
+        }
+        
+        /* Compression Modes */
+        .modes-section {
+            background-color: #2b2b2b;
+            padding: 80px 20px;
+        }
+        
+        .modes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .mode-card {
+            background-color: #3c3c3c;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #14a085;
+        }
+        
+        .mode-card h4 {
+            color: #14a085;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        
+        .mode-card p {
+            color: #b0b0b0;
+            font-size: 0.95em;
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            background-color: #1f1f1f;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .pricing-box {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #2b2b2b;
+            padding: 40px;
+            border-radius: 10px;
+            border: 2px solid #14a085;
+        }
+        
+        .price {
+            font-size: 3em;
+            color: #14a085;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .pricing-features {
+            text-align: left;
+            margin: 30px 0;
+        }
+        
+        .pricing-features li {
+            padding: 10px 0;
+            color: #e0e0e0;
+            list-style: none;
+        }
+        
+        .pricing-features li::before {
+            content: "✓";
+            color: #14a085;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #3c3c3c;
+        }
+        
+        footer a {
+            color: #14a085;
             text-decoration: none;
         }
         
-        .contact a:hover {
+        footer a:hover {
             text-decoration: underline;
         }
         
-        @media (max-width: 600px) {
-            .container {
-                padding: 40px 25px;
-            }
-            
-            h1 {
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h2 {
                 font-size: 2em;
             }
             
-            .tagline {
-                font-size: 1.2em;
+            .section-title {
+                font-size: 2em;
             }
             
-            .cta-button {
-                padding: 15px 35px;
-                font-size: 1.1em;
+            .features-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">CC</div>
-        <h1>CineCinch</h1>
-        <p class="tagline">Fast, intuitive video compression for Windows</p>
-        
-        <div class="features">
-            <div class="feature">FFmpeg-powered compression</div>
-            <div class="feature">Simple, user-friendly interface</div>
-            <div class="feature">High-quality output</div>
-            <div class="feature">Free trial available</div>
+    <header>
+        <div class="header-content">
+            <img src="logo.png" alt="CineCinch Logo" class="logo">
+            <div class="header-text">
+                <h1>CineCinch</h1>
+                <p>Professional Video Compression for Windows</p>
+            </div>
         </div>
-        
-        <a href="#" class="cta-button">Download from Microsoft Store</a>
-        
-        <div class="contact">
-            <p>Questions or support?</p>
-            <p>Email: <a href="mailto:support@cinecinch.com">support@cinecinch.com</a></p>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Compress Videos Without Compromising Quality</h2>
+            <p>Fast folder scanning, intelligent file analysis, and powerful H.265 compression</p>
+            <a href="#" class="cta-button">Download from Microsoft Store</a>
+            <p style="margin-top: 20px; font-size: 0.9em;">Free trial available • Windows 10/11</p>
         </div>
-    </div>
-</body>
-</html>
+    </section>
+
+    <section class="screenshot-section">
+        <img src="screenshot.png" alt="CineCinch Interface" class="screenshot">
+    </section>
+
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Powerful Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>⚡ Lightning-Fast Scanning</h3>
+                    <p>Quickly scan entire folders and analyze video files with real-time duration probing. Instantly identify which files are taking up the most space and which are already efficiently compressed.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>🎯 Intelligent Efficiency Rating</h3>
+                    <p>Automatic categorization of videos as Efficient, Average, or Bloated based on MB/sec analysis. Focus your compression efforts where they'll have the most impact.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>📦 Batch Compression</h3>
+                    <p>Process multiple files sequentially with real-time progress tracking. Drag to reorder priorities, select all or none, and maintain full control over your compression queue.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>🔍 Advanced Filtering</h3>
+                    <p>Customizable file type filters, search functionality, and category-based filtering. Show only the videos you want to work with and hide the rest.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>⏸️ Flexible Control</h3>
+                    <p>Pause, cancel, or stop after current file during compression. Reset progress to retry failed files. Full control over every operation.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>📊 CSV Export</h3>
+                    <p>Export complete scan results to CSV for analysis in Excel or other tools. Perfect for documentation and tracking compression results over time.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>🎨 Clean, Modern Interface</h3>
