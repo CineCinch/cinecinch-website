@@ -16,7 +16,7 @@
 
         header {
             background: linear-gradient(135deg, #0d7377 0%, #14a085 100%);
-            padding: 40px 20px 20px; /* reduced bottom padding */
+            padding: 40px 20px 20px;
             text-align: center;
         }
 
@@ -60,6 +60,14 @@
             text-decoration: underline;
         }
 
+        .notice-box {
+            background-color: #3c3c3c;
+            border-left: 4px solid #14a085;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 4px;
+        }
+
         footer {
             background-color: #1a1a1a;
             padding: 30px 20px;
@@ -73,6 +81,14 @@
             font-size: 0.9em;
             margin: 5px 0;
         }
+
+        ul {
+            margin: 10px 0 20px 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 
@@ -81,72 +97,163 @@
 <header>
     <h1>Privacy & Terms</h1>
     <p style="margin-top: 10px;">
-        <a href="/" style="color: white; text-decoration: underline; font-size: 0.95em;">← Back to Home</a>
+        <a href="index.html" style="color: white; text-decoration: underline; font-size: 0.95em;">← Back to Home</a>
     </p>
 </header>
 
 <div class="container">
 
     <h2>Privacy Policy</h2>
+    <p><em>Last Updated: January 27, 2026</em></p>
 
     <p>CineCinch is designed to operate entirely on your local device. The application does not collect, store, transmit, or share any personal data.</p>
 
-    <h3>Information We Collect</h3>
+    <h3>Information We Do Not Collect</h3>
     <p>CineCinch does <strong>not</strong> collect:</p>
     <ul>
-        <li>Personal information</li>
-        <li>Usage analytics</li>
+        <li>Personal information (names, email addresses, etc.)</li>
+        <li>Usage analytics or telemetry</li>
         <li>Diagnostic data</li>
         <li>File names, file contents, or metadata</li>
         <li>System information</li>
-        <li>Network information</li>
+        <li>Network activity or IP addresses</li>
+        <li>Location data</li>
     </ul>
 
-    <p>No data is sent to CineCinch servers or any third parties.</p>
+    <p>No data is sent to CineCinch servers, third-party analytics services, or any external parties.</p>
 
     <h3>Local Processing</h3>
-    <p>All video scanning, analysis, and compression occur locally on your computer. No files or processing results ever leave your device.</p>
+    <p>All video scanning, analysis, and compression operations occur locally on your computer. No files, processing results, or any other data ever leave your device through CineCinch.</p>
 
-    <h3>Third‑Party Components</h3>
-    <p>CineCinch includes FFmpeg and FFprobe, which are licensed under the LGPL/GPL. These components also do not transmit data.</p>
+    <h3>Settings Storage</h3>
+    <p>CineCinch stores your application preferences (such as last scanned folder, output preferences, and UI settings) locally on your device using Windows registry settings. This data never leaves your computer.</p>
+
+    <h3>Microsoft Store</h3>
+    <p>CineCinch is distributed through the Microsoft Store. Microsoft may collect information about app downloads, installations, and purchases according to their own privacy policy. Please review <a href="https://privacy.microsoft.com/" target="_blank">Microsoft's Privacy Statement</a> for details about their data practices.</p>
 
     <h3>Support Contact</h3>
-    <p>If you contact us for support, we will receive only the information you voluntarily provide in your email.</p>
+    <p>If you contact us for support via email, we will receive only the information you voluntarily provide in your message. We use this information solely to respond to your inquiry and do not share it with third parties.</p>
     <p>Email: <a href="mailto:support@cinecinch.com">support@cinecinch.com</a></p>
 
-    <h2>Terms of Use</h2>
+    <h3>Children's Privacy</h3>
+    <p>CineCinch does not knowingly collect any information from anyone. The application is suitable for all ages and does not require any personal information to function.</p>
 
-    <h3>License</h3>
-    <p>CineCinch is licensed for personal and commercial use through the Microsoft Store. You may install and use the application on devices associated with your Microsoft account.</p>
+    <h3>Changes to This Policy</h3>
+    <p>We may update this privacy policy from time to time. Any changes will be posted on this page with an updated "Last Updated" date.</p>
+
+    <h2>Terms of Use</h2>
+    <p><em>Last Updated: January 27, 2026</em></p>
+
+    <h3>License Grant</h3>
+    <p>CineCinch is licensed, not sold, for personal and commercial use through the Microsoft Store. Subject to your compliance with these Terms, you are granted a non-exclusive, non-transferable license to install and use CineCinch on devices associated with your Microsoft account, in accordance with Microsoft Store terms.</p>
+
+    <h3>Permitted Use</h3>
+    <p>You may use CineCinch to:</p>
+    <ul>
+        <li>Scan and analyze video files you own or have permission to process</li>
+        <li>Compress video files for personal or commercial purposes</li>
+        <li>Export scan results for your own use</li>
+    </ul>
+
+    <h3>Restrictions</h3>
+    <p>You may not:</p>
+    <ul>
+        <li>Reverse engineer, decompile, or disassemble CineCinch</li>
+        <li>Remove or modify any proprietary notices or labels</li>
+        <li>Use CineCinch to process files you do not have rights to modify</li>
+        <li>Redistribute or resell CineCinch</li>
+    </ul>
 
     <h3>User Responsibility</h3>
-    <p>You are responsible for:</p>
+    <p>You are solely responsible for:</p>
     <ul>
-        <li>Ensuring you have the right to compress or modify the video files you process</li>
-        <li>Complying with local laws regarding video codecs and media handling</li>
-        <li>Maintaining backups of your original files</li>
+        <li>Ensuring you have the legal right to compress or modify the video files you process</li>
+        <li>Complying with all applicable local, state, national, and international laws regarding video codecs, media handling, and copyright</li>
+        <li>Maintaining backups of your original files before compression</li>
+        <li>Any consequences arising from the use of the "Delete originals" option</li>
     </ul>
+
+    <h3>No Warranty</h3>
+    <p>CineCinch is provided "AS IS" and "AS AVAILABLE" without warranty of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
 
     <h3>Limitation of Liability</h3>
-    <p>CineCinch Software is not liable for:</p>
+    <p>To the maximum extent permitted by applicable law, CineCinch Software and its developers shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages, including but not limited to:</p>
     <ul>
-        <li>Loss of data</li>
-        <li>Corrupted files</li>
-        <li>Misuse of the application</li>
-        <li>Issues arising from third‑party codecs or system configurations</li>
+        <li>Loss or corruption of data</li>
+        <li>Loss of use, revenue, or profit</li>
+        <li>Corrupted or damaged video files</li>
+        <li>System malfunctions or crashes</li>
+        <li>Issues arising from third-party codecs, FFmpeg, or system configurations</li>
+        <li>Deletion of original files when using the "Delete originals" feature</li>
     </ul>
 
-    <p>Use the “Delete originals” option with caution.</p>
+    <div class="notice-box">
+        <strong>⚠️ Important:</strong> Always maintain backups of your original video files. The "Delete originals" option permanently removes source files after successful compression. This action cannot be undone.
+    </div>
 
-    <h3>FFmpeg Licensing</h3>
-    <p>CineCinch uses FFmpeg under the LGPL/GPL. Source code for the bundled FFmpeg build is available upon request or via the link included in the application’s documentation.</p>
+    <h3>Indemnification</h3>
+    <p>You agree to indemnify and hold harmless CineCinch Software from any claims, damages, losses, liabilities, and expenses arising from your use of the application or violation of these Terms.</p>
+
+    <h3>Termination</h3>
+    <p>This license is effective until terminated. Your rights under this license will terminate automatically if you fail to comply with any of these Terms. Upon termination, you must cease all use of CineCinch and uninstall it from your devices.</p>
+
+    <h2>Open Source Compliance — FFmpeg</h2>
+
+    <h3>FFmpeg License Information</h3>
+    <p>CineCinch incorporates FFmpeg and FFprobe, which are licensed under the <strong>GNU Lesser General Public License (LGPL) version 2.1</strong> and/or <strong>GNU General Public License (GPL) version 2</strong>, depending on the build configuration and components used.</p>
+
+    <p>The specific FFmpeg build included with CineCinch uses LGPL-licensed components. CineCinch does not modify FFmpeg source code and uses it as a dynamically linkable library.</p>
+
+    <h3>FFmpeg Copyright Notice</h3>
+    <p>FFmpeg is Copyright © 2000-2025 the FFmpeg developers.</p>
+    <p>Official FFmpeg website: <a href="https://ffmpeg.org/" target="_blank">https://ffmpeg.org/</a></p>
+
+    <h3>Source Code Availability</h3>
+    <p>In accordance with LGPL requirements, the complete corresponding source code for the FFmpeg libraries included with CineCinch is available:</p>
+
+    <ul>
+        <li><strong>Online:</strong> <a href="https://ffmpeg.org/download.html" target="_blank">https://ffmpeg.org/download.html</a></li>
+        <li><strong>Version information:</strong> The specific FFmpeg version and build configuration used in CineCinch is documented in the application's installation directory in the files:
+            <ul style="margin-top: 10px;">
+                <li><code>ffmpeg-version.txt</code></li>
+                <li><code>ffmpeg-buildconf.txt</code></li>
+            </ul>
+        </li>
+    </ul>
+
+    <div class="notice-box">
+        <h4 style="color: #14a085; margin-top: 0;">Written Offer for Source Code</h4>
+        <p style="margin-bottom: 10px;">If you would like to receive the complete machine-readable source code for the exact FFmpeg build included with your version of CineCinch, you may request it by emailing:</p>
+        <p style="margin: 0;"><strong>Email:</strong> <a href="mailto:support@cinecinch.com">support@cinecinch.com</a></p>
+        <p style="margin-top: 10px; margin-bottom: 0;">Please include "FFmpeg Source Request" in the subject line and specify your CineCinch version number. We will provide the source code on a physical medium (CD-ROM or USB drive) for a fee covering the cost of performing this distribution, or via electronic delivery at no charge. This offer is valid for three years from the date of your CineCinch distribution.</p>
+    </div>
+
+    <h3>FFmpeg License Text</h3>
+    <p>The full text of the LGPL v2.1 license is available at:<br>
+    <a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html" target="_blank">https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html</a></p>
+
+    <p>A copy of the FFmpeg license and README is also included in your CineCinch installation directory as <code>LICENSE_FFMPEG.txt</code> and <code>README_FFMPEG.txt</code>.</p>
+
+    <h3>No Warranty for FFmpeg</h3>
+    <p>FFmpeg is provided without warranty, as specified in the LGPL license. Neither CineCinch Software nor the FFmpeg developers provide any warranty for the FFmpeg components.</p>
+
+    <h2>Contact Information</h2>
+    <p>For questions about this Privacy Policy, Terms of Use, or FFmpeg licensing compliance:</p>
+    <p><strong>Email:</strong> <a href="mailto:support@cinecinch.com">support@cinecinch.com</a></p>
+    <p><strong>Website:</strong> <a href="https://cinecinch.com">https://cinecinch.com</a></p>
+
+    <h2>Governing Law</h2>
+    <p>These Terms shall be governed by and construed in accordance with the laws of the United States, without regard to its conflict of law provisions.</p>
 
 </div>
-<div style="text-align: center; margin-top: 40px;">
-    <a href="/" style="color: #14a085; text-decoration: underline; font-size: 0.95em;">← Back to Home</a>
+
+<div style="text-align: center; margin: 40px 0;">
+    <a href="index.html" style="color: #14a085; text-decoration: underline; font-size: 0.95em;">← Back to Home</a>
 </div>
+
 <footer>
     <p>© 2026 CineCinch Software</p>
+    <p><a href="privacy.html">Privacy & Terms</a></p>
 </footer>
 
 </body>
