@@ -25,7 +25,7 @@
         
         header {
             background: linear-gradient(135deg, #0d7377 0%, #14a085 100%);
-            padding: 40px 20px 25px;  /* Reduced top and bottom padding */
+            padding: 40px 20px 25px;
             text-align: center;
         }
         
@@ -34,6 +34,7 @@
             height: auto;
             margin: 0 auto 20px;
             display: block;
+            cursor: pointer;
         }
         
         .header-tagline {
@@ -41,7 +42,32 @@
             font-size: 1.2em;
             font-weight: 300;
         }
-        
+
+        /* NEW CTA BUTTON */
+        .store-button {
+            display: block;
+            margin: 0 auto;
+            padding: 20px 48px;
+            font-size: 1.45em;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #0078d4;
+            border-radius: 10px;
+            text-decoration: none;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+            transition: background-color 0.2s ease, transform 0.15s ease;
+            width: fit-content;
+        }
+
+        .store-button:hover {
+            background-color: #005ea6;
+            transform: translateY(-3px);
+        }
+
+        .store-button:active {
+            transform: translateY(0);
+        }
+
         .hero {
             background: linear-gradient(135deg, #0d7377 0%, #14a085 100%);
             padding: 40px 20px 60px;
@@ -59,25 +85,7 @@
             margin-bottom: 30px;
             opacity: 0.95;
         }
-        
-        .cta-button {
-            display: inline-block;
-            background-color: white;
-            color: #0d7377;
-            padding: 15px 40px;
-            font-size: 1.2em;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-        
+
         .screenshot-section {
             max-width: 1200px;
             margin: -40px auto 0;
@@ -251,7 +259,9 @@
 </head>
 <body>
     <header>
-        <img src="logo.png" alt="CineCinch Logo" class="logo">
+        <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank">
+            <img src="logo.png" alt="CineCinch Logo" class="logo">
+        </a>
         <p class="header-tagline">Professional Video Compression for Windows</p>
     </header>
 
@@ -259,7 +269,19 @@
         <div class="container">
             <h2>Compress Videos Without Compromising Quality</h2>
             <p>Fast folder scanning, intelligent file analysis, and powerful H.265 compression</p>
-            <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank" class="button">Download from Microsoft Store</a>
+
+            <!-- NEW LARGE CTA BUTTON -->
+            <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank" class="store-button">
+                Download from Microsoft Store
+            </a>
+
+            <!-- MICROSOFT STORE BADGE -->
+            <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank">
+                <img src="https://get.microsoft.com/images/en-us%20dark.svg" 
+                     alt="Get it from Microsoft" 
+                     style="height:60px; margin-top:25px;">
+            </a>
+
             <p style="margin-top: 20px; font-size: 0.9em;">Free trial available • Windows 10/11</p>
         </div>
     </section>
@@ -365,7 +387,12 @@
                     <li>Full feature access</li>
                     <li>Free updates</li>
                 </ul>
-                <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank" class="button">Download Free Trial</a>
+
+                <!-- MATCHING CTA BUTTON -->
+                <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank" class="store-button">
+                    Download Free Trial
+                </a>
+
                 <p style="margin-top: 20px; font-size: 0.9em; color: #b0b0b0;">Pricing details available in the Microsoft Store</p>
             </div>
         </div>
