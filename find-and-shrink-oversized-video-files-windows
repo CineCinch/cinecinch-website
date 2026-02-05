@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>How to Find and Shrink Oversized Video Files on Windows Without Losing Quality</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Learn how to find oversized video files on Windows, understand which ones are truly inefficient, and shrink them without losing visible quality using tools like HandBrake, ffmpeg, and CineCinch.">
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #05060a;
+            color: #e5e7eb;
+        }
+        .page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 3.5rem;
+        }
+        h1, h2, h3 {
+            color: #f9fafb;
+        }
+        a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            background-color: #111827;
+            padding: 0.15rem 0.35rem;
+            border-radius: 0.25rem;
+            font-size: 0.95em;
+        }
+        pre {
+            background-color: #111827;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-size: 0.9em;
+        }
+        .section {
+            margin-bottom: 2.25rem;
+        }
+        .hero-note {
+            font-size: 0.95rem;
+            color: #9ca3af;
+        }
+        .inline-highlight {
+            color: #fbbf24;
+            font-weight: 500;
+        }
+        .tip {
+            border-left: 3px solid #4b5563;
+            padding-left: 0.75rem;
+            margin: 1rem 0;
+            color: #9ca3af;
+            font-size: 0.95rem;
+        }
+        .cta-box {
+            margin-top: 2.5rem;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            background: radial-gradient(circle at top left, #111827, #020617);
+            border: 1px solid #111827;
+        }
+        .cta-box h2 {
+            margin-top: 0;
+        }
+        .cta-button {
+            display: inline-block;
+            margin-top: 0.75rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+            color: #f9fafb;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .cta-button:hover {
+            text-decoration: none;
+            filter: brightness(1.05);
+        }
+        .video-placeholder {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            background-color: #020617;
+            border: 1px dashed #1f2937;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #9ca3af;
+        }
+        ul {
+            padding-left: 1.25rem;
+        }
+        li {
+            margin-bottom: 0.35rem;
+        }
+        @media (min-width: 768px) {
+            .page {
+                padding: 3rem 0 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <header class="section">
+        <p class="hero-note">Guide · Windows video storage</p>
+        <h1>How to Find and Shrink Oversized Video Files on Windows Without Losing Quality</h1>
+        <p>
+            If you work with screen recordings, phone clips, or exported projects, your drives can fill up fast.
+            Some videos are huge for a good reason, but others are quietly wasting space — using far more megabytes
+            per second than they need to. In this guide, we’ll look at how to <span class="inline-highlight">find the true
+            space hogs</span> on Windows and shrink them without visible quality loss.
+        </p>
+    </header>
+
+    <section class="section">
+        <h2>Why some videos are much bigger than they need to be</h2>
+        <p>
+            Video file size is mostly driven by three things:
+        </p>
+        <ul>
+            <li><strong>Resolution</strong> (e.g., 1080p vs 4K)</li>
+            <li><strong>Duration</strong> (how long the video is)</li>
+            <li><strong>Bitrate</strong> (how many bits per second are used to encode it)</li>
+        </ul>
+        <p>
+            Two files can have the same resolution and duration but wildly different sizes. That usually means one of them
+            is <span class="inline-highlight">inefficient</span> — it’s using more megabytes per second than it needs to for the
+            actual content on screen.
+        </p>
+        <p>
+            The trick is not just to find “big files”, but to find the ones that are <em>unreasonably</em> big for their length.
+            That’s where looking at <strong>MB per second</strong> becomes much more useful than just sorting by size.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>Common ways to shrink video files on Windows</h2>
+        <p>
+            There are three main approaches people use to reduce video file size on Windows:
+        </p>
+        <h3>1. HandBrake (powerful, but manual)</h3>
+        <p>
+            <strong>HandBrake</strong> is a popular open-source transcoder. You can load a file, pick a preset, and export a smaller version.
+            It’s powerful and free, but it has a lot of knobs: codecs, bitrates, CRF values, filters, and more.
+        </p>
+        <div class="tip">
+            HandBrake is great if you’re comfortable tweaking encoding settings and working file-by-file. It’s less ideal
+            when you just want to quickly clean up a messy folder full of oversized videos.
+        </div>
+
+        <h3>2. ffmpeg (flexible, but very technical)</h3>
+        <p>
+            <strong>ffmpeg</strong> is the command-line engine behind many video tools. You can use it directly to compress videos, for example:
+        </p>
+        <pre><code>ffmpeg -i input.mp4 -c:v libx265 -crf 24 -c:a copy output.mp4</code></pre>
+        <p>
+            This tells ffmpeg to re-encode the video using H.265 (HEVC) at a given quality level while copying the audio.
+            It’s extremely flexible, but you have to be comfortable with the command line and know which options to use.
+        </p>
+
+        <h3>3. Online video compressors (convenient, but slow and risky)</h3>
+        <p>
+            There are many browser-based tools that let you upload a video and download a smaller version. They’re convenient,
+            but they come with trade-offs:
+        </p>
+        <ul>
+            <li>Uploading large files is slow and bandwidth-heavy</li>
+            <li>Privacy concerns (you’re sending your content to a third-party server)</li>
+            <li>File size limits and queues</li>
+        </ul>
+        <p>
+            For large libraries or sensitive content, online tools are usually not a great fit.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>Why “sort by size” isn’t enough</h2>
+        <p>
+            On Windows, the usual first step is to open File Explorer and sort a folder by size. That’s a start, but it doesn’t
+            tell you which files are actually <em>inefficient</em>.
+        </p>
+        <p>
+            A 4 GB, 2-hour movie might be perfectly reasonable. A 4 GB, 5-minute screen recording is probably not. What you really
+            want to know is:
+        </p>
+        <ul>
+            <li>How many megabytes per second each video is using</li>
+            <li>Which files are outliers compared to the rest of your library</li>
+            <li>Which ones will give you the biggest space savings if you compress them</li>
+        </ul>
+        <p>
+            That’s where tools that understand <strong>MB/sec inefficiency</strong> become much more useful than just a file size column.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>Finding the worst offenders by MB/sec automatically</h2>
+        <p>
+            One way to do this manually is to inspect each file’s bitrate and duration, then calculate size per second yourself.
+            That’s tedious and doesn’t scale when you have hundreds of clips.
+        </p>
+        <p>
+            <strong>CineCinch</strong> is a Windows app built specifically to solve this problem. Instead of just listing files by size,
+            it scans your folders and ranks videos by <span class="inline-highlight">inefficiency in MB/sec</span> — effectively answering:
+        </p>
+        <ul>
+            <li>“Which videos are using way more space per second than they should?”</li>
+            <li>“Which files will give me the biggest win if I compress them?”</li>
+        </ul>
+
+        <div class="video-placeholder">
+            <!-- Replace this with your actual embedded video/thumbnail -->
+            <p><strong>Demo:</strong> CineCinch scanning a folder, ranking oversized videos, and shrinking the worst offenders.</p>
+            <p>(Embed your 20–30 second demo video here.)</p>
+        </div>
+
+        <p>
+            Instead of guessing, you get a sorted list of the biggest offenders. You can then queue those for compression and
+            ignore the files that are already efficient.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>Shrinking oversized videos with H.265 (HEVC)</h2>
+        <p>
+            Once you’ve identified the worst offenders, the next step is to re-encode them more efficiently. A common choice is
+            <strong>H.265 (HEVC)</strong>, which can deliver similar visual quality to H.264 at a much lower bitrate.
+        </p>
+        <p>
+            In CineCinch, you can:
+        </p>
+        <ul>
+            <li>Scan a folder and rank videos by MB/sec inefficiency</li>
+            <li>Select the ones that are clearly oversized for their duration</li>
+            <li>Queue them for H.265 compression using simple presets</li>
+            <li>Keep audio and subtitle tracks if you want</li>
+        </ul>
+        <p>
+            Everything runs locally on your machine — no uploads, no cloud processing, no telemetry.
+        </p>
+        <div class="tip">
+            Example: A 3-minute screen recording that was originally 1.2 GB might shrink to around 220 MB with no obvious
+            quality loss, freeing up space quickly when you batch this across many similar files.
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Manual vs automated workflows: when to use which</h2>
+        <p>
+            If you only have a handful of files and you like full control, HandBrake or ffmpeg are great options. You can tune
+            every parameter and inspect each result.
+        </p>
+        <p>
+            If you have <em>folders</em> full of mixed content — screen recordings, exports, clips from different devices — an automated
+            workflow that:
+        </p>
+        <ul>
+            <li>Finds the most inefficient videos by MB/sec</li>
+            <li>Lets you queue them quickly</li>
+            <li>Runs locally without babysitting</li>
+        </ul>
+        <p>
+            will save you a lot of time and guesswork.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>Tips for keeping video sizes under control</h2>
+        <ul>
+            <li><strong>Use efficient codecs:</strong> Prefer H.265/HEVC when your playback devices support it.</li>
+            <li><strong>Match resolution to content:</strong> Don’t store low-detail screen recordings at 4K if 1080p is enough.</li>
+            <li><strong>Watch MB/sec, not just GB:</strong> A short, huge file is often a better compression candidate than a long movie.</li>
+            <li><strong>Batch process:</strong> Queue multiple oversized files at once instead of handling them one by one.</li>
+        </ul>
+    </section>
+
+    <!-- If you decide to run ads, this is the ONLY safe place to insert a small, clean ad unit -->
+    <!-- Example:
+    <section class="section">
+        <div id="ad-slot">
+            Your Carbon/EthicalAds snippet here.
+        </div>
+    </section>
+    -->
+
+    <section class="section cta-box">
+        <h2>Try CineCinch for automatic oversized video cleanup</h2>
+        <p>
+            If you’re tired of guessing which videos are wasting space, CineCinch gives you a ranked view of your worst offenders
+            based on MB/sec inefficiency and lets you shrink them with simple, local H.265 compression on Windows.
+        </p>
+        <p>
+            No cloud, no uploads, no telemetry — just a focused workflow for reclaiming disk space from oversized videos.
+        </p>
+        <a href="/" class="cta-button">Go to the CineCinch homepage</a>
+    </section>
+
+</div>
+</body>
+</html>
