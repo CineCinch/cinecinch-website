@@ -5,6 +5,7 @@
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
     <link rel="apple-touch-icon" href="/favicon-192.png">
     <link rel="shortcut icon" href="/favicon.ico">
+
     <!-- Open Graph -->
     <meta property="og:title" content="CineCinch">
     <meta property="og:description" content="Find your most space‑hogging videos and compress them locally with ease.">
@@ -22,26 +23,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineCinch - Find bloated videos. Shrink them fast.</title>
     <meta name="description" content="Automatically surfaces your most space‑hogging videos and lets you batch‑compress them in order locally. Fast, simple, and fully private.">
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             line-height: 1.6;
             color: #e0e0e0;
             background-color: #2b2b2b;
         }
-        
         header {
             background: linear-gradient(135deg, #0d7377 0%, #14a085 100%);
             padding: 40px 20px 25px;
             text-align: center;
         }
-        
         .logo {
             max-width: 13%;
             height: auto;
@@ -49,14 +44,11 @@
             display: block;
             cursor: pointer;
         }
-        
         .header-tagline {
             color: white;
             font-size: 1.2em;
             font-weight: 300;
         }
-
-        /* NEW CTA BUTTON */
         .store-button {
             display: block;
             margin: 0 auto;
@@ -71,73 +63,35 @@
             transition: background-color 0.2s ease, transform 0.15s ease;
             width: fit-content;
         }
-
-        .store-button:hover {
-            background-color: #005ea6;
-            transform: translateY(-3px);
-        }
-
-        .store-button:active {
-            transform: translateY(0);
-        }
+        .store-button:hover { background-color: #005ea6; transform: translateY(-3px); }
+        .store-button:active { transform: translateY(0); }
 
         .hero {
             background: linear-gradient(135deg, #0d7377 0%, #14a085 100%);
-            padding: 40px 20px 60px;
+            padding: 40px 20px 40px;
             text-align: center;
             color: white;
         }
-        
-        .hero h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-        
-        .hero p {
-            font-size: 1.3em;
-            margin-bottom: 30px;
-            opacity: 0.95;
-        }
+        .hero h2 { font-size: 2.4em; margin-bottom: 10px; }
+        .hero p { font-size: 1.2em; margin-bottom: 25px; opacity: 0.95; }
 
-        .screenshot-section {
-            max-width: 1200px;
-            margin: -40px auto 0;
-            padding: 0 20px 60px;
-            position: relative;
-            z-index: 10;
-        }
-        
-        .screenshot {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            border: 3px solid #3c3c3c;
-        }
-        
         .features-section {
             background-color: #1f1f1f;
             padding: 80px 20px;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
+        .container { max-width: 1200px; margin: 0 auto; }
         .section-title {
             text-align: center;
             font-size: 2.5em;
             margin-bottom: 50px;
             color: #14a085;
         }
-        
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-bottom: 40px;
         }
-        
         .feature-card {
             background-color: #2b2b2b;
             padding: 30px;
@@ -145,58 +99,33 @@
             border: 1px solid #3c3c3c;
             transition: transform 0.2s, border-color 0.2s;
         }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: #14a085;
-        }
-        
-        .feature-card h3 {
-            color: #14a085;
-            font-size: 1.5em;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card p {
-            color: #e0e0e0;
-            line-height: 1.8;
-        }
-        
+        .feature-card:hover { transform: translateY(-5px); border-color: #14a085; }
+        .feature-card h3 { color: #14a085; font-size: 1.5em; margin-bottom: 15px; }
+        .feature-card p { color: #e0e0e0; line-height: 1.8; }
+
         .modes-section {
             background-color: #2b2b2b;
             padding: 80px 20px;
         }
-        
         .modes-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 25px;
         }
-        
         .mode-card {
             background-color: #3c3c3c;
             padding: 25px;
             border-radius: 8px;
             border-left: 4px solid #14a085;
         }
-        
-        .mode-card h4 {
-            color: #14a085;
-            font-size: 1.3em;
-            margin-bottom: 10px;
-        }
-        
-        .mode-card p {
-            color: #b0b0b0;
-            font-size: 0.95em;
-        }
-        
+        .mode-card h4 { color: #14a085; font-size: 1.3em; margin-bottom: 10px; }
+        .mode-card p { color: #b0b0b0; font-size: 0.95em; }
+
         .pricing-section {
             background-color: #1f1f1f;
             padding: 80px 20px;
             text-align: center;
         }
-        
         .pricing-box {
             max-width: 500px;
             margin: 0 auto;
@@ -205,205 +134,185 @@
             border-radius: 10px;
             border: 2px solid #14a085;
         }
-        
-        .price {
-            font-size: 3em;
-            color: #14a085;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-        
-        .pricing-features {
-            text-align: left;
-            margin: 30px 0;
-        }
-        
+        .price { font-size: 3em; color: #14a085; font-weight: bold; margin: 20px 0; }
+        .pricing-features { text-align: left; margin: 30px 0; }
         .pricing-features li {
             padding: 10px 0;
             color: #e0e0e0;
             list-style: none;
         }
-        
         .pricing-features li::before {
             content: "✓";
             color: #14a085;
             font-weight: bold;
             margin-right: 10px;
         }
-        
+
         footer {
             background-color: #1a1a1a;
             padding: 40px 20px;
             text-align: center;
             border-top: 1px solid #3c3c3c;
         }
-        
-        footer a {
-            color: #14a085;
-            text-decoration: none;
-        }
-        
-        footer a:hover {
-            text-decoration: underline;
-        }
-        
+        footer a { color: #14a085; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
         @media (max-width: 768px) {
-            .logo {
-                max-width: 80%;
-            }
-            
-            .header-tagline {
-                font-size: 1.3em;
-            }
-            
-            .hero h2 {
-                font-size: 2em;
-            }
-            
-            .section-title {
-                font-size: 2em;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
+            .logo { max-width: 80%; }
+            .hero h2 { font-size: 2em; }
+            .section-title { font-size: 2em; }
+            .features-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
+
 <body>
+
     <header>
         <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank">
             <img src="logo.png" alt="CineCinch Logo" class="logo">
         </a>
-        <p class="header-tagline">Cut the clutter. Keep the quality.</p>
+        <p class="header-tagline">Shrink Smarter.</p>
     </header>
 
+    <!-- NEW HERO SECTION -->
     <section class="hero">
         <div class="container">
-            <h2>Automatically find your most bloated videos and compress them locally in minutes</h2>
-            <p>CineCinch scans your folders, ranks bloated files by inefficiency, and lets you queue them for compression using simple H.265 modes. All local, no cloud.</p>
 
-            <!-- LARGE CTA BUTTON -->
+            <h2>Find oversized videos automatically.</h2>
+            <p>CineCinch scans a folder, ranks videos by MB/sec inefficiency, and lets you shrink the biggest space‑wasters first.</p>
+
             <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank" class="store-button">
                 Start Free Trial
             </a>
-            
-            <!-- MICROSOFT STORE BADGE -->
-            <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank">
-                <img src="https://get.microsoft.com/images/en-us%20dark.svg" 
-                     alt="Download from Microsoft" 
-                     style="height:70px; margin-top:25px;">
-            </a>
 
-            <p style="margin-top: 20px; font-size: 0.9em;">Free trial available • Windows 10/11</p>
+            <div style="max-width: 900px; margin: 25px auto 0;">
+                <video 
+                    src="cinecinch-demo.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    style="width: 100%; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 3px solid #3c3c3c;">
+                </video>
+            </div>
+
+            <div style="text-align:center; margin-top: 20px;">
+                <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank">
+                    <img src="https://get.microsoft.com/images/en-us%20dark.svg" 
+                         alt="Download from Microsoft" 
+                         style="height:70px;">
+                </a>
+                <p style="margin-top: 10px; font-size: 0.9em;">Free trial available • Windows 10/11</p>
+            </div>
+
         </div>
     </section>
 
-    <section class="screenshot-section">
-        <div style="max-width: 900px; margin: 0 auto;">
-            <video 
-                src="cinecinch-demo.mp4"
-                autoplay
-                muted
-                loop
-                playsinline
-                style="width: 100%; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 3px solid #3c3c3c;">
-            </video>
-        </div>
-    </section>
-
+    <!-- FEATURES -->
     <section class="features-section">
         <div class="container">
             <h2 class="section-title">Powerful Features</h2>
             <div class="features-grid">
+
                 <div class="feature-card">
                     <h3>⚡ Lightning-Fast Scanning</h3>
                     <p>Scan entire library folders in minutes. Instantly see which files are hogging space and which are already optimized.</p>
                 </div>
+
                 <div class="feature-card">
                     <h3>🎯 Intelligent Efficiency Rating</h3>
                     <p>Videos automatically categorized as Efficient, Average, or Bloated. Focus your efforts where they matter most.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <h3>📦 Batch Compression</h3>
                     <p>Queue multiple files, reorder priorities, and watch real-time progress. Set it and forget it.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <h3>🔍 Advanced Filtering</h3>
                     <p>Search, filter by file type or efficiency category. Show only what you need, hide the rest.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <h3>⏸️ Flexible Control</h3>
                     <p>Pause, cancel, or stop after current file. Reset failed compressions. You're always in control.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <h3>📊 CSV Export</h3>
                     <p>Export scan results for analysis in Excel. Keep efficiency rankings for reference.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <h3>🎨 Clean, Modern Interface</h3>
                     <p>Custom dark theme built for long sessions. Double-click to preview files or view outputs. Single screen simplicity.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <h3>🔄 Persistent Settings</h3>
                     <p>Your preferences are saved automatically. Pick up exactly where you left off, every time.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <h3>💾 Smart Output Options</h3>
                     <p>Save to source folder or custom location. Delete originals after compression. Keep all audio and subtitle tracks when needed.</p>
                 </div>
+
             </div>
         </div>
     </section>
 
+    <!-- MODES -->
     <section class="modes-section">
         <div class="container">
             <h2 class="section-title">Four Compression Modes</h2>
             <div class="modes-grid">
+
                 <div class="mode-card">
                     <h4>High Quality</h4>
                     <p>Best for preserving detail in poorly compressed or heavily artifacted videos</p>
                 </div>
-                
+
                 <div class="mode-card">
                     <h4>Standard</h4>
                     <p>Balanced quality, speed, and compression efficiency for everyday use</p>
                 </div>
-                
+
                 <div class="mode-card">
                     <h4>High Compression</h4>
                     <p>Greater file size reduction while maintaining good quality</p>
                 </div>
-                
+
                 <div class="mode-card">
                     <h4>Max Compression</h4>
                     <p>Maximum space savings for archive purposes</p>
                 </div>
+
             </div>
         </div>
     </section>
 
+    <!-- PRICING -->
     <section class="pricing-section">
         <div class="container">
             <h2 class="section-title">Simple, Fair Pricing</h2>
             <div class="pricing-box">
+
                 <h3 style="color: #14a085; font-size: 1.5em;">CineCinch</h3>
                 <div class="price">Free Trial</div>
                 <p style="color: #b0b0b0; margin-bottom: 20px;">Try before you buy</p>
+
                 <ul class="pricing-features">
                     <li>Unlimited file scanning</li>
                     <li>Standard compression mode</li>
                     <li>Batch processing</li>
                     <li>CSV export</li>
                 </ul>
+
                 <p style="margin: 20px 0; color: #14a085; font-weight: bold;">Full Version Includes:</p>
+
                 <ul class="pricing-features">
                     <li>All four compression modes</li>
                     <li>Stop after current control</li>
@@ -412,33 +321,36 @@
                     <li>Free updates</li>
                 </ul>
 
-                <!-- MATCHING CTA BUTTON -->
                 <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank" class="store-button">
                     Start Free Trial
                 </a>
 
                 <p style="margin-top: 20px; font-size: 0.9em; color: #b0b0b0;">View pricing in Microsoft Store</p>
+
             </div>
         </div>
     </section>
+
+    <!-- FOOTER -->
     <footer>
         <div class="container">
             <p style="margin-bottom: 15px; font-size: 1.1em;">Questions or need support?</p>
-    
+
             <p>
                 Email: <a href="mailto:support@cinecinch.com">support@cinecinch.com</a> •
                 Follow Us On: <a href="https://x.com/CineCinch" target="_blank">𝕏 (Twitter)</a>
             </p>
-    
+
             <p>
                 <a href="/CineCinch Documentation v1.0.pdf" target="_blank">Documentation (PDF)</a> •
                 <a href="/privacy.html">Privacy & Terms</a>
             </p>
-    
+
             <p style="margin-top: 30px; color: #888; font-size: 0.9em;">
                 © 2026 CineCinch Software. FFmpeg-powered under LGPL/GPL licensing.
             </p>
         </div>
     </footer>
+
 </body>
 </html>
