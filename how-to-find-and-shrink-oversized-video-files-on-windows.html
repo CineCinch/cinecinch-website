@@ -44,7 +44,7 @@
       <p class="hero-sub"><strong>Find the files wasting the most space first.</strong> CineCinch scans folders and ranks videos by MB/sec inefficiency so you can batch‑compress the worst offenders quickly — ideal for Plex, Jellyfin, and Kodi libraries.</p>
 
       <div class="cta-row">
-        <a class="btn" href="MICROSOFT_STORE_URL" target="_blank" rel="noopener">Open Microsoft Store trial</a>
+        <a class="btn" href="/" target="_self" rel="noopener">CineCinch Home</a>
         <a class="btn secondary" href="mailto:support@cinecinch.com">Contact / Questions</a>
       </div>
     </header>
@@ -82,12 +82,13 @@
         <li>Queue and run batch compression locally; pause/resume as needed.</li>
       </ul>
 
-      <h3 style="margin-top:12px;">Demo (2 minutes)</h3>
-      <p class="small">Watch the short demo to see the scan → rank → batch workflow in action.</p>
+      <h3 style="margin-top:12px;">Demo</h3>
+      <p class="small">Watch the demo to see the scan → rank → batch workflow in action.</p>
       <div style="margin-top:10px;">
-        <video controls width="100%" poster="screenshot-v2.png">
-          <source src="PATH_TO_DEMO_VIDEO" type="video/mp4">
-          Your browser does not support the video tag.
+        <video id="cinecinch-demo" controls autoplay muted playsinline preload="metadata" poster="screenshot-v2.png" style="width:100%;max-width:100%;border-radius:8px;">
+          <source src="cinecinch-demo.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+          <a href="cinecinch-demo.mp4" download>Download the demo video</a>
         </video>
       </div>
     </section>
@@ -101,5 +102,14 @@
       <p class="small">Questions? <a href="mailto:support@cinecinch.com">support@cinecinch.com</a>. All processing is local — no uploads, no telemetry.</p>
     </footer>
   </div>
+
+  <script>
+    (function(){
+      const v = document.getElementById('cinecinch-demo');
+      if (!v) return;
+      // Attempt autoplay; if blocked, leave muted and let user play
+      v.play().catch(()=>{ /* autoplay blocked — user must interact */ });
+    })();
+  </script>
 </body>
 </html>
