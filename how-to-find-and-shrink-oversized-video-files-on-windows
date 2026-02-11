@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Find and Shrink Oversized Video Files on Windows — CineCinch</title>
+  <meta name="description" content="Automatically find oversized, inefficient video files on Windows and shrink them without visible quality loss. Ideal for Plex, Jellyfin, and Kodi libraries." />
+  <style>
+    :root{
+      --bg:#ffffff; --text:#0f172a; --muted:#475569; --accent:#0ea5e9; --card:#f8fafc;
+      --maxw:900px;
+    }
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;}
+    body{background:var(--bg);color:var(--text);line-height:1.6;}
+    .wrap{max-width:var(--maxw);margin:32px auto;padding:28px;}
+    a{color:var(--accent);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+    header{margin-bottom:20px;}
+    .hero-note{color:var(--muted);font-size:0.95rem;margin-bottom:8px;}
+    h1{font-size:1.6rem;margin:0 0 8px 0;}
+    .hero-sub{font-size:1.05rem;color:#0b1220;margin:8px 0 16px 0;}
+    .cta-row{margin-top:18px;}
+    .btn{display:inline-block;padding:10px 16px;border-radius:999px;font-weight:600;color:#fff;background:linear-gradient(90deg,#0ea5e9,#6366f1);text-decoration:none;margin-right:10px;}
+    .btn.secondary{background:linear-gradient(90deg,#10b981,#06b6d4);}
+    .card{background:var(--card);border-radius:10px;padding:18px;margin-top:18px;border:1px solid #e6eef6;}
+    h2{color:#071033;margin-top:22px;}
+    ul{padding-left:1.15rem;}
+    pre{background:#f1f5f9;padding:12px;border-radius:8px;overflow:auto;}
+    .small{color:var(--muted);font-size:0.95rem;}
+    .result-row{display:flex;gap:12px;align-items:center;margin:10px 0;padding:10px;border-radius:8px;background:#ffffff;border:1px solid #eef2ff;}
+    .result-left{flex:1;}
+    .result-right{white-space:nowrap;color:#0b1220;font-weight:600;}
+    footer{margin-top:28px;color:var(--muted);font-size:0.95rem;}
+    @media (max-width:640px){.result-row{flex-direction:column;align-items:flex-start}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p><a href="/">← Back to CineCinch</a></p>
+
+    <header>
+      <p class="hero-note">Guide · Windows video storage</p>
+      <h1>How to Automatically Find and Shrink Oversized Video Files on Windows</h1>
+      <p class="hero-sub"><strong>Find the files wasting the most space first.</strong> CineCinch scans folders and ranks videos by MB/sec inefficiency so you can batch‑compress the worst offenders quickly — ideal for Plex, Jellyfin, and Kodi libraries.</p>
+
+      <div class="cta-row">
+        <a class="btn" href="https://apps.microsoft.com/detail/9pb21kbs42ms">Download 7‑day trial (Microsoft Store)</a>
+        <a class="btn secondary" href="/review-request">Request a review license</a>
+      </div>
+    </header>
+
+    <section class="card" id="how-it-works">
+      <h2>How CineCinch finds the real space hogs</h2>
+      <p class="small">Sorting by file size misses short but inefficient files. CineCinch calculates MB per second and ranks files so you see which ones will free the most space when compressed.</p>
+
+      <div style="margin-top:12px;">
+        <div class="result-row">
+          <div class="result-left">
+            <div style="font-weight:700">5 min screen recording — 1.2 GB</div>
+            <div class="small">High MB/sec → top candidate</div>
+          </div>
+          <div class="result-right">Compress first</div>
+        </div>
+
+        <div class="result-row">
+          <div class="result-left">
+            <div style="font-weight:700">2 hr movie — 4.0 GB</div>
+            <div class="small">Low MB/sec → likely fine</div>
+          </div>
+          <div class="result-right">Ignore</div>
+        </div>
+      </div>
+
+      <p style="margin-top:12px;" class="small">Everything runs locally — no uploads, no cloud processing.</p>
+    </section>
+
+    <section style="margin-top:18px;">
+      <h2>Quick workflow</h2>
+      <ul>
+        <li>Scan a folder and get a ranked list by MB/sec inefficiency.</li>
+        <li>Select the worst offenders and pick a preset (Plex/Jellyfin friendly).</li>
+        <li>Queue and run batch compression locally; pause/resume as needed.</li>
+      </ul>
+
+      <h3 style="margin-top:12px;">Demo (2 minutes)</h3>
+      <p class="small">Watch the short demo to see the scan → rank → batch workflow in action.</p>
+      <!-- Replace the src below with your hosted demo video or embed -->
+      <div style="margin-top:10px;">
+        <video controls width="100%" poster="screenshot-v2.png">
+          <source src="cinecinch-demo.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </section>
+
+    <section style="margin-top:18px;">
+      <h2>When this helps most</h2>
+      <p class="small">CineCinch is built for people who manage large mixed libraries — screen recordings, exports, and clips from multiple devices — and want to prioritize the files that will free the most disk space.</p>
+    </section>
+
+    <footer>
+      <p class="small">Questions? <a href="/contact">Contact us</a>. All processing is local — no uploads, no telemetry.</p>
+    </footer>
+  </div>
+</body>
+</html>
