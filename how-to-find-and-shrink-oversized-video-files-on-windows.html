@@ -20,8 +20,8 @@
     h1{font-size:1.6rem;margin:0 0 8px 0;}
     .hero-sub{font-size:1.05rem;color:#0b1220;margin:8px 0 16px 0;}
     .cta-row{margin-top:18px;}
-    .btn{display:inline-block;padding:10px 16px;border-radius:999px;font-weight:600;color:#fff;background:linear-gradient(90deg,#0ea5e9,#6366f1);text-decoration:none;margin-right:10px;}
-    .btn.secondary{background:linear-gradient(90deg,#10b981,#06b6d4);}
+    .btn{display:inline-block;padding:10px 16px;border-radius:999px;font-weight:600;color:#fff;background:linear-gradient(90deg,#0ea5e9,#6366f1);text-decoration:none;margin-right:10px;box-shadow:0 6px 18px rgba(99,102,241,0.12);border:0;}
+    .btn.secondary{background:linear-gradient(90deg,#10b981,#06b6d4);box-shadow:0 6px 18px rgba(6,182,212,0.10);}
     .card{background:var(--card);border-radius:10px;padding:18px;margin-top:18px;border:1px solid #e6eef6;}
     h2{color:#071033;margin-top:22px;}
     ul{padding-left:1.15rem;}
@@ -44,8 +44,8 @@
       <p class="hero-sub"><strong>Find the files wasting the most space first.</strong> CineCinch scans folders and ranks videos by MB/sec inefficiency so you can batch‑compress the worst offenders quickly — ideal for Plex, Jellyfin, and Kodi libraries.</p>
 
       <div class="cta-row">
-        <a class="btn" href="https://apps.microsoft.com/detail/9pb21kbs42ms">Download 7‑day trial (Microsoft Store)</a>
-        <a class="btn secondary" href="/review-request">Request a review license</a>
+        <a class="btn" href="MICROSOFT_STORE_URL" target="_blank" rel="noopener">Open Microsoft Store trial</a>
+        <a class="btn secondary" href="/contact">Contact / Questions</a>
       </div>
     </header>
 
@@ -84,10 +84,9 @@
 
       <h3 style="margin-top:12px;">Demo (2 minutes)</h3>
       <p class="small">Watch the short demo to see the scan → rank → batch workflow in action.</p>
-      <!-- Replace the src below with your hosted demo video or embed -->
       <div style="margin-top:10px;">
         <video controls width="100%" poster="screenshot-v2.png">
-          <source src="cinecinch-demo.mp4" type="video/mp4">
+          <source src="PATH_TO_DEMO_VIDEO" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </div>
