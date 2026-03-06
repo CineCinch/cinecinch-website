@@ -1,286 +1,374 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>How to Automatically Find and Shrink Oversized Video Files on Windows (Using MB/sec Efficiency)</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Learn how to automatically find oversized, inefficient video files on Windows using MB/sec analysis and shrink them without visible quality loss.">
-    <style>
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #05060a;
-            color: #e5e7eb;
-        }
-        .page {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2.5rem 1.5rem 3.5rem;
-        }
-        h1, h2, h3 {
-            color: #f9fafb;
-        }
-        a {
-            color: #60a5fa;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        code {
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-            background-color: #111827;
-            padding: 0.15rem 0.35rem;
-            border-radius: 0.25rem;
-            font-size: 0.95em;
-        }
-        pre {
-            background-color: #111827;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            overflow-x: auto;
-            font-size: 0.9em;
-        }
-        .section {
-            margin-bottom: 2.25rem;
-        }
-        .hero-note {
-            font-size: 0.95rem;
-            color: #9ca3af;
-        }
-        .inline-highlight {
-            color: #fbbf24;
-            font-weight: 500;
-        }
-        .tip {
-            border-left: 3px solid #4b5563;
-            padding-left: 0.75rem;
-            margin: 1rem 0;
-            color: #9ca3af;
-            font-size: 0.95rem;
-        }
-        .cta-box {
-            margin-top: 2.5rem;
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            background: radial-gradient(circle at top left, #111827, #020617);
-            border: 1px solid #111827;
-        }
-        .cta-button {
-            display: inline-block;
-            margin-top: 0.75rem;
-            padding: 0.6rem 1.2rem;
-            border-radius: 999px;
-            background: linear-gradient(135deg, #2563eb, #4f46e5);
-            color: #f9fafb;
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-        .cta-button:hover {
-            text-decoration: none;
-            filter: brightness(1.05);
-        }
-        ul {
-            padding-left: 1.25rem;
-        }
-        li {
-            margin-bottom: 0.35rem;
-        }
-        @media (min-width: 768px) {
-            .page {
-                padding: 3rem 0 4rem;
-            }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to Find and Shrink Oversized Video Files on Windows — MB/sec Guide</title>
+  <meta name="description" content="Sorting by file size misses the real space hogs. Learn how MB/sec efficiency analysis finds which videos are genuinely oversized — and how to batch-compress them on Windows.">
+  <link rel="canonical" href="https://cinecinch.com/find-and-shrink-oversized-video-files-windows">
+
+  <meta property="og:title" content="How to Find and Shrink Oversized Video Files on Windows">
+  <meta property="og:description" content="Why sorting by file size misses the real culprits — and how MB/sec analysis finds which videos are genuinely worth compressing.">
+  <meta property="og:url" content="https://cinecinch.com/find-and-shrink-oversized-video-files-windows">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CineCinch">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Find and Shrink Oversized Video Files on Windows",
+    "description": "Why sorting by file size misses the real culprits — and how MB/sec analysis finds which videos are genuinely worth compressing.",
+    "url": "https://cinecinch.com/find-and-shrink-oversized-video-files-windows",
+    "publisher": { "@type": "Organization", "name": "CineCinch", "url": "https://cinecinch.com" }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is MB/sec and why does it matter for video compression?",
+        "acceptedAnswer": { "@type": "Answer", "text": "MB/sec (megabytes per second) measures how much storage a video uses per second of runtime. It normalizes file size by duration, making it a much better indicator of compression efficiency than file size alone. A 500 MB file that's 5 minutes long (1.67 MB/sec) is far more bloated than a 2 GB file that's 2 hours long (0.28 MB/sec)." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I find oversized video files on Windows without special software?",
+        "acceptedAnswer": { "@type": "Answer", "text": "You can open File Explorer, enable the Details view, and sort by Size — but this only shows file size, not efficiency relative to duration. To find truly oversized files, you'd need to open each file's properties, note the duration, and calculate MB/sec manually. For any folder with more than a handful of files, automated scanning tools are much more practical." }
+      },
+      {
+        "@type": "Question",
+        "name": "What MB/sec value means a video is bloated?",
+        "acceptedAnswer": { "@type": "Answer", "text": "It depends on resolution. For 720p content, above 0.75 MB/sec is a strong compress candidate. For 1080p, above 1.5 MB/sec. For 4K, above 3.5 MB/sec. These thresholds reflect typical bitrates for well-encoded H.265 content at each resolution — files above these values have meaningful compression headroom." }
+      },
+      {
+        "@type": "Question",
+        "name": "Will I lose quality when shrinking oversized videos?",
+        "acceptedAnswer": { "@type": "Answer", "text": "For genuinely oversized files — especially screen recordings, camera exports, and old codec files — re-encoding to H.265 at CRF 25 produces visually identical results. The original file had more data than the display could use. Files that are already well-encoded may show more quality sensitivity and are better left alone." }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+  <style>
+    :root{--teal:#14a085;--teal-dark:#0d7377;--bg:#111214;--bg-raised:#1a1c1f;--bg-card:#202326;--border:rgba(255,255,255,0.07);--border-teal:rgba(20,160,133,0.3);--text:#f0f2f0;--body:#b8bdb8;--muted:#6b726b;--font-head:'Bricolage Grotesque',sans-serif;--font-body:'DM Sans',sans-serif;}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font-body);font-size:16px;line-height:1.7;color:var(--body);background:var(--bg);}
+    a{color:var(--teal);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+    img,video{display:block;max-width:100%;}
+
+    .site-header{background:rgba(17,18,20,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;position:sticky;top:0;z-index:50;}
+    .site-header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;}
+    .site-header-logo{font-family:var(--font-head);font-weight:700;font-size:1em;color:var(--text);display:flex;align-items:center;gap:8px;}
+    .site-header-logo span{color:var(--teal);}
+    .site-header-cta{font-family:var(--font-head);font-size:0.82em;font-weight:700;color:#fff;background:var(--teal-dark);padding:7px 16px;border-radius:8px;transition:background 0.2s;}
+    .site-header-cta:hover{background:var(--teal);text-decoration:none;}
+
+    .layout{max-width:1100px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr 280px;gap:48px;align-items:start;}
+    @media(max-width:900px){.layout{grid-template-columns:1fr;}.sidebar{display:none;}}
+    .article{padding:48px 0 80px;}
+
+    .label{font-size:0.72em;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;}
+    h1{font-family:var(--font-head);font-size:clamp(1.7em,3.5vw,2.4em);font-weight:800;color:var(--text);line-height:1.15;letter-spacing:-0.02em;margin-bottom:16px;}
+    .hero-sub{font-size:1.05em;color:var(--body);margin-bottom:28px;max-width:620px;}
+    h2{font-family:var(--font-head);font-size:1.35em;font-weight:700;color:var(--text);margin:40px 0 12px;line-height:1.25;}
+    h3{font-family:var(--font-head);font-size:1.05em;font-weight:700;color:var(--text);margin:28px 0 8px;}
+    p{margin-bottom:16px;}
+    ul,ol{padding-left:1.4em;margin-bottom:16px;}
+    li{margin-bottom:6px;}
+    strong{color:var(--text);font-weight:600;}
+
+    .toc{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin-bottom:40px;}
+    .toc-title{font-family:var(--font-head);font-size:0.82em;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;}
+    .toc ol{margin:0;padding-left:1.2em;}
+    .toc li{margin-bottom:5px;font-size:0.9em;}
+    .toc a{color:var(--body);}
+    .toc a:hover{color:var(--teal);}
+
+    .callout{background:rgba(20,160,133,0.07);border:1px solid var(--border-teal);border-left:3px solid var(--teal);border-radius:8px;padding:16px 20px;margin:24px 0;}
+    .callout p{margin:0;font-size:0.92em;}
+
+    .example-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;}
+    @media(max-width:640px){.example-grid{grid-template-columns:1fr;}}
+    .example-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:20px;}
+    .example-card.bloated{border-color:rgba(196,43,28,0.4);}
+    .example-card.efficient{border-color:rgba(20,160,133,0.4);}
+    .example-verdict{font-family:var(--font-head);font-size:0.75em;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;}
+    .example-verdict.bloated{color:#c42b1c;}
+    .example-verdict.efficient{color:#14a085;}
+    .example-card h4{font-family:var(--font-head);font-size:0.95em;font-weight:700;color:var(--text);margin-bottom:8px;}
+    .example-card p{font-size:0.85em;margin:0;color:var(--body);}
+    .example-mbsec{font-family:'Courier New',monospace;font-size:1.1em;font-weight:700;margin:8px 0;}
+    .example-mbsec.bloated{color:#c42b1c;}
+    .example-mbsec.efficient{color:#14a085;}
+
+    .threshold-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:0.9em;}
+    .threshold-table th{background:var(--bg-card);color:var(--text);font-family:var(--font-head);font-weight:700;padding:12px 14px;text-align:left;border-bottom:2px solid var(--border-teal);}
+    .threshold-table td{padding:11px 14px;border-bottom:1px solid var(--border);color:var(--body);}
+    .threshold-table tr:last-child td{border-bottom:none;}
+    .eff{color:#14a085;font-weight:600;}
+    .avg{color:#e0a000;font-weight:600;}
+    .blot{color:#c42b1c;font-weight:600;}
+
+    .step-list{list-style:none;padding:0;margin:20px 0;}
+    .step-list li{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border);}
+    .step-list li:last-child{border-bottom:none;}
+    .step-num{font-family:var(--font-head);font-weight:800;font-size:1.1em;color:var(--teal);min-width:28px;padding-top:1px;}
+
+    .faq-item{border-bottom:1px solid var(--border);padding:20px 0;}
+    .faq-item:last-child{border-bottom:none;}
+    .faq-q{font-family:var(--font-head);font-weight:700;color:var(--text);font-size:0.98em;margin-bottom:8px;}
+    .faq-a{font-size:0.92em;margin:0;}
+
+    .sidebar{padding-top:48px;}
+    .sidebar-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px;position:sticky;top:72px;}
+    .sidebar-card h4{font-family:var(--font-head);font-weight:700;color:var(--text);font-size:0.95em;margin-bottom:8px;}
+    .sidebar-card p{font-size:0.85em;margin-bottom:16px;}
+    .sidebar-btn{display:block;text-align:center;font-family:var(--font-head);font-size:0.9em;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--teal-dark),var(--teal));padding:12px 16px;border-radius:8px;margin-bottom:10px;transition:opacity 0.2s;}
+    .sidebar-btn:hover{opacity:0.9;text-decoration:none;}
+    .sidebar-btn.secondary{background:rgba(255,255,255,0.06);border:1px solid var(--border);color:var(--body);}
+    .sidebar-btn.secondary:hover{background:rgba(255,255,255,0.1);}
+    .sidebar-note{font-size:0.78em;color:var(--muted);text-align:center;}
+    .sidebar-links{margin-top:16px;border-top:1px solid var(--border);padding-top:16px;}
+    .sidebar-links a{display:block;font-size:0.82em;color:var(--body);padding:5px 0;border-bottom:1px solid var(--border);}
+    .sidebar-links a:last-child{border-bottom:none;}
+    .sidebar-links a:hover{color:var(--teal);}
+
+    .site-footer{border-top:1px solid var(--border);background:var(--bg-raised);padding:36px 24px;text-align:center;}
+    .site-footer p{font-size:0.84em;color:var(--muted);margin-bottom:6px;}
+    .site-footer a{color:var(--teal);}
+  </style>
 </head>
 <body>
-<div class="page">
 
-    <!-- TOP HOMEPAGE LINK -->
-    <p><a href="/">← Back to CineCinch</a></p>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/" class="site-header-logo">CineCinch <span>↗</span></a>
+    <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank" rel="noopener" class="site-header-cta">Download Free Trial</a>
+  </div>
+</header>
 
-    <header class="section">
-        <p class="hero-note">Guide · Windows video storage</p>
-        <h1>How to Automatically Find and Shrink Oversized Video Files on Windows (Using MB/sec Efficiency)</h1>
-        <p><strong>CineCinch</strong> is a simple GUI for batch video compression — ideal for <strong>Plex</strong>, <strong>Jellyfin</strong>, <strong>Kodi</strong> libraries and creators who want an easier FFmpeg workflow. Learn how to find oversized files and shrink them safely without uploading your media.</p>
-        <p>
-            If you collect movies, record your screen, export projects, or collect clips from different devices, your drives can fill up
-            with huge video files fast. Some of those files are big for a good reason. Others are quietly wasting space —
-            using far more megabytes per second than they need to. This guide shows you how to 
-            <a href="/" class="inline-highlight">automatically find the true space hogs</a> on Windows and shrink them without visible quality loss.
-        </p>
-    </header>
+<div class="layout">
+<main class="article">
 
-    <section class="section">
-        <h2>Why some videos are much bigger than they should be</h2>
-        <p>
-            Video file size is mostly driven by three things:
-        </p>
-        <ul>
-            <li><strong>Resolution</strong> (e.g., 1080p vs 4K)</li>
-            <li><strong>Duration</strong> (how long the video is)</li>
-            <li><strong>Bitrate</strong> (how many bits per second are used to encode it)</li>
-        </ul>
-        <p>
-            Two files can have the same resolution and duration but wildly different sizes. That usually means one of them
-            is <a href="/" class="inline-highlight">inefficient</a> — it’s using more megabytes per second than it needs to for the
-            actual content on screen.
-        </p>
-        <p>
-            The trick is not just to find “big files”, but to find the ones that are <em>unreasonably</em> big for their length.
-            That’s where looking at <strong>MB per second</strong> becomes much more useful than just sorting by size.
-        </p>
-    </section>
+  <p style="margin-bottom:20px;font-size:0.88em;"><a href="/">← CineCinch Home</a> &nbsp;/&nbsp; <span style="color:var(--muted)">Find & Shrink Oversized Videos</span></p>
 
-    <section class="section">
-        <h2>Common ways to shrink video files on Windows</h2>
-        <p>
-            There are three main approaches people use to reduce video file size on Windows:
-        </p>
+  <div class="label">Guide · Windows video storage</div>
+  <h1>How to Find and Shrink Oversized Video Files on Windows</h1>
+  <p class="hero-sub">File size alone is a misleading metric. Here's why MB/sec is the right way to find which videos are genuinely wasting space — and how to compress the worst offenders efficiently.</p>
 
-        <h3>1. HandBrake (powerful, but manual)</h3>
-        <p>
-            <strong>HandBrake</strong> is a popular open-source transcoder. You can load a file, pick a preset, and export a smaller version.
-            It’s powerful and free, but it has a lot of knobs: codecs, bitrates, CRF values, filters, and more.
-        </p>
-        <div class="tip">
-            HandBrake is great if you’re comfortable tweaking encoding settings and working file-by-file. It’s less ideal
-            when you just want to quickly clean up a messy folder full of oversized videos.
-        </div>
+  <div class="toc">
+    <div class="toc-title">In this guide</div>
+    <ol>
+      <li><a href="#problem">Why "sort by size" gives you the wrong list</a></li>
+      <li><a href="#mbsec">MB/sec: the metric that actually works</a></li>
+      <li><a href="#calculate">How to calculate MB/sec manually</a></li>
+      <li><a href="#thresholds">What counts as bloated at each resolution</a></li>
+      <li><a href="#automated">Why automated scanning saves hours</a></li>
+      <li><a href="#workflow">Finding and compressing oversized videos with CineCinch</a></li>
+      <li><a href="#results">Real-world examples of space savings</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ol>
+  </div>
 
-        <h3>2. ffmpeg (flexible, but very technical)</h3>
-        <p>
-            <strong>ffmpeg</strong> is the command-line engine behind many video tools. You can use it directly to compress videos, for example:
-        </p>
-        <pre><code>ffmpeg -i input.mp4 -c:v libx265 -crf 24 -c:a copy output.mp4</code></pre>
-        <p>
-            This tells ffmpeg to re-encode the video using H.265 (HEVC) at a given quality level while copying the audio.
-            It’s extremely flexible, but you have to be comfortable with the command line and know which options to use.
-        </p>
+  <h2 id="problem">Why "sort by size" gives you the wrong list</h2>
+  <p>The first instinct when cleaning up a video library is to open File Explorer, switch to Details view, and sort by Size descending. This puts the biggest files at the top — those must be the ones wasting the most space, right?</p>
+  <p>Not necessarily. Consider two files:</p>
 
-        <h3>3. Online video compressors (convenient, but slow and risky)</h3>
-        <p>
-            There are many browser-based tools that let you upload a video and download a smaller version. They’re convenient,
-            but they come with trade-offs:
-        </p>
-        <ul>
-            <li>Uploading large files is slow and bandwidth-heavy</li>
-            <li>Privacy concerns (you’re sending your content to a third-party server)</li>
-            <li>File size limits and queues</li>
-        </ul>
-        <p>
-            For large libraries or sensitive content, online tools are usually not a great fit.
-        </p>
-    </section>
+  <div class="example-grid">
+    <div class="example-card bloated">
+      <div class="example-verdict bloated">Bloated</div>
+      <h4>Screen recording — 3.2 GB</h4>
+      <p>Duration: 12 minutes (720 sec)</p>
+      <p class="example-mbsec bloated">4.44 MB/sec</p>
+      <p>Over 20× more data per second than it needs. Will compress 75%+ with no visible quality change.</p>
+    </div>
+    <div class="example-card efficient">
+      <div class="example-verdict efficient">Efficient</div>
+      <h4>Feature film — 8.5 GB</h4>
+      <p>Duration: 2 hours 18 min (8,280 sec)</p>
+      <p class="example-mbsec efficient">1.03 MB/sec</p>
+      <p>Reasonable for 1080p H.265 content. Compressing it would yield minimal savings at real quality cost.</p>
+    </div>
+  </div>
 
-    <section class="section">
-        <h2>Why “sort by size” isn’t enough</h2>
-        <p>
-            On Windows, the usual first step is to open File Explorer and sort a folder by size. That’s a start, but it doesn’t
-            tell you which files are actually <em>inefficient</em>.
-        </p>
-        <p>
-            A 4 GB, 2-hour movie might be perfectly reasonable. A 4 GB, 5-minute screen recording is probably not. What you really
-            want to know is:
-        </p>
-        <ul>
-            <li>How many megabytes per second each video is using</li>
-            <li>Which files are outliers compared to the rest of your library</li>
-            <li>Which ones will give you the biggest space savings if you compress them</li>
-        </ul>
-        <p>
-            That’s where tools that understand <a href="/" class="inline-highlight">MB/sec inefficiency</a> become much more useful than just a file size column.
-        </p>
-    </section>
+  <p>A naive size-based sort puts the film at the top of the list and the screen recording further down — exactly backwards from a compression-priority standpoint. You'd waste time on a file that will barely shrink, and miss the easy wins.</p>
 
-    <section class="section">
-        <h2>Automatically finding the worst offenders by MB/sec</h2>
-        <p>
-            One way to do this manually is to inspect each file’s bitrate and duration, then calculate size per second yourself.
-            That’s tedious and doesn’t scale when you have hundreds of clips.
-        </p>
-        <p>
-            <strong>CineCinch</strong> is a Windows app built specifically to solve this problem. Instead of just listing files by size,
-            it scans your folders and ranks videos by <a href="/" class="inline-highlight">inefficiency in MB/sec</a> — effectively answering:
-        </p>
-        <ul>
-            <li>“Which videos are using way more space per second than they should?”</li>
-            <li>“Which files will give me the biggest win if I compress them?”</li>
-        </ul>
-        <p>
-            Instead of guessing, you get a sorted list of the biggest offenders. You can then queue those for compression and
-            ignore the files that are already efficient for their length and resolution.
-        </p>
-    </section>
+  <h2 id="mbsec">MB/sec: the metric that actually works</h2>
+  <p>MB/sec (megabytes per second of video) is a simple proxy for bitrate density. It answers the question: <em>relative to how long this video is, how much storage is it consuming?</em></p>
+  <p>This metric is useful because it normalizes for length. A 10-minute clip and a 2-hour film can both be evaluated on the same scale — you don't need to mentally account for their different durations when comparing them.</p>
 
-    <section class="section">
-        <h2>Shrinking oversized videos with H.265 (HEVC)</h2>
-        <p>
-            Once you’ve identified the worst offenders, the next step is to re-encode them more efficiently. A common choice is
-            <strong>H.265 (HEVC)</strong>, which can deliver similar visual quality to H.264 at a much lower bitrate.
-        </p>
-        <p>
-            In CineCinch, you can:
-        </p>
-        <ul>
-            <li>Scan a folder and rank videos by MB/sec inefficiency</li>
-            <li>Select the ones that are clearly oversized for their duration</li>
-            <li>Queue them for H.265 compression using simple presets</li>
-            <li>Keep audio and subtitle tracks if you want</li>
-        </ul>
-        <p>
-            Everything runs locally on your machine — no uploads, no cloud processing, no telemetry.
-        </p>
-        <div class="tip">
-            Example: A 3-minute screen recording that was originally 1.2 GB might shrink to around 220 MB with no obvious
-            quality loss, freeing up space quickly when you batch this across many similar files.
-        </div>
-    </section>
+  <div class="callout">
+    <p>📐 <strong>Formula:</strong> MB/sec = File size in megabytes ÷ Duration in seconds<br><br>
+    Example: 3,200 MB ÷ 720 seconds = <strong>4.44 MB/sec</strong> (very bloated)<br>
+    Example: 8,704 MB ÷ 8,280 seconds = <strong>1.05 MB/sec</strong> (reasonable for 1080p)</p>
+  </div>
 
-    <section class="section">
-        <h2>Manual vs automated workflows: when to use which</h2>
-        <p>
-            If you only have a handful of files and you like full control, HandBrake or ffmpeg are great options. You can tune
-            every parameter and inspect each result.
-        </p>
-        <p>
-            If you have <em>folders</em> full of mixed content — screen recordings, exports, clips from different devices — an automated
-            workflow that:
-        </p>
-        <ul>
-            <li>Finds the most inefficient videos by MB/sec</li>
-            <li>Lets you queue them quickly</li>
-            <li>Runs locally without babysitting</li>
-        </ul>
-        <p>
-            will save you a lot of time and guesswork.
-        </p>
-    </section>
+  <p>MB/sec is not a perfect measure of compression quality — it doesn't account for resolution, frame rate, or content complexity. But as a first-pass filter for identifying obvious waste in a large library, it's extremely effective in practice.</p>
 
-    <section class="section">
-        <h2>Tips for keeping video sizes under control</h2>
-        <ul>
-            <li><strong>Use efficient codecs:</strong> Prefer H.265/HEVC when your playback devices support it.</li>
-            <li><strong>Match resolution to content:</strong> Don’t store low-detail screen recordings at 4K if 1080p is enough.</li>
-            <li><strong>Watch MB/sec, not just GB:</strong> A short, huge file is often a better compression candidate than a long movie.</li>
-            <li><strong>Batch process:</strong> Queue multiple oversized files at once instead of handling them one by one.</li>
-        </ul>
-    </section>
+  <h2 id="calculate">How to calculate MB/sec manually</h2>
+  <p>You can calculate this yourself in Windows, but it's tedious for more than a handful of files:</p>
+  <ol>
+    <li>Right-click a video file in File Explorer → Properties → note the Size in MB.</li>
+    <li>Open the file in Windows Media Player or VLC to find its duration in seconds.</li>
+    <li>Divide size by duration: MB ÷ seconds = MB/sec.</li>
+    <li>Compare against the thresholds for your library's resolution (see next section).</li>
+    <li>Repeat for every file in the folder.</li>
+  </ol>
+  <p>For a folder with 20 files, this takes 10–15 minutes. For a folder with 200 files, it becomes genuinely impractical. This is the exact problem <a href="/">CineCinch</a> was built to automate — it probes every file with FFprobe and calculates MB/sec instantly for the entire folder.</p>
 
-    <section class="section cta-box">
-        <h2>Try CineCinch for automatic oversized video cleanup</h2>
-        <p>
-            If you’re tired of guessing which videos are wasting space, CineCinch gives you a ranked view of your worst offenders
-            based on MB/sec inefficiency and lets you shrink them with simple, local H.265 compression on Windows.
-        </p>
-        <p>
-            No cloud, no uploads, no telemetry — just a focused workflow for reclaiming disk space from oversized videos.
-        </p>
-        <a href="/" class="cta-button">Go to the CineCinch homepage</a>
-    </section>
+  <h2 id="thresholds">What counts as bloated at each resolution</h2>
+  <p>MB/sec thresholds vary by resolution because higher-resolution video legitimately requires more data per second to maintain quality. A 4K video that looks excellent at 2.0 MB/sec would be massively over-compressed at the same rate for a 480p recording.</p>
+  <p>The table below shows the MB/sec breakpoints used by CineCinch's three threshold levels:</p>
 
+  <table class="threshold-table">
+    <thead>
+      <tr><th>Threshold</th><th>Target resolution</th><th>Efficient (≤)</th><th>Average</th><th>Bloated (>)</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Strict</strong></td>
+        <td>720p and below</td>
+        <td><span class="eff">0.16 MB/sec</span></td>
+        <td><span class="avg">0.16–0.75</span></td>
+        <td><span class="blot">0.75 MB/sec</span></td>
+      </tr>
+      <tr>
+        <td><strong>Medium</strong></td>
+        <td>1080p HD</td>
+        <td><span class="eff">0.32 MB/sec</span></td>
+        <td><span class="avg">0.32–1.50</span></td>
+        <td><span class="blot">1.50 MB/sec</span></td>
+      </tr>
+      <tr>
+        <td><strong>Generous</strong></td>
+        <td>4K UHD</td>
+        <td><span class="eff">0.75 MB/sec</span></td>
+        <td><span class="avg">0.75–3.52</span></td>
+        <td><span class="blot">3.52 MB/sec</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>These thresholds reflect typical bitrates for well-encoded H.265 content at each resolution. A file classified as Bloated has meaningful compression headroom — it can be made significantly smaller with no perceptible quality loss on a normal display.</p>
+
+  <div class="callout">
+    <p>💡 <strong>Mixed libraries:</strong> If your folder contains a mix of resolutions, use the threshold that matches the majority. You can also run separate scans with different thresholds for different subfolders — e.g. Medium for a 1080p movies folder, Generous for a 4K folder.</p>
+  </div>
+
+  <h2 id="automated">Why automated scanning saves hours</h2>
+  <p>Even knowing the formula, manually calculating MB/sec for a real library is unpleasant. Here's what's involved per file:</p>
+  <ul>
+    <li>Opening Properties for file size (sometimes the displayed value is wrong — you need the "Size on disk" or the precise byte count)</li>
+    <li>Opening the file in a media player to get duration (some players round to the nearest second)</li>
+    <li>Doing the division</li>
+    <li>Comparing to the appropriate resolution threshold</li>
+    <li>Tracking results somewhere</li>
+  </ul>
+  <p>At 2–3 minutes per file, a 100-file folder takes 3–5 hours of manual work. CineCinch scans the same 100 files in under 2 minutes by running FFprobe in parallel across all files — and presents the results sorted by MB/sec descending, so the worst offenders are at the top automatically.</p>
+
+  <h2 id="workflow">Finding and compressing oversized videos with CineCinch</h2>
+  <ol class="step-list">
+    <li>
+      <span class="step-num">01</span>
+      <div><strong>Download CineCinch from the Microsoft Store.</strong> A free 7-day trial is available with no payment required. FFprobe and FFmpeg are bundled — no separate installation needed.</div>
+    </li>
+    <li>
+      <span class="step-num">02</span>
+      <div><strong>Select your video folder.</strong> Click the folder icon and navigate to the root of your library. CineCinch will walk all subfolders recursively.</div>
+    </li>
+    <li>
+      <span class="step-num">03</span>
+      <div><strong>Set the quality threshold for your library.</strong> Choose Strict for 720p or lower, Medium for 1080p, or Generous for 4K content. This controls the MB/sec breakpoints for Efficient/Average/Bloated classification.</div>
+    </li>
+    <li>
+      <span class="step-num">04</span>
+      <div><strong>Click Scan Videos.</strong> Results appear in real time as each file is probed. The table shows File path, Size (MB), Duration (sec), MB/sec, and Rating for every file — sorted highest MB/sec first.</div>
+    </li>
+    <li>
+      <span class="step-num">05</span>
+      <div><strong>Filter to Bloated files only.</strong> Uncheck Average and Efficient in the Show filters. You're now looking at only your genuine space hogs. Uncheck specific files you want to exclude from compression.</div>
+    </li>
+    <li>
+      <span class="step-num">06</span>
+      <div><strong>Configure output and start.</strong> Choose your output folder (or keep files alongside originals), select a quality mode, and click Start Compression. The Saved (MB) column updates in real time as each file completes.</div>
+    </li>
+  </ol>
+
+  <h2 id="results">Real-world examples of space savings</h2>
+  <p>These are typical outcomes for common video types using CineCinch at Standard quality (CRF 25):</p>
+
+  <table class="threshold-table">
+    <thead>
+      <tr><th>File type</th><th>Before</th><th>After</th><th>Savings</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>12-min OBS screen recording (H.264)</td><td>3.2 GB</td><td>620 MB</td><td class="eff">~81%</td></tr>
+      <tr><td>45-min 1080p gameplay capture</td><td>11.4 GB</td><td>2.1 GB</td><td class="eff">~82%</td></tr>
+      <tr><td>3-min GoPro clip (HEVC high bitrate)</td><td>1.8 GB</td><td>480 MB</td><td class="eff">~73%</td></tr>
+      <tr><td>Premiere Pro export (H.264 50Mbps)</td><td>8.7 GB</td><td>1.4 GB</td><td class="eff">~84%</td></tr>
+      <tr><td>2-hour movie (modern H.265 encode)</td><td>6.2 GB</td><td>5.1 GB</td><td class="avg">~18%</td></tr>
+      <tr><td>TV episode (streaming H.264)</td><td>1.4 GB</td><td>1.1 GB</td><td class="avg">~21%</td></tr>
+    </tbody>
+  </table>
+
+  <p>The pattern is consistent: videos that were encoded with high-bitrate capture or export settings compress dramatically. Videos already encoded efficiently for streaming or archival see much smaller gains.</p>
+
+  <h2 id="faq">Frequently asked questions</h2>
+  <div class="faq-item">
+    <div class="faq-q">What is MB/sec and why does it matter for video compression?</div>
+    <p class="faq-a">MB/sec measures how much storage a video uses per second of runtime. It normalizes file size by duration, making it a far better indicator of compression efficiency than raw file size. A 500 MB file that's 5 minutes long (1.67 MB/sec) is far more bloated than a 2 GB file that's 2 hours long (0.28 MB/sec).</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How do I find oversized video files on Windows without special software?</div>
+    <p class="faq-a">You can open File Explorer in Details view and sort by Size — but this only shows raw file size, not efficiency. To find truly oversized files, you'd need to check each file's duration separately and calculate MB/sec manually. For any library with more than a handful of files, this is impractical — scanning tools like CineCinch automate it entirely.</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What MB/sec value means a video is bloated?</div>
+    <p class="faq-a">It depends on resolution. For 720p, above 0.75 MB/sec is a strong compress candidate. For 1080p, above 1.5 MB/sec. For 4K, above 3.5 MB/sec. These reflect typical bitrates for well-encoded H.265 content — files above these thresholds have meaningful compression headroom.</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Will I lose quality when shrinking oversized videos?</div>
+    <p class="faq-a">For genuinely oversized files — screen recordings, camera exports, editor outputs — re-encoding to H.265 at CRF 25 is visually lossless. The original had more data than any display could use. Well-encoded movies and streaming content are more sensitive, which is why the MB/sec analysis helps you skip those and focus only on the actual waste.</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Does CineCinch modify my original files?</div>
+    <p class="faq-a">No. CineCinch creates new compressed output files without touching originals. You can optionally enable "Delete originals" to remove source files after verified compression, but this is disabled by default and is always your choice.</p>
+  </div>
+
+</main>
+
+<aside class="sidebar">
+  <div class="sidebar-card">
+    <h4>Automate your MB/sec analysis</h4>
+    <p>CineCinch scans your entire library, calculates MB/sec for every file, and sorts them by inefficiency automatically.</p>
+    <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank" rel="noopener" class="sidebar-btn">⊞ Download Free Trial</a>
+    <a href="/" class="sidebar-btn secondary">See all features →</a>
+    <p class="sidebar-note">Free 7-day trial · Windows 10/11</p>
+    <div class="sidebar-links">
+      <p style="font-size:0.78em;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;">Related guides</p>
+      <a href="/compress-video-files-windows">How to compress video on Windows</a>
+      <a href="/handbrake-alternative-windows">HandBrake alternatives</a>
+      <a href="/how-to-find-and-shrink-oversized-video-files-on-windows">Compress your Plex/Jellyfin library</a>
+    </div>
+  </div>
+</aside>
 </div>
+
+<footer class="site-footer">
+  <p><a href="/">CineCinch</a> — Video analyzer and batch compressor for Windows</p>
+  <p>Questions? <a href="mailto:support@cinecinch.com">support@cinecinch.com</a> · <a href="https://x.com/CineCinch" target="_blank" rel="noopener">Follow @CineCinch on 𝕏</a></p>
+  <p style="margin-top:12px;">© <span id="yr"></span> CineCinch · <a href="/privacy.html">Privacy & Terms</a></p>
+</footer>
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 </body>
 </html>

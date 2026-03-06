@@ -1,115 +1,377 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Find and Shrink Oversized Video Files on Windows — CineCinch</title>
-  <meta name="description" content="Automatically find oversized, inefficient video files on Windows and shrink them without visible quality loss. Ideal for Plex, Jellyfin, and Kodi libraries." />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to Compress Your Plex, Jellyfin, or Kodi Library on Windows (H.265 Guide)</title>
+  <meta name="description" content="Reduce your Plex, Jellyfin, or Kodi library size by 50–80% with H.265 compression on Windows. Learn which files to target, which settings to use, and how to preserve audio and subtitle tracks.">
+  <link rel="canonical" href="https://cinecinch.com/how-to-find-and-shrink-oversized-video-files-on-windows">
+
+  <meta property="og:title" content="How to Compress Your Plex, Jellyfin, or Kodi Library on Windows">
+  <meta property="og:description" content="Reduce your Plex, Jellyfin, or Kodi library size by 50–80% with H.265 compression. Learn which files to target and how to preserve audio and subtitle tracks.">
+  <meta property="og:url" content="https://cinecinch.com/how-to-find-and-shrink-oversized-video-files-on-windows">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CineCinch">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Compress Your Plex, Jellyfin, or Kodi Library on Windows",
+    "description": "Reduce your media server library size by 50–80% with H.265 compression on Windows. Which files to target, which settings to use, and how to preserve audio and subtitle tracks.",
+    "url": "https://cinecinch.com/how-to-find-and-shrink-oversized-video-files-on-windows",
+    "publisher": { "@type": "Organization", "name": "CineCinch", "url": "https://cinecinch.com" }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does Plex support H.265 (HEVC) files?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Plex Media Server supports H.265 direct play on most modern clients (Plex Web, iOS, Android, Apple TV, Roku, smart TVs from 2016+). Older clients may transcode H.265 in real time, which requires more server CPU. Check your client's capabilities in Plex's 'Playback Quality' settings." }
+      },
+      {
+        "@type": "Question",
+        "name": "Will re-encoding my library change how Plex or Jellyfin sees the files?",
+        "acceptedAnswer": { "@type": "Answer", "text": "If you're using the 'same folder as source' output mode and appending '_compressed' to the filename, Plex and Jellyfin will see the new file as a separate entry until you remove the original and refresh your library. If you want a seamless replacement, delete the original and rename the compressed file to match, then trigger a library refresh." }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens to multi-language audio and subtitle tracks when compressing?",
+        "acceptedAnswer": { "@type": "Answer", "text": "CineCinch can preserve all audio tracks (multi-language dubs, commentary, etc.) by enabling 'Keep all audio tracks'. Subtitle support depends on format: text-based subtitles (SRT, ASS, WebVTT) are preserved or converted. Image-based subtitles (PGS, VobSub) cannot be embedded in MP4 and are dropped — if these matter, keep the original file." }
+      },
+      {
+        "@type": "Question",
+        "name": "How much storage can I save by converting my library to H.265?",
+        "acceptedAnswer": { "@type": "Answer", "text": "For a mixed library with older H.264 files, screen recordings, and camera exports, typical total savings range from 40–70% of total library size. Already-efficient H.265 files will see minimal gain. The biggest wins come from high-bitrate captures and old MPEG-2 or Xvid files." }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
   <style>
-    :root{
-      --bg:#ffffff; --text:#0f172a; --muted:#475569; --accent:#0ea5e9; --card:#f8fafc;
-      --maxw:900px;
-    }
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;}
-    body{background:var(--bg);color:var(--text);line-height:1.6;}
-    .wrap{max-width:var(--maxw);margin:32px auto;padding:28px;}
-    a{color:var(--accent);text-decoration:none;}
+    :root{--teal:#14a085;--teal-dark:#0d7377;--bg:#111214;--bg-raised:#1a1c1f;--bg-card:#202326;--border:rgba(255,255,255,0.07);--border-teal:rgba(20,160,133,0.3);--text:#f0f2f0;--body:#b8bdb8;--muted:#6b726b;--font-head:'Bricolage Grotesque',sans-serif;--font-body:'DM Sans',sans-serif;}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font-body);font-size:16px;line-height:1.7;color:var(--body);background:var(--bg);}
+    a{color:var(--teal);text-decoration:none;}
     a:hover{text-decoration:underline;}
-    header{margin-bottom:20px;}
-    .hero-note{color:var(--muted);font-size:0.95rem;margin-bottom:8px;}
-    h1{font-size:1.6rem;margin:0 0 8px 0;}
-    .hero-sub{font-size:1.05rem;color:#0b1220;margin:8px 0 16px 0;}
-    .cta-row{margin-top:18px;}
-    .btn{display:inline-block;padding:10px 16px;border-radius:999px;font-weight:600;color:#fff;background:linear-gradient(90deg,#0ea5e9,#6366f1);text-decoration:none;margin-right:10px;box-shadow:0 6px 18px rgba(99,102,241,0.12);border:0;}
-    .btn.secondary{background:linear-gradient(90deg,#10b981,#06b6d4);box-shadow:0 6px 18px rgba(6,182,212,0.10);}
-    .card{background:var(--card);border-radius:10px;padding:18px;margin-top:18px;border:1px solid #e6eef6;}
-    h2{color:#071033;margin-top:22px;}
-    ul{padding-left:1.15rem;}
-    pre{background:#f1f5f9;padding:12px;border-radius:8px;overflow:auto;}
-    .small{color:var(--muted);font-size:0.95rem;}
-    .result-row{display:flex;gap:12px;align-items:center;margin:10px 0;padding:10px;border-radius:8px;background:#ffffff;border:1px solid #eef2ff;}
-    .result-left{flex:1;}
-    .result-right{white-space:nowrap;color:#0b1220;font-weight:600;}
-    footer{margin-top:28px;color:var(--muted);font-size:0.95rem;}
-    @media (max-width:640px){.result-row{flex-direction:column;align-items:flex-start}}
+    img,video{display:block;max-width:100%;}
+
+    .site-header{background:rgba(17,18,20,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;position:sticky;top:0;z-index:50;}
+    .site-header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;}
+    .site-header-logo{font-family:var(--font-head);font-weight:700;font-size:1em;color:var(--text);display:flex;align-items:center;gap:8px;}
+    .site-header-logo span{color:var(--teal);}
+    .site-header-cta{font-family:var(--font-head);font-size:0.82em;font-weight:700;color:#fff;background:var(--teal-dark);padding:7px 16px;border-radius:8px;transition:background 0.2s;}
+    .site-header-cta:hover{background:var(--teal);text-decoration:none;}
+
+    .layout{max-width:1100px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr 280px;gap:48px;align-items:start;}
+    @media(max-width:900px){.layout{grid-template-columns:1fr;}.sidebar{display:none;}}
+    .article{padding:48px 0 80px;}
+
+    .label{font-size:0.72em;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;}
+    h1{font-family:var(--font-head);font-size:clamp(1.7em,3.5vw,2.4em);font-weight:800;color:var(--text);line-height:1.15;letter-spacing:-0.02em;margin-bottom:16px;}
+    .hero-sub{font-size:1.05em;color:var(--body);margin-bottom:28px;max-width:620px;}
+    h2{font-family:var(--font-head);font-size:1.35em;font-weight:700;color:var(--text);margin:40px 0 12px;line-height:1.25;}
+    h3{font-family:var(--font-head);font-size:1.05em;font-weight:700;color:var(--text);margin:28px 0 8px;}
+    p{margin-bottom:16px;}
+    ul,ol{padding-left:1.4em;margin-bottom:16px;}
+    li{margin-bottom:6px;}
+    strong{color:var(--text);font-weight:600;}
+
+    .toc{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin-bottom:40px;}
+    .toc-title{font-family:var(--font-head);font-size:0.82em;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;}
+    .toc ol{margin:0;padding-left:1.2em;}
+    .toc li{margin-bottom:5px;font-size:0.9em;}
+    .toc a{color:var(--body);}
+    .toc a:hover{color:var(--teal);}
+
+    .callout{background:rgba(20,160,133,0.07);border:1px solid var(--border-teal);border-left:3px solid var(--teal);border-radius:8px;padding:16px 20px;margin:24px 0;}
+    .callout p{margin:0;font-size:0.92em;}
+    .warning{background:rgba(196,43,28,0.07);border:1px solid rgba(196,43,28,0.25);border-left:3px solid #c42b1c;border-radius:8px;padding:16px 20px;margin:24px 0;}
+    .warning p{margin:0;font-size:0.92em;color:#e0a090;}
+
+    .server-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0;}
+    @media(max-width:640px){.server-grid{grid-template-columns:1fr;}}
+    .server-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;}
+    .server-icon{font-size:2em;margin-bottom:8px;}
+    .server-card h4{font-family:var(--font-head);font-weight:700;color:var(--text);font-size:0.95em;margin-bottom:6px;}
+    .server-card p{font-size:0.82em;color:var(--body);margin:0;}
+
+    .compat-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:0.88em;}
+    .compat-table th{background:var(--bg-card);color:var(--text);font-family:var(--font-head);font-weight:700;padding:12px 14px;text-align:left;border-bottom:2px solid var(--border-teal);}
+    .compat-table td{padding:11px 14px;border-bottom:1px solid var(--border);color:var(--body);}
+    .compat-table tr:last-child td{border-bottom:none;}
+    .compat-yes{color:#14a085;font-weight:600;}
+    .compat-partial{color:#e0a000;font-weight:600;}
+    .compat-no{color:#c42b1c;font-weight:600;}
+
+    .step-list{list-style:none;padding:0;margin:20px 0;}
+    .step-list li{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border);}
+    .step-list li:last-child{border-bottom:none;}
+    .step-num{font-family:var(--font-head);font-weight:800;font-size:1.1em;color:var(--teal);min-width:28px;padding-top:1px;}
+
+    .faq-item{border-bottom:1px solid var(--border);padding:20px 0;}
+    .faq-item:last-child{border-bottom:none;}
+    .faq-q{font-family:var(--font-head);font-weight:700;color:var(--text);font-size:0.98em;margin-bottom:8px;}
+    .faq-a{font-size:0.92em;margin:0;}
+
+    .sidebar{padding-top:48px;}
+    .sidebar-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px;position:sticky;top:72px;}
+    .sidebar-card h4{font-family:var(--font-head);font-weight:700;color:var(--text);font-size:0.95em;margin-bottom:8px;}
+    .sidebar-card p{font-size:0.85em;margin-bottom:16px;}
+    .sidebar-btn{display:block;text-align:center;font-family:var(--font-head);font-size:0.9em;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--teal-dark),var(--teal));padding:12px 16px;border-radius:8px;margin-bottom:10px;transition:opacity 0.2s;}
+    .sidebar-btn:hover{opacity:0.9;text-decoration:none;}
+    .sidebar-btn.secondary{background:rgba(255,255,255,0.06);border:1px solid var(--border);color:var(--body);}
+    .sidebar-btn.secondary:hover{background:rgba(255,255,255,0.1);}
+    .sidebar-note{font-size:0.78em;color:var(--muted);text-align:center;}
+    .sidebar-links{margin-top:16px;border-top:1px solid var(--border);padding-top:16px;}
+    .sidebar-links a{display:block;font-size:0.82em;color:var(--body);padding:5px 0;border-bottom:1px solid var(--border);}
+    .sidebar-links a:last-child{border-bottom:none;}
+    .sidebar-links a:hover{color:var(--teal);}
+
+    .site-footer{border-top:1px solid var(--border);background:var(--bg-raised);padding:36px 24px;text-align:center;}
+    .site-footer p{font-size:0.84em;color:var(--muted);margin-bottom:6px;}
+    .site-footer a{color:var(--teal);}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <p><a href="/">← Back to CineCinch</a></p>
 
-    <header>
-      <p class="hero-note">Guide · Windows video storage</p>
-      <h1>How to Automatically Find and Shrink Oversized Video Files on Windows</h1>
-      <p class="hero-sub"><strong>Find the files wasting the most space first.</strong> CineCinch scans folders and ranks videos by MB/sec inefficiency so you can batch‑compress the worst offenders quickly — ideal for Plex, Jellyfin, and Kodi libraries.</p>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/" class="site-header-logo">CineCinch <span>↗</span></a>
+    <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank" rel="noopener" class="site-header-cta">Download Free Trial</a>
+  </div>
+</header>
 
-      <div class="cta-row">
-        <a class="btn" href="/" target="_self" rel="noopener">CineCinch Home</a>
-        <a class="btn secondary" href="mailto:support@cinecinch.com">Contact / Questions</a>
-      </div>
-    </header>
+<div class="layout">
+<main class="article">
 
-    <section class="card" id="how-it-works">
-      <h2>How CineCinch finds the real space hogs</h2>
-      <p class="small">Sorting by file size misses short but inefficient files. CineCinch calculates MB per second and ranks files so you see which ones will free the most space when compressed.</p>
+  <p style="margin-bottom:20px;font-size:0.88em;"><a href="/">← CineCinch Home</a> &nbsp;/&nbsp; <span style="color:var(--muted)">Compress Plex / Jellyfin / Kodi Library</span></p>
 
-      <div style="margin-top:12px;">
-        <div class="result-row">
-          <div class="result-left">
-            <div style="font-weight:700">5 min screen recording — 1.2 GB</div>
-            <div class="small">High MB/sec → top candidate</div>
-          </div>
-          <div class="result-right">Compress first</div>
-        </div>
+  <div class="label">Guide · Media server storage</div>
+  <h1>How to Compress Your Plex, Jellyfin, or Kodi Library on Windows</h1>
+  <p class="hero-sub">Large media server libraries on Windows eat through NAS and drive storage fast. Here's how to identify oversized files, compress them to H.265 without visible quality loss, and keep all your audio and subtitle tracks intact.</p>
 
-        <div class="result-row">
-          <div class="result-left">
-            <div style="font-weight:700">2 hr movie — 4.0 GB</div>
-            <div class="small">Low MB/sec → likely fine</div>
-          </div>
-          <div class="result-right">Ignore</div>
-        </div>
-      </div>
-
-      <p style="margin-top:12px;" class="small">Everything runs locally — no uploads, no cloud processing.</p>
-    </section>
-
-    <section style="margin-top:18px;">
-      <h2>Quick workflow</h2>
-      <ul>
-        <li>Scan a folder and get a ranked list by MB/sec inefficiency.</li>
-        <li>Select the worst offenders and pick a preset (Plex/Jellyfin friendly).</li>
-        <li>Queue and run batch compression locally; pause/resume as needed.</li>
-      </ul>
-
-      <h3 style="margin-top:12px;">Demo</h3>
-      <p class="small">Watch the demo to see the scan → rank → batch workflow in action.</p>
-      <div style="margin-top:10px;">
-        <video id="cinecinch-demo" controls autoplay muted playsinline preload="metadata" poster="screenshot-v2.png" style="width:100%;max-width:100%;border-radius:8px;">
-          <source src="cinecinch-demo.mp4" type="video/mp4">
-          Your browser does not support HTML5 video.
-          <a href="cinecinch-demo.mp4" download>Download the demo video</a>
-        </video>
-      </div>
-    </section>
-
-    <section style="margin-top:18px;">
-      <h2>When this helps most</h2>
-      <p class="small">CineCinch is built for people who manage large mixed libraries — screen recordings, exports, and clips from multiple devices — and want to prioritize the files that will free the most disk space.</p>
-    </section>
-
-    <footer>
-      <p class="small">Questions? <a href="mailto:support@cinecinch.com">support@cinecinch.com</a>. All processing is local — no uploads, no telemetry.</p>
-    </footer>
+  <div class="toc">
+    <div class="toc-title">In this guide</div>
+    <ol>
+      <li><a href="#why">Why media server libraries get so large</a></li>
+      <li><a href="#h265-compat">H.265 compatibility with Plex, Jellyfin, and Kodi</a></li>
+      <li><a href="#target">Which files to compress first</a></li>
+      <li><a href="#audio-subs">Preserving audio tracks and subtitles</a></li>
+      <li><a href="#workflow">Step-by-step workflow</a></li>
+      <li><a href="#after">Updating your library after compression</a></li>
+      <li><a href="#storage">Realistic storage savings</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ol>
   </div>
 
-  <script>
-    (function(){
-      const v = document.getElementById('cinecinch-demo');
-      if (!v) return;
-      // Attempt autoplay; if blocked, leave muted and let user play
-      v.play().catch(()=>{ /* autoplay blocked — user must interact */ });
-    })();
-  </script>
+  <h2 id="why">Why media server libraries get so large</h2>
+  <p>Plex, Jellyfin, and Kodi libraries tend to accumulate storage over time from multiple sources, each with different encoding characteristics:</p>
+  <ul>
+    <li><strong>Old H.264 rips and downloads</strong> — files encoded before H.265 was widely supported, at higher bitrates than necessary.</li>
+    <li><strong>MPEG-2 and Xvid files</strong> — legacy codecs from DVDs and early internet video that are dramatically larger than modern equivalents.</li>
+    <li><strong>Camera footage and recordings</strong> — GoPro, DSLR, and phone footage often uses high-bitrate capture settings designed for editing, not long-term storage.</li>
+    <li><strong>Screen recordings and game captures</strong> — typically the worst offenders, with MB/sec values 10–20× higher than well-encoded 1080p content.</li>
+    <li><strong>Remuxed Blu-ray content</strong> — full-quality source files that were never intended for storage, only for editing or archival.</li>
+  </ul>
+  <p>The good news: H.265 (HEVC) can deliver virtually identical visual quality at roughly half the file size compared to H.264. For older codec content, the savings are even greater. A methodical library cleanup pass can often halve total storage without any perceptible quality difference.</p>
+
+  <div class="server-grid">
+    <div class="server-card">
+      <div class="server-icon">🎬</div>
+      <h4>Plex</h4>
+      <p>Full H.265 direct play on all modern clients. Older clients may transcode.</p>
+    </div>
+    <div class="server-card">
+      <div class="server-icon">🐟</div>
+      <h4>Jellyfin</h4>
+      <p>H.265 direct play and hardware transcode supported. Fully open source.</p>
+    </div>
+    <div class="server-card">
+      <div class="server-icon">📺</div>
+      <h4>Kodi</h4>
+      <p>H.265 hardware decode on all modern devices. Ideal for direct play.</p>
+    </div>
+  </div>
+
+  <h2 id="h265-compat">H.265 compatibility with Plex, Jellyfin, and Kodi</h2>
+  <p>The main concern when re-encoding a media server library is whether clients can play the new files without forcing server-side transcoding. Transcoding consumes significant CPU resources and can degrade playback quality — direct play is always preferable.</p>
+
+  <table class="compat-table">
+    <thead>
+      <tr><th>Platform / Client</th><th>H.265 Direct Play</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Plex Web (browser)</td><td><span class="compat-partial">⚠ Browser-dependent</span></td><td>Chrome/Edge support H.265 natively; Firefox requires transcoding</td></tr>
+      <tr><td>Plex iOS / Android</td><td><span class="compat-yes">✓ Yes</span></td><td>Modern devices (2016+) support H.265 hardware decode</td></tr>
+      <tr><td>Plex Apple TV</td><td><span class="compat-yes">✓ Yes</span></td><td>All Apple TV 4K models support H.265</td></tr>
+      <tr><td>Plex Roku / Fire TV</td><td><span class="compat-yes">✓ Yes</span></td><td>Most 2018+ models support H.265 direct play</td></tr>
+      <tr><td>Plex Smart TV app</td><td><span class="compat-yes">✓ Yes (2016+)</span></td><td>Older sets may transcode</td></tr>
+      <tr><td>Jellyfin (all clients)</td><td><span class="compat-yes">✓ Yes</span></td><td>Same hardware decode support as Plex clients</td></tr>
+      <tr><td>Kodi on Windows PC</td><td><span class="compat-yes">✓ Yes</span></td><td>Hardware decode via DXVA2/D3D11VA</td></tr>
+      <tr><td>Kodi on Raspberry Pi 4</td><td><span class="compat-yes">✓ Yes</span></td><td>Pi 4 supports H.265 hardware decode</td></tr>
+      <tr><td>Kodi on Fire Stick 4K</td><td><span class="compat-yes">✓ Yes</span></td><td>Full H.265 hardware decode</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p>💡 <strong>If you have a client that can't direct-play H.265</strong>, consider keeping the original file alongside the compressed version. Plex and Jellyfin can be configured to prefer certain versions for specific clients.</p>
+  </div>
+
+  <h2 id="target">Which files to compress first</h2>
+  <p>Not every file in your library is worth compressing. The priority should be files with a high MB/sec ratio — those are consuming far more storage than their content requires.</p>
+  <p>The most common high-value targets in a Plex/Jellyfin library:</p>
+  <ul>
+    <li><strong>Screen recordings and game captures:</strong> Almost always 5–20× over-encoded. These compress dramatically with zero perceptible quality loss at H.265 CRF 25.</li>
+    <li><strong>Legacy codec files (MPEG-2, Xvid, DivX):</strong> Old DVD rips and early internet video. Re-encoding to H.265 typically cuts file size by 60–70%.</li>
+    <li><strong>High-bitrate H.264 exports:</strong> Content exported from video editors at "high quality" settings. Often 10–30 Mbps when 2–4 Mbps would be visually indistinguishable.</li>
+    <li><strong>Camera uploads (GoPro, DJI, DSLR):</strong> Cameras use high-bitrate encoding for edit flexibility, not storage. A 4K GoPro file might compress 60% without any visible loss.</li>
+  </ul>
+  <p>Files to be conservative with:</p>
+  <ul>
+    <li><strong>Already-efficient H.265 encodes:</strong> Will see minimal gain. CineCinch flags these as Efficient — skip them.</li>
+    <li><strong>4K Blu-ray remuxes:</strong> Very high quality sources — compressing risks visible degradation on a 4K display. If you care about maximum quality, leave these alone.</li>
+    <li><strong>Films you watch regularly in critical quality mode:</strong> Use High Quality (CRF 21) rather than Standard if you must compress these.</li>
+  </ul>
+
+  <h2 id="audio-subs">Preserving audio tracks and subtitles</h2>
+  <p>Multi-language libraries require extra attention. Media server collections often contain files with multiple audio dubs, director's commentary, and various subtitle formats.</p>
+
+  <h3>Audio tracks</h3>
+  <p>By default, CineCinch maps only the first audio track to the output. For media server libraries, enable <strong>"Keep all audio tracks"</strong> to preserve all audio streams — this is critical if your library has multi-language dubs or commentary tracks you care about.</p>
+  <p>All audio is copied directly (not re-encoded), so there's no quality loss to audio regardless of the original format (AC3, DTS, TrueHD, etc.).</p>
+
+  <h3>Subtitles</h3>
+  <p>Subtitle handling depends on the subtitle format in the source file. CineCinch probes each file before compression and handles each case:</p>
+  <ul>
+    <li><strong>No subtitles:</strong> Nothing to do.</li>
+    <li><strong>Text-based subtitles (SRT, ASS, WebVTT, mov_text):</strong> Preserved and embedded in the MP4 output. Compatible with all media server clients.</li>
+    <li><strong>Image-based subtitles (PGS, VobSub, DVD format):</strong> Cannot be embedded in MP4. These are dropped from the output. If image subtitles are important, keep the original MKV file rather than compressing.</li>
+  </ul>
+
+  <div class="warning">
+    <p>⚠️ <strong>Blu-ray and DVD rips with PGS/VobSub subtitles:</strong> If subtitle fidelity is critical (e.g. for foreign-language films), do not delete originals when compressing. The compressed MP4 will be playable but subtitles will need to come from an external SRT file or from the original MKV.</p>
+  </div>
+
+  <h2 id="workflow">Step-by-step workflow</h2>
+  <ol class="step-list">
+    <li>
+      <span class="step-num">01</span>
+      <div><strong>Point CineCinch at your media server library folder.</strong> CineCinch scans recursively, so you can select the root folder of your entire Plex/Jellyfin/Kodi library — all subfolders (Movies, TV Shows, etc.) will be included.</div>
+    </li>
+    <li>
+      <span class="step-num">02</span>
+      <div><strong>Choose the right threshold.</strong> For a typical 1080p movie/TV library, use Medium. For a predominantly 4K library, use Generous. For a library heavy on screen recordings and 720p content, use Strict.</div>
+    </li>
+    <li>
+      <span class="step-num">03</span>
+      <div><strong>Run the scan and review ratings.</strong> Bloated (red) files are your priority targets. Average (orange) files have some headroom but are lower priority. Efficient (green) files are best left alone.</div>
+    </li>
+    <li>
+      <span class="step-num">04</span>
+      <div><strong>Filter to Bloated only and review the list.</strong> Uncheck any files you want to exclude — full Blu-ray remuxes, recently purchased content, files with image subtitles you care about, etc.</div>
+    </li>
+    <li>
+      <span class="step-num">05</span>
+      <div><strong>Configure output settings for media server compatibility.</strong> Enable "Keep all audio tracks" to preserve multi-language dubs. Enable "Keep all subtitle tracks" for text-based subtitle preservation. For output location, a separate folder lets you verify before replacing originals.</div>
+    </li>
+    <li>
+      <span class="step-num">06</span>
+      <div><strong>Select your quality mode.</strong> Standard (CRF 25) is the recommended starting point for most library content. High Quality (CRF 21) for content you want near-archival quality. High Compression (CRF 29) for recordings and content you're less concerned about.</div>
+    </li>
+    <li>
+      <span class="step-num">07</span>
+      <div><strong>Run a test batch first.</strong> Queue 5–10 diverse files (movies, recordings, older content) and compress them. Check playback quality on your media server clients before committing to a full library pass.</div>
+    </li>
+    <li>
+      <span class="step-num">08</span>
+      <div><strong>Run the full batch.</strong> Once you're happy with quality, compress the full list. The Saved (MB) column and status bar show running totals so you can track reclaimed space in real time.</div>
+    </li>
+  </ol>
+
+  <h2 id="after">Updating your library after compression</h2>
+  <p>Once compression is complete, you'll need to tell your media server about the new files. The approach depends on your output settings:</p>
+
+  <h3>If you output to the same folder (files named *_compressed.mp4)</h3>
+  <p>Plex and Jellyfin will detect the new files as separate entries on the next library scan. You can manually remove the originals and trigger a library refresh, or let the server manage duplicates via its "Manage Duplicates" feature.</p>
+
+  <h3>If you output to a separate folder</h3>
+  <p>Verify quality on the compressed files before doing anything with originals. Once satisfied, replace originals with compressed versions (same filename, delete original, rename compressed) and refresh your library.</p>
+
+  <h3>If you used "Delete originals"</h3>
+  <p>The compressed file is already in place with the *_compressed.mp4 name. You may want to rename files to match the original names (removing _compressed) to preserve your existing media server metadata and watched status.</p>
+
+  <div class="callout">
+    <p>🎬 <strong>Plex tip:</strong> Plex preserves watch history and metadata by file path. If you change the filename, you'll lose "watched" status for that item. Renaming the compressed file to match the original exactly (after deleting the original) preserves the entire metadata record.</p>
+  </div>
+
+  <h2 id="storage">Realistic storage savings</h2>
+  <p>For a mixed media server library compressed at Standard quality (CRF 25):</p>
+  <ul>
+    <li><strong>Screen recordings and captures:</strong> 70–85% reduction. Typically the biggest wins.</li>
+    <li><strong>Legacy H.264 content (2010–2018):</strong> 35–55% reduction.</li>
+    <li><strong>MPEG-2 / Xvid / DivX files:</strong> 55–70% reduction.</li>
+    <li><strong>Modern H.264 streaming rips:</strong> 15–30% reduction.</li>
+    <li><strong>Already-efficient H.265:</strong> 0–10% reduction. Often not worth the encode time.</li>
+  </ul>
+  <p>A realistic total library reduction depends heavily on your content mix. Libraries heavy in screen recordings and old codec files can see 60–70% total storage reduction. Libraries consisting primarily of modern, well-encoded content will see more modest gains — typically 25–40%.</p>
+
+  <h2 id="faq">Frequently asked questions</h2>
+  <div class="faq-item">
+    <div class="faq-q">Does Plex support H.265 (HEVC) files?</div>
+    <p class="faq-a">Yes. Plex Media Server supports H.265 direct play on all modern clients. Some older Plex clients (particularly web browsers using Firefox, and older smart TVs) may transcode H.265 rather than direct play — check your specific clients in Plex's playback quality settings before compressing your entire library.</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Will re-encoding my library change how Plex or Jellyfin sees the files?</div>
+    <p class="faq-a">If you use a different output filename (e.g. *_compressed.mp4), your media server will see it as a new file. For a seamless replacement, verify quality on the compressed file, then delete the original and rename the compressed file to match — then trigger a library refresh. Plex and Jellyfin will re-match metadata for files with matching names.</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What happens to multi-language audio and subtitle tracks when compressing?</div>
+    <p class="faq-a">Enabling "Keep all audio tracks" preserves all audio streams in the compressed file — multi-language dubs, commentary, and all. Subtitle handling depends on format: text-based subtitles are preserved, image-based subtitles (PGS, VobSub) cannot be embedded in MP4 and are dropped. If this matters, keep your original MKV files.</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How much storage can I save by converting my library to H.265?</div>
+    <p class="faq-a">For a mixed library with older H.264 files, screen recordings, and camera exports, typical total savings range from 40–70% of total library size. Already-efficient H.265 files see minimal gain. The biggest wins consistently come from screen recordings, high-bitrate captures, and MPEG-2/Xvid legacy files.</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Is it safe to compress files that are actively on my Plex/Jellyfin server?</div>
+    <p class="faq-a">Yes, as long as you're not outputting to the same filename. CineCinch reads source files and writes to a new output file — it doesn't modify originals in place. Your media server continues to serve the originals normally while compression runs in the background. Just don't delete originals while Plex or Jellyfin is actively streaming them.</p>
+  </div>
+
+</main>
+
+<aside class="sidebar">
+  <div class="sidebar-card">
+    <h4>Clean up your media library</h4>
+    <p>CineCinch scans your Plex, Jellyfin, or Kodi folder, finds the space hogs, and batch-compresses them locally with H.265.</p>
+    <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank" rel="noopener" class="sidebar-btn">⊞ Download Free Trial</a>
+    <a href="/" class="sidebar-btn secondary">See all features →</a>
+    <p class="sidebar-note">Free 7-day trial · Windows 10/11</p>
+    <div class="sidebar-links">
+      <p style="font-size:0.78em;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;">Related guides</p>
+      <a href="/compress-video-files-windows">How to compress video on Windows</a>
+      <a href="/find-and-shrink-oversized-video-files-windows">Find & shrink oversized videos</a>
+      <a href="/handbrake-alternative-windows">HandBrake alternatives</a>
+    </div>
+  </div>
+</aside>
+</div>
+
+<footer class="site-footer">
+  <p><a href="/">CineCinch</a> — Video analyzer and batch compressor for Windows</p>
+  <p>Questions? <a href="mailto:support@cinecinch.com">support@cinecinch.com</a> · <a href="https://x.com/CineCinch" target="_blank" rel="noopener">Follow @CineCinch on 𝕏</a></p>
+  <p style="margin-top:12px;">© <span id="yr"></span> CineCinch · <a href="/privacy.html">Privacy & Terms</a></p>
+</footer>
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 </body>
 </html>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to Compress Video Files on Windows Without Losing Quality (2025 Guide)</title>
+  <meta name="description" content="Step-by-step guide to compressing video files on Windows using H.265 encoding. Compare HandBrake, ffmpeg, and CineCinch — and learn which method suits your library size.">
+  <link rel="canonical" href="https://cinecinch.com/compress-video-files-windows">
+
+  <meta property="og:title" content="How to Compress Video Files on Windows Without Losing Quality">
+  <meta property="og:description" content="Compare HandBrake, ffmpeg, and CineCinch for batch video compression on Windows. Learn which H.265 settings give the best quality-to-size ratio.">
+  <meta property="og:url" content="https://cinecinch.com/compress-video-files-windows">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CineCinch">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Compress Video Files on Windows Without Losing Quality",
+    "description": "Step-by-step guide to compressing video files on Windows using H.265 encoding. Compare HandBrake, ffmpeg, and CineCinch.",
+    "url": "https://cinecinch.com/compress-video-files-windows",
+    "publisher": { "@type": "Organization", "name": "CineCinch", "url": "https://cinecinch.com" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://cinecinch.com/compress-video-files-windows" }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Compress Video Files on Windows",
+    "description": "Compress video files on Windows using H.265 without losing noticeable quality.",
+    "step": [
+      { "@type": "HowToStep", "name": "Identify which files to compress", "text": "Sort your video library by MB/sec (not just file size) to find which files are genuinely oversized for their length." },
+      { "@type": "HowToStep", "name": "Choose a compression method", "text": "Select HandBrake for single-file control, ffmpeg for scripting, or CineCinch for batch library cleanup." },
+      { "@type": "HowToStep", "name": "Select an H.265 quality preset", "text": "CRF 23–28 covers most use cases. Lower CRF = better quality but larger file. CRF 25 is a reliable starting point for most libraries." },
+      { "@type": "HowToStep", "name": "Run compression and verify output", "text": "Check a sample file before running a full batch. Spot-check visual quality and confirm audio tracks are preserved." },
+      { "@type": "HowToStep", "name": "Clean up originals", "text": "Once you've verified the output, delete or archive originals to reclaim disk space." }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does compressing a video reduce quality?",
+        "acceptedAnswer": { "@type": "Answer", "text": "H.265 compression at CRF 23–26 is visually lossless for most content — the difference from the original is imperceptible on a normal display. Only at very high CRF values (30+) does visible degradation appear." }
+      },
+      {
+        "@type": "Question",
+        "name": "How much smaller will my videos get after compression?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Results vary by source. Screen recordings and camera exports are often 50–80% smaller after H.265 compression. Movies already encoded with modern codecs may shrink only 10–30%. Files that are already efficient compress very little." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is H.265 compatible with all devices?",
+        "acceptedAnswer": { "@type": "Answer", "text": "H.265 (HEVC) is supported on all modern Windows PCs, iPhones (A9 chip and later), most Android devices from 2016 onward, smart TVs from 2016+, and media servers like Plex and Jellyfin. Older devices may require hardware decoding support." }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the best free video compressor for Windows?",
+        "acceptedAnswer": { "@type": "Answer", "text": "HandBrake is the most capable free option for single-file compression with full control. CineCinch is better suited for batch library cleanup — it scans folders, ranks files by inefficiency, and compresses them in queue with minimal setup." }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does video compression take?",
+        "acceptedAnswer": { "@type": "Answer", "text": "H.265 encoding is CPU-intensive. A rough estimate: 1–3 minutes per minute of video on a modern mid-range CPU at the Standard preset. GPU-accelerated encoding (via NVENC or QuickSync) is significantly faster but may produce slightly larger files at the same quality." }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --teal:       #14a085;
+      --teal-dark:  #0d7377;
+      --bg:         #111214;
+      --bg-raised:  #1a1c1f;
+      --bg-card:    #202326;
+      --border:     rgba(255,255,255,0.07);
+      --border-teal:rgba(20,160,133,0.3);
+      --text:       #f0f2f0;
+      --body:       #b8bdb8;
+      --muted:      #6b726b;
+      --font-head:  'Bricolage Grotesque', sans-serif;
+      --font-body:  'DM Sans', sans-serif;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); font-size:16px; line-height:1.7; color:var(--body); background:var(--bg); }
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img, video { display:block; max-width:100%; }
+
+    /* ── Layout ── */
+    .site-header {
+      background: rgba(17,18,20,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      position: sticky; top:0; z-index:50;
+    }
+    .site-header-inner {
+      max-width: 1100px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      height: 56px;
+    }
+    .site-header-logo {
+      font-family: var(--font-head); font-weight:700; font-size:1em;
+      color: var(--text); display:flex; align-items:center; gap:8px;
+    }
+    .site-header-logo span { color: var(--teal); }
+    .site-header-cta {
+      font-family: var(--font-head); font-size:0.82em; font-weight:700;
+      color:#fff; background: var(--teal-dark);
+      padding: 7px 16px; border-radius:8px;
+      transition: background 0.2s;
+    }
+    .site-header-cta:hover { background: var(--teal); text-decoration:none; }
+
+    .layout {
+      max-width: 1100px; margin:0 auto; padding:0 24px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 48px;
+      align-items: start;
+    }
+    @media (max-width:900px) { .layout { grid-template-columns:1fr; } .sidebar { display:none; } }
+
+    .article { padding: 48px 0 80px; }
+
+    /* ── Typography ── */
+    .label {
+      font-size:0.72em; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+      color: var(--teal); margin-bottom:10px;
+    }
+    h1 {
+      font-family: var(--font-head); font-size: clamp(1.7em, 3.5vw, 2.4em);
+      font-weight:800; color:var(--text); line-height:1.15;
+      letter-spacing:-0.02em; margin-bottom:16px;
+    }
+    .hero-sub {
+      font-size:1.05em; color:var(--body); margin-bottom:28px; max-width:620px;
+    }
+    h2 {
+      font-family: var(--font-head); font-size:1.35em; font-weight:700;
+      color:var(--text); margin: 40px 0 12px; line-height:1.25;
+    }
+    h3 {
+      font-family: var(--font-head); font-size:1.05em; font-weight:700;
+      color:var(--text); margin: 28px 0 8px;
+    }
+    p { margin-bottom: 16px; }
+    ul, ol { padding-left: 1.4em; margin-bottom:16px; }
+    li { margin-bottom: 6px; }
+    strong { color: var(--text); font-weight:600; }
+
+    /* ── Components ── */
+    .toc {
+      background: var(--bg-card); border:1px solid var(--border);
+      border-radius:10px; padding:20px 24px; margin-bottom:40px;
+    }
+    .toc-title { font-family:var(--font-head); font-size:0.82em; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:12px; }
+    .toc ol { margin:0; padding-left:1.2em; }
+    .toc li { margin-bottom:5px; font-size:0.9em; }
+    .toc a { color:var(--body); }
+    .toc a:hover { color:var(--teal); }
+
+    .callout {
+      background: rgba(20,160,133,0.07); border:1px solid var(--border-teal);
+      border-left: 3px solid var(--teal);
+      border-radius:8px; padding:16px 20px; margin:24px 0;
+    }
+    .callout p { margin:0; font-size:0.92em; }
+
+    .warning {
+      background: rgba(196,43,28,0.07); border:1px solid rgba(196,43,28,0.25);
+      border-left: 3px solid #c42b1c;
+      border-radius:8px; padding:16px 20px; margin:24px 0;
+    }
+    .warning p { margin:0; font-size:0.92em; color:#e0a090; }
+
+    .comparison-table {
+      width:100%; border-collapse:collapse; margin:24px 0; font-size:0.9em;
+    }
+    .comparison-table th {
+      background:var(--bg-card); color:var(--text); font-family:var(--font-head);
+      font-weight:700; padding:12px 16px; text-align:left;
+      border-bottom:2px solid var(--border-teal);
+    }
+    .comparison-table td {
+      padding:12px 16px; border-bottom:1px solid var(--border);
+      vertical-align:top; color:var(--body);
+    }
+    .comparison-table tr:last-child td { border-bottom:none; }
+    .comparison-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .tag-good { color:#14a085; font-weight:600; }
+    .tag-neutral { color:#e0a000; font-weight:600; }
+    .tag-hard { color:#c42b1c; font-weight:600; }
+
+    .crf-table {
+      width:100%; border-collapse:collapse; margin:24px 0; font-size:0.9em;
+    }
+    .crf-table th {
+      background:var(--bg-card); color:var(--text); font-family:var(--font-head);
+      font-weight:700; padding:10px 14px; text-align:left;
+      border-bottom:2px solid var(--border-teal);
+    }
+    .crf-table td { padding:10px 14px; border-bottom:1px solid var(--border); color:var(--body); }
+
+    pre {
+      background:var(--bg-card); border:1px solid var(--border);
+      border-radius:8px; padding:16px 20px; overflow-x:auto;
+      font-size:0.85em; font-family:'Courier New', monospace;
+      color: #a8d8c8; margin:20px 0;
+    }
+    code { font-family:'Courier New', monospace; background:var(--bg-card); padding:2px 6px; border-radius:4px; font-size:0.88em; color:#a8d8c8; }
+
+    .step-list { list-style:none; padding:0; margin:20px 0; }
+    .step-list li {
+      display:flex; gap:16px; align-items:flex-start;
+      padding:16px 0; border-bottom:1px solid var(--border);
+    }
+    .step-list li:last-child { border-bottom:none; }
+    .step-num {
+      font-family:var(--font-head); font-weight:800; font-size:1.1em;
+      color:var(--teal); min-width:28px; padding-top:1px;
+    }
+
+    .faq-item { border-bottom:1px solid var(--border); padding:20px 0; }
+    .faq-item:last-child { border-bottom:none; }
+    .faq-q { font-family:var(--font-head); font-weight:700; color:var(--text); font-size:0.98em; margin-bottom:8px; }
+    .faq-a { font-size:0.92em; margin:0; }
+
+    /* ── Sidebar ── */
+    .sidebar { padding-top:48px; }
+    .sidebar-card {
+      background:var(--bg-card); border:1px solid var(--border);
+      border-radius:12px; padding:24px; margin-bottom:20px;
+      position:sticky; top:72px;
+    }
+    .sidebar-card h4 { font-family:var(--font-head); font-weight:700; color:var(--text); font-size:0.95em; margin-bottom:8px; }
+    .sidebar-card p { font-size:0.85em; margin-bottom:16px; }
+    .sidebar-btn {
+      display:block; text-align:center;
+      font-family:var(--font-head); font-size:0.9em; font-weight:700;
+      color:#fff; background:linear-gradient(135deg, var(--teal-dark), var(--teal));
+      padding:12px 16px; border-radius:8px; margin-bottom:10px;
+      transition:opacity 0.2s;
+    }
+    .sidebar-btn:hover { opacity:0.9; text-decoration:none; }
+    .sidebar-btn.secondary {
+      background:rgba(255,255,255,0.06); border:1px solid var(--border);
+      color:var(--body);
+    }
+    .sidebar-btn.secondary:hover { background:rgba(255,255,255,0.1); }
+    .sidebar-note { font-size:0.78em; color:var(--muted); text-align:center; }
+    .sidebar-links { margin-top:16px; border-top:1px solid var(--border); padding-top:16px; }
+    .sidebar-links a { display:block; font-size:0.82em; color:var(--body); padding:5px 0; border-bottom:1px solid var(--border); }
+    .sidebar-links a:last-child { border-bottom:none; }
+    .sidebar-links a:hover { color:var(--teal); }
+
+    /* ── Footer ── */
+    .site-footer {
+      border-top:1px solid var(--border); background:var(--bg-raised);
+      padding:36px 24px; text-align:center;
+    }
+    .site-footer p { font-size:0.84em; color:var(--muted); margin-bottom:6px; }
+    .site-footer a { color:var(--teal); }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/" class="site-header-logo">CineCinch <span>↗</span></a>
+    <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank" rel="noopener" class="site-header-cta">Download Free Trial</a>
+  </div>
+</header>
+
+<div class="layout">
+<main class="article">
+
+  <p style="margin-bottom:20px; font-size:0.88em;"><a href="/">← CineCinch Home</a> &nbsp;/&nbsp; <span style="color:var(--muted)">Compress Video Files on Windows</span></p>
+
+  <div class="label">Guide · Windows video compression</div>
+  <h1>How to Compress Video Files on Windows Without Losing Quality</h1>
+  <p class="hero-sub">A practical comparison of every method — HandBrake, ffmpeg, and dedicated batch tools — with the exact H.265 settings that give the best quality-to-size ratio for your library.</p>
+
+  <div class="toc">
+    <div class="toc-title">In this guide</div>
+    <ol>
+      <li><a href="#why-compress">Why video files get bloated in the first place</a></li>
+      <li><a href="#methods">The three main compression methods on Windows</a></li>
+      <li><a href="#h265">H.265 vs H.264: the real-world size difference</a></li>
+      <li><a href="#crf">What CRF means and which value to use</a></li>
+      <li><a href="#which-files">How to pick which files to compress first</a></li>
+      <li><a href="#workflow">Step-by-step workflow with CineCinch</a></li>
+      <li><a href="#expectations">What file size savings to realistically expect</a></li>
+      <li><a href="#mistakes">Common mistakes to avoid</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ol>
+  </div>
+
+  <!-- ══ 1 ══ -->
+  <h2 id="why-compress">Why video files get bloated in the first place</h2>
+  <p>Not all large video files are bloated. A 2-hour 4K movie at 8 GB is probably fine. A 10-minute screen recording at 4 GB almost certainly isn't. The difference comes down to how efficiently the video was encoded at the time it was created.</p>
+  <p>Video encoders use different codecs (the compression algorithm) and bitrates (how much data per second). When you record a screen with default settings, export from video editing software, or save a clip from a camera in RAW or ProRes format, the result is often encoded with a very high bitrate — far more than you need for long-term storage.</p>
+  <p>Common sources of oversized video files:</p>
+  <ul>
+    <li><strong>Screen recordings</strong> — Windows Game Bar, OBS, ShareX, and most capture tools default to high bitrate for edit-friendliness, not storage efficiency.</li>
+    <li><strong>Camera exports</strong> — GoPro, DJI, Sony, and Canon cameras use high-bitrate H.264 or even MJPEG by default.</li>
+    <li><strong>Video editor exports</strong> — Premiere Pro, DaVinci Resolve, and similar tools often default to H.264 at very high bitrate settings.</li>
+    <li><strong>Old codec files</strong> — Videos encoded with MPEG-2, Xvid, or early H.264 before modern encoders existed.</li>
+    <li><strong>Downloads and rips</strong> — Sources that prioritized quality headroom over file size.</li>
+  </ul>
+  <p>The key insight: these files can typically be <em>re-encoded</em> to a more efficient codec (H.265) at a lower bitrate with no noticeable quality difference on a normal display.</p>
+
+  <!-- ══ 2 ══ -->
+  <h2 id="methods">The three main compression methods on Windows</h2>
+  <p>There is no single "right" tool for compressing video on Windows. The best choice depends on how many files you're dealing with, how much control you want, and how comfortable you are with technical settings.</p>
+
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th>Best for</th>
+        <th>Setup effort</th>
+        <th>Batch support</th>
+        <th>Efficiency ranking</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>HandBrake</strong></td>
+        <td>Single files with full control</td>
+        <td><span class="tag-good">Easy</span></td>
+        <td><span class="tag-neutral">Limited</span></td>
+        <td><span class="tag-good">Excellent</span></td>
+      </tr>
+      <tr>
+        <td><strong>ffmpeg (CLI)</strong></td>
+        <td>Scripting & automation</td>
+        <td><span class="tag-hard">Technical</span></td>
+        <td><span class="tag-good">Full</span></td>
+        <td><span class="tag-good">Excellent</span></td>
+      </tr>
+      <tr>
+        <td><strong>CineCinch</strong></td>
+        <td>Batch library cleanup</td>
+        <td><span class="tag-good">Easy</span></td>
+        <td><span class="tag-good">Full</span></td>
+        <td><span class="tag-good">Excellent</span></td>
+      </tr>
+      <tr>
+        <td><strong>Online tools</strong></td>
+        <td>Occasional single files</td>
+        <td><span class="tag-good">None</span></td>
+        <td><span class="tag-hard">No</span></td>
+        <td><span class="tag-neutral">Variable</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>HandBrake</h3>
+  <p><strong>HandBrake</strong> is a free, open-source video transcoder with a full GUI. It supports H.264, H.265, AV1, and many other codecs with precise control over every encoding parameter. You load a file, choose a preset, and export.</p>
+  <p>HandBrake is excellent when you're working with one or a few specific files and want to fine-tune the result. It has a modest batch queue, but it doesn't help you <em>identify</em> which files in a folder need compression — you have to pick them yourself.</p>
+
+  <h3>ffmpeg</h3>
+  <p><strong>ffmpeg</strong> is the underlying engine that most video tools (including HandBrake and CineCinch) use internally. You can call it directly from the Windows command prompt or PowerShell. A basic H.265 compress command looks like this:</p>
+  <pre>ffmpeg -i input.mp4 -c:v libx265 -crf 25 -preset slow -c:a copy output.mp4</pre>
+  <p>This re-encodes the video track using H.265 at CRF 25 while copying the audio unchanged. It's extremely flexible but requires you to know what you're doing. Writing a batch script to process an entire folder is possible, but you still won't get any analysis of which files need compression most.</p>
+
+  <h3>CineCinch</h3>
+  <p><strong><a href="/">CineCinch</a></strong> is designed specifically for the "I have a folder full of videos and want to clean it up" use case. It scans your folders with FFprobe, calculates MB/sec for every file, and ranks them by inefficiency — so you can see at a glance which files are the biggest compression opportunities. From there you queue them, pick a preset, and compress in batch.</p>
+  <p>It uses the same FFmpeg engine as HandBrake and the CLI but with a focused workflow that removes the need to know encoding parameters manually.</p>
+
+  <h3>Online video compressors</h3>
+  <p>Browser-based tools like Clideo, Compress2Go, and similar services let you upload a video, compress it on their servers, and download the result. Convenient for a single small file, but impractical for any meaningful library cleanup — file size limits, slow uploads, and the privacy implications of uploading your content to a third-party server all make them a poor fit for regular use.</p>
+
+  <!-- ══ 3 ══ -->
+  <h2 id="h265">H.265 vs H.264: the real-world size difference</h2>
+  <p>Most videos you'll encounter are encoded in <strong>H.264 (AVC)</strong> — the codec that has dominated video for the past 15 years. It's widely supported and produces good results, but its successor, <strong>H.265 (HEVC)</strong>, achieves roughly the same visual quality at about half the file size.</p>
+  <p>In practical terms, re-encoding an H.264 file to H.265 at equivalent quality typically reduces file size by 30–50%. For files that were already encoded inefficiently at high bitrate, the savings are even greater — sometimes 60–80%.</p>
+
+  <div class="callout">
+    <p>📊 <strong>Real example:</strong> A 45-minute 1080p screen recording encoded at 30 Mbps H.264 (≈ 10 GB) re-encoded to H.265 at CRF 25 typically lands around 1.5–2.5 GB with no visible quality difference on a 1080p or 4K display.</p>
+  </div>
+
+  <p>The main trade-off: H.265 encoding is slower than H.264, and hardware decoding support is required on older devices. For storage on a PC, NAS, or media server however, playback compatibility is a non-issue on anything made after 2016.</p>
+
+  <!-- ══ 4 ══ -->
+  <h2 id="crf">What CRF means and which value to use</h2>
+  <p>CRF stands for <strong>Constant Rate Factor</strong>. It controls the quality-to-file-size trade-off for H.265 encoding. Unlike fixed bitrate, CRF lets the encoder use more data for complex scenes (action, detail) and less for simple ones (static shots, dark scenes), producing a consistently good result at a target quality level.</p>
+  <p>For H.265, the CRF scale runs from 0 (lossless, enormous files) to 51 (heavily compressed, terrible quality). In practice, the useful range for most content is 20–34:</p>
+
+  <table class="crf-table">
+    <thead>
+      <tr><th>CRF Value</th><th>Quality</th><th>Typical use case</th><th>Size vs source</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>18–21</code></td><td>Near-lossless</td><td>Archival masters, professional delivery</td><td>−20 to −40%</td></tr>
+      <tr><td><code>22–25</code></td><td>High quality</td><td>General storage, Plex/Jellyfin libraries</td><td>−40 to −65%</td></tr>
+      <tr><td><code>26–28</code></td><td>Good quality</td><td>Casual viewing, storage-constrained</td><td>−55 to −75%</td></tr>
+      <tr><td><code>29–32</code></td><td>Acceptable</td><td>Low-priority archival, large libraries</td><td>−70 to −85%</td></tr>
+      <tr><td><code>33–34</code></td><td>Visible artifacts</td><td>Maximum compression only</td><td>−80 to −90%</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>CRF 25 is a reliable starting point for most libraries.</strong> It produces visually excellent results on 1080p content and compresses significantly. If you're working with 4K content, lean toward CRF 22–24. For casual recordings you don't care about long-term, CRF 28–30 is perfectly fine.</p>
+
+  <div class="callout">
+    <p>💡 In CineCinch, CRF values are pre-set per mode: High Quality uses CRF 21, Standard uses CRF 25, High Compression uses CRF 29, and Max Compression uses CRF 34 — covering the full practical range without requiring you to know the numbers.</p>
+  </div>
+
+  <!-- ══ 5 ══ -->
+  <h2 id="which-files">How to pick which files to compress first</h2>
+  <p>The naive approach is to sort your video folder by file size and compress the largest files first. This is better than nothing, but it misses an important nuance: a large file is only worth compressing if it's actually <em>inefficiently</em> encoded.</p>
+  <p>A 2-hour 4K Blu-ray rip at 8 GB might already be well-encoded — compressing it further risks visible quality loss for minimal gain. Meanwhile, a 12-minute screen recording at 3 GB is clearly inefficient and will compress by 80%+ with no perceptible quality change.</p>
+  <p>The better metric is <strong>MB per second</strong>: file size in megabytes divided by duration in seconds. This normalizes for length and gives you a direct measure of bitrate density — how many megabytes each second of video is consuming.</p>
+
+  <div class="callout">
+    <p>📐 <strong>Formula:</strong> MB/sec = File size (MB) ÷ Duration (seconds)<br><br>
+    A 3 GB file that's 10 minutes long: 3072 MB ÷ 600 sec = <strong>5.12 MB/sec</strong> — very inefficient.<br>
+    An 8 GB file that's 2 hours long: 8192 MB ÷ 7200 sec = <strong>1.14 MB/sec</strong> — reasonable for 4K.</p>
+  </div>
+
+  <p>General MB/sec benchmarks for well-encoded H.265 content:</p>
+  <ul>
+    <li><strong>720p:</strong> 0.05–0.16 MB/sec — anything above 0.75 MB/sec is a strong compress candidate</li>
+    <li><strong>1080p:</strong> 0.10–0.32 MB/sec — anything above 1.5 MB/sec is worth compressing</li>
+    <li><strong>4K:</strong> 0.25–0.75 MB/sec — anything above 3.5 MB/sec is a compress candidate</li>
+  </ul>
+  <p>CineCinch calculates this automatically for every file and highlights Bloated (red), Average (orange), and Efficient (green) files — so you can filter to only Bloated files and work through those first.</p>
+
+  <!-- ══ 6 ══ -->
+  <h2 id="workflow">Step-by-step workflow with CineCinch</h2>
+  <ol class="step-list">
+    <li>
+      <span class="step-num">01</span>
+      <div>
+        <strong>Download and install from the Microsoft Store.</strong> CineCinch is available with a free 7-day trial. No configuration needed — FFmpeg and FFprobe are bundled with the app.
+      </div>
+    </li>
+    <li>
+      <span class="step-num">02</span>
+      <div>
+        <strong>Select your folder.</strong> Click the folder icon and navigate to the root of your video library. CineCinch will scan all subfolders recursively — you don't need to select individual files.
+      </div>
+    </li>
+    <li>
+      <span class="step-num">03</span>
+      <div>
+        <strong>Choose the right threshold for your library's resolution.</strong> Select Strict for 720p libraries, Medium for 1080p, or Generous for 4K. This sets the MB/sec breakpoints used to classify files as Efficient, Average, or Bloated.
+      </div>
+    </li>
+    <li>
+      <span class="step-num">04</span>
+      <div>
+        <strong>Run the scan.</strong> Click Scan Videos. Results populate the table in real time, sorted highest MB/sec first. The scan uses FFprobe — no files are modified.
+      </div>
+    </li>
+    <li>
+      <span class="step-num">05</span>
+      <div>
+        <strong>Filter to Bloated files only.</strong> Uncheck the Average and Efficient Show filters. You're now looking at only your worst offenders. Uncheck any files you want to skip.
+      </div>
+    </li>
+    <li>
+      <span class="step-num">06</span>
+      <div>
+        <strong>Set your output preferences.</strong> Choose "Same folder as source" or a custom output folder. Select an output mode — Standard (CRF 25) is the recommended starting point for most libraries.
+      </div>
+    </li>
+    <li>
+      <span class="step-num">07</span>
+      <div>
+        <strong>Start compression.</strong> Click Start Compression. Per-file progress shows in the table. The status bar shows live time elapsed, files processed, and total MB saved so far.
+      </div>
+    </li>
+    <li>
+      <span class="step-num">08</span>
+      <div>
+        <strong>Verify output and clean up.</strong> Check the Saved (MB) column to confirm space savings. Spot-check a few outputs visually before enabling Delete Originals for future runs.
+      </div>
+    </li>
+  </ol>
+
+  <!-- ══ 7 ══ -->
+  <h2 id="expectations">What file size savings to realistically expect</h2>
+  <p>Results vary significantly based on what the source files are and how they were originally encoded. Here are realistic benchmarks:</p>
+  <table class="crf-table">
+    <thead>
+      <tr><th>Source type</th><th>Original encoding</th><th>Typical savings at CRF 25</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Screen recordings (OBS, Game Bar)</td><td>H.264 high bitrate</td><td>60–80%</td></tr>
+      <tr><td>Camera footage (GoPro, DJI)</td><td>H.264 / HEVC high bitrate</td><td>40–65%</td></tr>
+      <tr><td>Video editor exports</td><td>H.264 / ProRes</td><td>50–75%</td></tr>
+      <tr><td>Old movies/TV rips (MPEG-2, Xvid)</td><td>Legacy codecs</td><td>40–60%</td></tr>
+      <tr><td>Modern streaming downloads</td><td>H.264 / H.265 efficient</td><td>5–25%</td></tr>
+      <tr><td>Already-compressed H.265</td><td>H.265 efficient</td><td>0–10% (often larger)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="warning">
+    <p>⚠️ <strong>Re-compressing already-efficient H.265 files is usually counterproductive.</strong> You'll spend CPU time for minimal or negative file size gain. The MB/sec analysis in CineCinch tells you which files are actually worth compressing before you start.</p>
+  </div>
+
+  <!-- ══ 8 ══ -->
+  <h2 id="mistakes">Common mistakes to avoid</h2>
+  <ul>
+    <li><strong>Compressing already-efficient files.</strong> Sort by MB/sec first. Files rated Efficient by CineCinch's analysis are probably not worth re-encoding.</li>
+    <li><strong>Using too aggressive a CRF value.</strong> CRF 28+ on complex content (sports, nature documentaries, action films) can produce visible artifacts. Test on a sample first.</li>
+    <li><strong>Deleting originals before verifying output.</strong> Always spot-check compressed files before enabling Delete Originals. Pay particular attention to audio sync and subtitle tracks.</li>
+    <li><strong>Using the wrong threshold for your resolution.</strong> Using Strict on a 4K library will flag everything as Bloated. Use Generous for 4K, Medium for 1080p, Strict for 720p.</li>
+    <li><strong>Compressing files you'll need to re-edit.</strong> If you might return to a file in a video editor, keep the original. Compressed H.265 is not ideal for editing workflows.</li>
+    <li><strong>Expecting 4K files to compress as much as screen recordings.</strong> A well-encoded 4K movie may only shrink 15–20%. That's still worth doing at scale, but don't expect 80% savings on every file.</li>
+  </ul>
+
+  <!-- ══ FAQ ══ -->
+  <h2 id="faq">Frequently asked questions</h2>
+  <div class="faq-item">
+    <div class="faq-q">Does compressing a video reduce quality?</div>
+    <p class="faq-a">H.265 compression at CRF 23–26 is visually lossless for most content — the difference from the original is imperceptible on a normal display. Only at very high CRF values (30+) does visible degradation appear, and even then it's often not noticeable unless you're doing a side-by-side comparison.</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How much smaller will my videos get after compression?</div>
+    <p class="faq-a">Results vary by source. Screen recordings and camera exports are often 50–80% smaller after H.265 compression. Movies already encoded with modern codecs may shrink only 10–30%. Files that are already efficient compress very little — this is why sorting by MB/sec first saves you a lot of wasted effort.</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Is H.265 compatible with all devices?</div>
+    <p class="faq-a">H.265 (HEVC) is supported on all modern Windows PCs, iPhones (A9 chip / 2015 and later), most Android devices from 2016 onward, smart TVs from 2016+, and media servers like Plex and Jellyfin. Hardware decoding on older GPUs or CPUs may struggle with high-bitrate 4K H.265.</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What's the best free video compressor for Windows?</div>
+    <p class="faq-a">HandBrake is the most capable free option for single-file compression with full control over encoding parameters. For batch library cleanup — scanning a folder, finding the inefficient files, and compressing them in queue — <a href="/">CineCinch</a> is purpose-built for that workflow and requires much less manual setup.</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How long does video compression take?</div>
+    <p class="faq-a">H.265 encoding is CPU-intensive. A rough estimate: 1–3 minutes of encoding time per minute of video on a modern mid-range CPU at the Standard (slow) preset. Higher-end CPUs and GPU-accelerated encoding are significantly faster. CineCinch processes files sequentially so you can queue a batch and leave it running overnight.</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Can I compress videos without re-encoding (lossless)?</div>
+    <p class="faq-a">True lossless compression (without re-encoding) produces only minimal file size reduction because the video data is already encoded. The significant size savings come from re-encoding with a more efficient codec. If preserving the exact original encoding is important (e.g. for archival), keep the original and compress a copy.</p>
+  </div>
+
+</main>
+
+<aside class="sidebar">
+  <div class="sidebar-card">
+    <h4>Compress your video library</h4>
+    <p>CineCinch scans, ranks, and batch-compresses your videos with H.265 — all locally on Windows.</p>
+    <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank" rel="noopener" class="sidebar-btn">⊞ Download Free Trial</a>
+    <a href="/" class="sidebar-btn secondary">Learn more →</a>
+    <p class="sidebar-note">Free 7-day trial · Windows 10/11</p>
+    <div class="sidebar-links">
+      <p style="font-size:0.78em; color:var(--muted); margin-bottom:8px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em;">Related guides</p>
+      <a href="/find-and-shrink-oversized-video-files-windows">Find & shrink oversized videos</a>
+      <a href="/handbrake-alternative-windows">HandBrake alternatives on Windows</a>
+      <a href="/how-to-find-and-shrink-oversized-video-files-on-windows">Compress your Plex/Jellyfin library</a>
+    </div>
+  </div>
+</aside>
+</div>
+
+<footer class="site-footer">
+  <p><a href="/">CineCinch</a> — Video analyzer and batch compressor for Windows</p>
+  <p>Questions? <a href="mailto:support@cinecinch.com">support@cinecinch.com</a> · <a href="https://x.com/CineCinch" target="_blank" rel="noopener">Follow @CineCinch on 𝕏</a></p>
+  <p style="margin-top:12px;">© <span id="yr"></span> CineCinch · <a href="/privacy.html">Privacy & Terms</a></p>
+</footer>
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
