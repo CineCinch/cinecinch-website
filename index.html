@@ -986,6 +986,81 @@
       .features-header { flex-direction: column; }
       .pricing-grid { grid-template-columns: 1fr; }
     }
+
+    /* ═══════════════════════════════════════════
+       FOOTER AS-SEEN-ON BADGES
+    ════════════════════════════════════════════ */
+    .footer-as-seen {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .footer-as-seen-label {
+      font-size: 0.75em;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    .footer-badges {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .footer-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      text-decoration: none;
+    }
+    .footer-badge:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.05);
+    }
+    .footer-badge--ph:hover { border-color: rgba(218, 77, 52, 0.5); }
+    .footer-badge--sp:hover { border-color: var(--border-teal); }
+
+    .footer-badge-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .footer-badge--ph .footer-badge-icon { color: #da4d34; }
+    .footer-badge--sp .footer-badge-icon { color: var(--teal); }
+
+    .footer-badge-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .footer-badge-top {
+      font-size: 0.68em;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1;
+    }
+    .footer-badge-name {
+      font-size: 0.82em;
+      font-weight: 700;
+      color: var(--text-bright);
+      font-family: var(--font-head);
+      line-height: 1.2;
+    }
+    
   </style>
 </head>
 
@@ -1436,6 +1511,41 @@
           <a href="/CineCinch Documentation v1.0.pdf" target="_blank" rel="noopener">User Guide (PDF)</a>
         </nav>
       </div>
+ 
+      <!-- As seen on -->
+      <div class="footer-as-seen">
+        <span class="footer-as-seen-label">As seen on</span>
+        <div class="footer-badges">
+ 
+          <a href="https://www.producthunt.com/posts/cinecinch"
+             target="_blank" rel="noopener"
+             class="footer-badge footer-badge--ph"
+             aria-label="CineCinch on Product Hunt">
+            <svg class="footer-badge-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M13.604 8.4h-3.405V12h3.405a1.8 1.8 0 0 0 0-3.6zM12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm1.604 14.4H10.2V18H7.8V6h5.804a4.2 4.2 0 0 1 0 8.4z"/>
+            </svg>
+            <span class="footer-badge-text">
+              <span class="footer-badge-top">Featured on</span>
+              <span class="footer-badge-name">Product Hunt</span>
+            </span>
+          </a>
+ 
+          <a href="https://www.softpedia.com/get/Multimedia/Video/Other-VIDEO-Tools/CineCinch.shtml"
+             target="_blank" rel="noopener"
+             class="footer-badge footer-badge--sp"
+             aria-label="CineCinch on Softpedia — 5 stars">
+            <svg class="footer-badge-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm0 3a7 7 0 1 1 0 14A7 7 0 0 1 12 5zm-.5 2v5.25l4.5 2.625-.75 1.3-5.25-3.05V7h1.5z"/>
+            </svg>
+            <span class="footer-badge-text">
+              <span class="footer-badge-top">Reviewed on</span>
+              <span class="footer-badge-name">Softpedia ★★★★★</span>
+            </span>
+          </a>
+ 
+        </div>
+      </div>
+ 
       <div class="footer-bottom">
         <p class="footer-copy">
           © <span id="yr"></span> CineCinch. All rights reserved.
@@ -1447,7 +1557,7 @@
             Follow @CineCinch on 𝕏
           </a>
           &nbsp;&nbsp;
-          <a href="/cdn-cgi/l/email-protection#087b7d7878677a7c486b61666d6b61666b60266b6765"><span class="__cf_email__" data-cfemail="a7d4d2d7d7c8d5d3e7c4cec9c2c4cec9c4cf89c4c8ca">[email&#160;protected]</span></a>
+          <a href="mailto:support@cinecinch.com">support@cinecinch.com</a>
         </div>
       </div>
     </div>
