@@ -215,7 +215,7 @@
     </div>
     <p><strong><a href="/">CineCinch</a></strong> is built specifically for the use case HandBrake doesn't cover well: finding which videos in a large folder are inefficient and batch-compressing them in one workflow.</p>
     <p>Instead of starting with "what file do I want to compress?", CineCinch starts with "scan this folder and show me what's wasting space." It calculates MB/sec (megabytes per second of video) for every file and categorizes them as Efficient, Average, or Bloated. You filter to Bloated files, check or uncheck as needed, pick a quality preset, and start the batch — all from a single screen.</p>
-    <p>Under the hood it uses the same FFmpeg engine as HandBrake, so output quality is identical given the same encoding settings. The four presets (CRF 21, 25, 29, 34) cover the full range of quality-to-size trade-offs without requiring you to understand what those numbers mean.</p>
+    <p>Under the hood it uses the same FFmpeg engine as HandBrake, so output quality is identical given the same encoding settings. Four presets (CRF 21, 25, 29, 34) cover the most common quality-to-size trade-offs without requiring you to understand what those numbers mean. A Custom mode lets advanced users set their own CRF and encode speed directly.</p>
     <div class="verdict-box">
       <div class="verdict-label">Best for</div>
       <p>Users with large mixed libraries (screen recordings, camera footage, exports) who want to identify and compress inefficient files in batch without manual setup per file.</p>
@@ -324,7 +324,7 @@
       <tr>
         <td>Full codec/filter control</td>
         <td><span class="tag-good">✓ Extensive</span></td>
-        <td><span class="tag-ok">⚠ 4 presets</span></td>
+        <td><span class="tag-ok">⚠ 4 presets + Custom CRF</span></td>
         <td><span class="tag-good">✓ Complete</span></td>
         <td><span class="tag-hard">✗ Minimal</span></td>
       </tr>
@@ -375,7 +375,7 @@
     <li>You want a ranked list of files by inefficiency — so you compress the worst offenders first.</li>
     <li>You want batch processing without manually selecting and configuring each file.</li>
     <li>You care about tracking how much total space you've reclaimed across a batch.</li>
-    <li>You don't want to think about CRF values, presets, or codec parameters.</li>
+    <li>You don't want to think about CRF values, presets, or codec parameters — or you do, and want to set them yourself via Custom mode.</li>
   </ul>
 
   <h3>Use ffmpeg CLI if...</h3>
@@ -408,7 +408,7 @@
   </div>
   <div class="faq-item">
     <div class="faq-q">Is there a free version of CineCinch?</div>
-    <p class="faq-a">CineCinch offers a free 7-day trial through the Microsoft Store with no credit card required. The trial includes all four compression modes and all core scanning and compression features. Scan results are limited to 10 files per scan in the trial version.</p>
+    <p class="faq-a">CineCinch offers a free 7-day trial through the Microsoft Store with no credit card required. The trial includes all four compression modes and all core scanning and compression features. Compression is limited to 10 files per run in the trial version. Scanning is unlimited.</p>
   </div>
 
 </main>
