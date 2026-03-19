@@ -594,6 +594,19 @@
       font-family: 'DM Mono', monospace;
     }
     .mode-card p { font-size: 0.88em; color: var(--text-body); line-height: 1.6; }
+    /* Center the Custom card when it wraps to its own row */
+    .modes-grid .mode-card:last-child:nth-child(5) {
+      grid-column: 1 / -1;
+      max-width: calc(20% - 13px);
+      margin: 0 auto;
+    }
+    @media (max-width: 1200px) {
+      .modes-grid .mode-card:last-child:nth-child(5) {
+        grid-column: auto;
+        max-width: none;
+        margin: 0;
+      }
+    }
 
     /* ═══════════════════════════════════════════
        DOCUMENTATION BANNER
@@ -1319,7 +1332,7 @@
         </p>
 
         <div class="docs-links">
-          <a href="/CineCinch Documentation v1.0.pdf" target="_blank" rel="noopener" class="doc-link">
+          <a href="/CineCinch Documentation.pdf" target="_blank" rel="noopener" class="doc-link">
             <div class="doc-link-icon">📄</div>
             <div class="doc-link-text">
               <strong>User Guide (PDF)</strong>
@@ -1514,7 +1527,7 @@
           <span class="sep">·</span>
           <a href="#faq">FAQ</a>
           <span class="sep">·</span>
-          <a href="/CineCinch Documentation v1.0.pdf" target="_blank" rel="noopener">User Guide (PDF)</a>
+          <a href="/CineCinch Documentation.pdf" target="_blank" rel="noopener">User Guide (PDF)</a>
         </nav>
       </div>
  
