@@ -1,8 +1,160 @@
 <!DOCTYPE html>
-<html>
-<head><title>CineCinch Documentation</title></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineCinch Documentation</title>
+  <meta name="description" content="Read the CineCinch documentation. Learn how to scan a folder, spot bloated videos by MB per second, and batch-compress them to H.265 MP4 on Windows.">
+  <link rel="canonical" href="https://cinecinch.com/docs">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/favicon-192.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --teal:        #14a085;
+      --teal-dark:   #0d7377;
+      --bg:          #111214;
+      --bg-raised:   #1a1c1f;
+      --bg-card:     #202326;
+      --border:      rgba(255,255,255,0.07);
+      --border-teal: rgba(20,160,133,0.3);
+      --text:        #f0f2f0;
+      --body:        #b8bdb8;
+      --muted:       #6b726b;
+      --font-head:   'Bricolage Grotesque', sans-serif;
+      --font-body:   'DM Sans', sans-serif;
+      --radius:      10px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--body);
+      background: var(--bg);
+    }
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Nav */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(17,18,20,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 860px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 58px;
+    }
+    .nav-logo {
+      font-family: var(--font-head); font-weight: 700; font-size: 1.05em;
+      color: var(--text); display: flex; align-items: center; gap: 8px;
+      transition: opacity 0.2s;
+    }
+    .nav-logo:hover { opacity: 0.8; text-decoration: none; }
+    .nav-logo img { height: 26px; width: auto; }
+    .nav-back {
+      font-size: 0.84em; font-weight: 500; color: var(--body);
+      padding: 6px 14px; border-radius: 7px;
+      border: 1px solid var(--border);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-back:hover { color: var(--teal); border-color: var(--border-teal); text-decoration: none; }
+
+    /* Layout */
+    .page-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 24px 100px;
+    }
+
+    /* Page header */
+    .page-header {
+      margin-bottom: 40px;
+    }
+    .page-label {
+      font-size: 0.72em; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 12px;
+    }
+    .page-header h1 {
+      font-family: var(--font-head);
+      font-size: clamp(1.8em, 4vw, 2.6em);
+      font-weight: 800; color: var(--text);
+      line-height: 1.1; letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+    .page-header p {
+      color: var(--body); font-size: 1.05em; max-width: 560px;
+      font-weight: 300;
+    }
+
+    /* Doc card */
+    .doc-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 24px;
+      justify-content: space-between;
+    }
+    .doc-card-text h2 {
+      font-family: var(--font-head); font-weight: 700;
+      font-size: 1.2em; color: var(--text); margin-bottom: 6px;
+    }
+    .doc-card-text p {
+      color: var(--muted); font-size: 0.92em; font-weight: 300;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--teal); color: #fff;
+      font-family: var(--font-head); font-weight: 600; font-size: 0.95em;
+      padding: 12px 22px; border-radius: 8px;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+    .btn:hover { background: var(--teal-dark); text-decoration: none; transform: translateY(-1px); }
+
+    .docs-foot {
+      margin-top: 40px; font-size: 0.9em; color: var(--muted);
+    }
+    .docs-foot a { font-weight: 500; }
+  </style>
+</head>
 <body>
-<h1>CineCinch Documentation</h1>
-<p>The full PDF documentation will be available here soon.</p>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo"><img src="/logo.png" alt="CineCinch logo"> CineCinch</a>
+      <a href="/" class="nav-back">Back to home</a>
+    </div>
+  </nav>
+
+  <main class="page-wrap">
+    <header class="page-header">
+      <div class="page-label">Documentation</div>
+      <h1>CineCinch Documentation</h1>
+      <p>Everything you need to scan a folder, spot the videos wasting the most disk space by their MB per second of playback, and batch-compress them. The full guide is available as a PDF.</p>
+    </header>
+
+    <div class="doc-card">
+      <div class="doc-card-text">
+        <h2>CineCinch Documentation (PDF)</h2>
+        <p>Complete reference for version 1.3.0, including the four presets plus the Custom mode.</p>
+      </div>
+      <a class="btn" href="/CineCinch%20Documentation.pdf" target="_blank" rel="noopener">Open the PDF</a>
+    </div>
+
+    <p class="docs-foot">Looking for something else? Head back to the <a href="/">CineCinch homepage</a>.</p>
+  </main>
 </body>
 </html>

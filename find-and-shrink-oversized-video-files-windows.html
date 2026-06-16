@@ -3,22 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>How to Find and Shrink Oversized Video Files on Windows — MB/sec Guide</title>
-  <meta name="description" content="Sorting by file size misses the real space hogs. Learn how MB/sec efficiency analysis finds which videos are genuinely oversized — and how to batch-compress them on Windows.">
+  <title>How to Find and Shrink Oversized Video Files on Windows: MB/sec Guide</title>
+  <meta name="description" content="Sorting by file size misses the real space hogs. Learn how MB/sec efficiency analysis finds which videos are genuinely oversized, and how to batch-compress them on Windows.">
   <link rel="canonical" href="https://cinecinch.com/find-and-shrink-oversized-video-files-windows">
 
   <meta property="og:title" content="How to Find and Shrink Oversized Video Files on Windows">
-  <meta property="og:description" content="Why sorting by file size misses the real culprits — and how MB/sec analysis finds which videos are genuinely worth compressing.">
+  <meta property="og:description" content="Why sorting by file size misses the real culprits, and how MB/sec analysis finds which videos are genuinely worth compressing.">
   <meta property="og:url" content="https://cinecinch.com/find-and-shrink-oversized-video-files-windows">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CineCinch">
+  <meta property="og:image" content="https://cinecinch.com/screenshot-v2.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Find and Shrink Oversized Video Files on Windows">
+  <meta name="twitter:description" content="Why sorting by file size misses the real culprits, and how MB/sec analysis finds which videos are genuinely worth compressing.">
+  <meta name="twitter:image" content="https://cinecinch.com/screenshot-v2.png">
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "How to Find and Shrink Oversized Video Files on Windows",
-    "description": "Why sorting by file size misses the real culprits — and how MB/sec analysis finds which videos are genuinely worth compressing.",
+    "description": "Why sorting by file size misses the real culprits, and how MB/sec analysis finds which videos are genuinely worth compressing.",
     "url": "https://cinecinch.com/find-and-shrink-oversized-video-files-windows",
     "publisher": { "@type": "Organization", "name": "CineCinch", "url": "https://cinecinch.com" }
   }
@@ -32,22 +38,22 @@
       {
         "@type": "Question",
         "name": "What is MB/sec and why does it matter for video compression?",
-        "acceptedAnswer": { "@type": "Answer", "text": "MB/sec (megabytes per second) measures how much storage a video uses per second of runtime. It normalizes file size by duration, making it a much better indicator of compression efficiency than file size alone. A 500 MB file that's 5 minutes long (1.67 MB/sec) is far more bloated than a 2 GB file that's 2 hours long (0.28 MB/sec)." }
+        "acceptedAnswer": { "@type": "Answer", "text": "MB/sec (megabytes per second) measures how much storage a video uses per second of runtime. It normalizes file size by duration, which makes it a much better indicator of compression efficiency than file size alone. A 500 MB file that's 5 minutes long (1.67 MB/sec) is far more bloated than a 2 GB file that's 2 hours long (0.28 MB/sec)." }
       },
       {
         "@type": "Question",
         "name": "How do I find oversized video files on Windows without special software?",
-        "acceptedAnswer": { "@type": "Answer", "text": "You can open File Explorer, enable the Details view, and sort by Size — but this only shows file size, not efficiency relative to duration. To find truly oversized files, you'd need to open each file's properties, note the duration, and calculate MB/sec manually. For any folder with more than a handful of files, automated scanning tools are much more practical." }
+        "acceptedAnswer": { "@type": "Answer", "text": "You can open File Explorer, enable the Details view, and sort by Size, but this only shows file size, not efficiency relative to duration. To find truly oversized files, you'd need to open each file's properties, note the duration, and calculate MB/sec manually. For any folder with more than a handful of files, automated scanning tools are much more practical." }
       },
       {
         "@type": "Question",
         "name": "What MB/sec value means a video is bloated?",
-        "acceptedAnswer": { "@type": "Answer", "text": "It depends on resolution. For 720p content, above 0.75 MB/sec is a strong compress candidate. For 1080p, above 1.5 MB/sec. For 4K, above 3.5 MB/sec. These thresholds reflect typical bitrates for well-encoded H.265 content at each resolution — files above these values have meaningful compression headroom." }
+        "acceptedAnswer": { "@type": "Answer", "text": "It depends on resolution. For 720p content, above 0.75 MB/sec is a strong compress candidate. For 1080p, above 1.5 MB/sec. For 4K, above 3.5 MB/sec. These thresholds reflect typical bitrates for well-encoded H.265 content at each resolution, and files above these values have meaningful compression headroom." }
       },
       {
         "@type": "Question",
         "name": "Will I lose quality when shrinking oversized videos?",
-        "acceptedAnswer": { "@type": "Answer", "text": "For genuinely oversized files — especially screen recordings, camera exports, and old codec files — re-encoding to H.265 at CRF 25 produces visually identical results. The original file had more data than the display could use. Files that are already well-encoded may show more quality sensitivity and are better left alone." }
+        "acceptedAnswer": { "@type": "Answer", "text": "For genuinely oversized files, especially screen recordings, camera exports, and old codec files, re-encoding to H.265 at CRF 25 produces visually identical results. The original file had more data than the display could use. Files that are already well-encoded may show more quality sensitivity and are better left alone." }
       }
     ]
   }
@@ -164,7 +170,7 @@
 
   <div class="label">Guide · Windows video storage</div>
   <h1>How to Find and Shrink Oversized Video Files on Windows</h1>
-  <p class="hero-sub">File size alone is a misleading metric. Here's why MB/sec is the right way to find which videos are genuinely wasting space — and how to compress the worst offenders efficiently.</p>
+  <p class="hero-sub">File size alone is a misleading metric. Here's why MB/sec is the right way to find which videos are genuinely wasting space, and how to compress the worst offenders efficiently.</p>
 
   <div class="toc">
     <div class="toc-title">In this guide</div>
@@ -181,31 +187,31 @@
   </div>
 
   <h2 id="problem">Why "sort by size" gives you the wrong list</h2>
-  <p>The first instinct when cleaning up a video library is to open File Explorer, switch to Details view, and sort by Size descending. This puts the biggest files at the top — those must be the ones wasting the most space, right?</p>
+  <p>The first instinct when cleaning up a video library is to open File Explorer, switch to Details view, and sort by Size descending. This puts the biggest files at the top, so those must be the ones wasting the most space, right?</p>
   <p>Not necessarily. Consider two files:</p>
 
   <div class="example-grid">
     <div class="example-card bloated">
       <div class="example-verdict bloated">Bloated</div>
-      <h4>Screen recording — 3.2 GB</h4>
+      <h4>Screen recording: 3.2 GB</h4>
       <p>Duration: 12 minutes (720 sec)</p>
       <p class="example-mbsec bloated">4.44 MB/sec</p>
       <p>Over 20× more data per second than it needs. Will compress 75%+ with no visible quality change.</p>
     </div>
     <div class="example-card efficient">
       <div class="example-verdict efficient">Efficient</div>
-      <h4>Feature film — 8.5 GB</h4>
+      <h4>Feature film: 8.5 GB</h4>
       <p>Duration: 2 hours 18 min (8,280 sec)</p>
       <p class="example-mbsec efficient">1.03 MB/sec</p>
       <p>Reasonable for 1080p H.265 content. Compressing it would yield minimal savings at real quality cost.</p>
     </div>
   </div>
 
-  <p>A naive size-based sort puts the film at the top of the list and the screen recording further down — exactly backwards from a compression-priority standpoint. You'd waste time on a file that will barely shrink, and miss the easy wins.</p>
+  <p>A naive size-based sort puts the film at the top of the list and the screen recording further down, exactly backwards from a compression-priority standpoint. You'd waste time on a file that will barely shrink, and miss the easy wins.</p>
 
   <h2 id="mbsec">MB/sec: the metric that actually works</h2>
   <p>MB/sec (megabytes per second of video) is a simple proxy for bitrate density. It answers the question: <em>relative to how long this video is, how much storage is it consuming?</em></p>
-  <p>This metric is useful because it normalizes for length. A 10-minute clip and a 2-hour film can both be evaluated on the same scale — you don't need to mentally account for their different durations when comparing them.</p>
+  <p>This metric is useful because it normalizes for length. A 10-minute clip and a 2-hour film can both be evaluated on the same scale, so you don't need to mentally account for their different durations when comparing them.</p>
 
   <div class="callout">
     <p>📐 <strong>Formula:</strong> MB/sec = File size in megabytes ÷ Duration in seconds<br><br>
@@ -213,7 +219,7 @@
     Example: 8,704 MB ÷ 8,280 seconds = <strong>1.05 MB/sec</strong> (reasonable for 1080p)</p>
   </div>
 
-  <p>MB/sec is not a perfect measure of compression quality — it doesn't account for resolution, frame rate, or content complexity. But as a first-pass filter for identifying obvious waste in a large library, it's extremely effective in practice.</p>
+  <p>MB/sec is not a perfect measure of compression quality. It doesn't account for resolution, frame rate, or content complexity. But as a first-pass filter for identifying obvious waste in a large library, it's extremely effective in practice.</p>
 
   <h2 id="calculate">How to calculate MB/sec manually</h2>
   <p>You can calculate this yourself in Windows, but it's tedious for more than a handful of files:</p>
@@ -224,11 +230,11 @@
     <li>Compare against the thresholds for your library's resolution (see next section).</li>
     <li>Repeat for every file in the folder.</li>
   </ol>
-  <p>For a folder with 20 files, this takes 10–15 minutes. For a folder with 200 files, it becomes genuinely impractical. This is the exact problem <a href="/">CineCinch</a> was built to automate — it probes every file with FFprobe and calculates MB/sec instantly for the entire folder.</p>
+  <p>For a folder with 20 files, this takes 10 to 15 minutes. For a folder with 200 files, it becomes genuinely impractical. This is the exact problem <a href="/">CineCinch</a> was built to automate: it probes every file with FFprobe and calculates MB/sec instantly for the entire folder. For a step-by-step walkthrough, see our guide on <a href="/compress-video-files-windows">how to compress video files on Windows</a>.</p>
 
   <h2 id="thresholds">What counts as bloated at each resolution</h2>
   <p>MB/sec thresholds vary by resolution because higher-resolution video legitimately requires more data per second to maintain quality. A 4K video that looks excellent at 2.0 MB/sec would be massively over-compressed at the same rate for a 480p recording.</p>
-  <p>The table below shows the MB/sec breakpoints used by CineCinch's three threshold levels:</p>
+  <p>The table below shows the MB/sec breakpoints used by CineCinch's three threshold levels.</p>
 
   <table class="threshold-table">
     <thead>
@@ -259,28 +265,28 @@
     </tbody>
   </table>
 
-  <p>These thresholds reflect typical bitrates for well-encoded H.265 content at each resolution. A file classified as Bloated has meaningful compression headroom — it can be made significantly smaller with no perceptible quality loss on a normal display.</p>
+  <p>These thresholds reflect typical bitrates for well-encoded H.265 content at each resolution. A file classified as Bloated has meaningful compression headroom: it can be made significantly smaller with no perceptible quality loss on a normal display.</p>
 
   <div class="callout">
-    <p>💡 <strong>Mixed libraries:</strong> If your folder contains a mix of resolutions, use the threshold that matches the majority. You can also run separate scans with different thresholds for different subfolders — e.g. Medium for a 1080p movies folder, Generous for a 4K folder.</p>
+    <p>💡 <strong>Mixed libraries:</strong> If your folder contains a mix of resolutions, use the threshold that matches the majority. You can also run separate scans with different thresholds for different subfolders, e.g. Medium for a 1080p movies folder, Generous for a 4K folder.</p>
   </div>
 
   <h2 id="automated">Why automated scanning saves hours</h2>
   <p>Even knowing the formula, manually calculating MB/sec for a real library is unpleasant. Here's what's involved per file:</p>
   <ul>
-    <li>Opening Properties for file size (sometimes the displayed value is wrong — you need the "Size on disk" or the precise byte count)</li>
+    <li>Opening Properties for file size (sometimes the displayed value is wrong, so you need the "Size on disk" or the precise byte count)</li>
     <li>Opening the file in a media player to get duration (some players round to the nearest second)</li>
     <li>Doing the division</li>
     <li>Comparing to the appropriate resolution threshold</li>
     <li>Tracking results somewhere</li>
   </ul>
-  <p>At 2–3 minutes per file, a 100-file folder takes 3–5 hours of manual work. CineCinch scans the same 100 files in under 2 minutes by running FFprobe in parallel across all files — and presents the results sorted by MB/sec descending, so the worst offenders are at the top automatically.</p>
+  <p>At 2 to 3 minutes per file, a 100-file folder takes 3 to 5 hours of manual work. CineCinch scans the same 100 files in under 2 minutes by running FFprobe in parallel across all files, and presents the results sorted by MB/sec descending, so the worst offenders are at the top automatically.</p>
 
   <h2 id="workflow">Finding and compressing oversized videos with CineCinch</h2>
   <ol class="step-list">
     <li>
       <span class="step-num">01</span>
-      <div><strong>Download CineCinch from the Microsoft Store.</strong> A free 7-day trial is available with no payment required. FFprobe and FFmpeg are bundled — no separate installation needed.</div>
+      <div><strong>Download CineCinch from the Microsoft Store.</strong> A free 7-day trial is available with no payment required. FFprobe and FFmpeg are bundled, so no separate installation is needed.</div>
     </li>
     <li>
       <span class="step-num">02</span>
@@ -292,7 +298,7 @@
     </li>
     <li>
       <span class="step-num">04</span>
-      <div><strong>Click Scan Videos.</strong> Results appear in real time as each file is probed. The table shows File path, Size (MB), Duration (sec), MB/sec, and Rating for every file — sorted highest MB/sec first.</div>
+      <div><strong>Click Scan Videos.</strong> Results appear in real time as each file is probed. The table shows File path, Size (MB), Duration (sec), MB/sec, and Rating for every file, sorted highest MB/sec first.</div>
     </li>
     <li>
       <span class="step-num">05</span>
@@ -305,7 +311,7 @@
   </ol>
 
   <h2 id="results">Real-world examples of space savings</h2>
-  <p>These are typical outcomes for common video types using CineCinch at Standard quality (CRF 25):</p>
+  <p>CineCinch offers four presets plus a Custom mode. These are typical outcomes for common video types using the Standard preset (CRF 25):</p>
 
   <table class="threshold-table">
     <thead>
@@ -321,24 +327,24 @@
     </tbody>
   </table>
 
-  <p>The pattern is consistent: videos that were encoded with high-bitrate capture or export settings compress dramatically. Videos already encoded efficiently for streaming or archival see much smaller gains.</p>
+  <p>The pattern is consistent: videos that were encoded with high-bitrate capture or export settings compress dramatically. Videos already encoded efficiently for streaming or archival see much smaller gains. If you maintain a media server, see our companion guide on how to <a href="/how-to-find-and-shrink-oversized-video-files-on-windows">compress your Plex or Jellyfin library</a>.</p>
 
   <h2 id="faq">Frequently asked questions</h2>
   <div class="faq-item">
     <div class="faq-q">What is MB/sec and why does it matter for video compression?</div>
-    <p class="faq-a">MB/sec measures how much storage a video uses per second of runtime. It normalizes file size by duration, making it a far better indicator of compression efficiency than raw file size. A 500 MB file that's 5 minutes long (1.67 MB/sec) is far more bloated than a 2 GB file that's 2 hours long (0.28 MB/sec).</p>
+    <p class="faq-a">MB/sec measures how much storage a video uses per second of runtime. It normalizes file size by duration, which makes it a far better indicator of compression efficiency than raw file size. A 500 MB file that's 5 minutes long (1.67 MB/sec) is far more bloated than a 2 GB file that's 2 hours long (0.28 MB/sec).</p>
   </div>
   <div class="faq-item">
     <div class="faq-q">How do I find oversized video files on Windows without special software?</div>
-    <p class="faq-a">You can open File Explorer in Details view and sort by Size — but this only shows raw file size, not efficiency. To find truly oversized files, you'd need to check each file's duration separately and calculate MB/sec manually. For any library with more than a handful of files, this is impractical — scanning tools like CineCinch automate it entirely.</p>
+    <p class="faq-a">You can open File Explorer in Details view and sort by Size, but this only shows raw file size, not efficiency. To find truly oversized files, you'd need to check each file's duration separately and calculate MB/sec manually. For any library with more than a handful of files, this is impractical, so scanning tools like CineCinch automate it entirely.</p>
   </div>
   <div class="faq-item">
     <div class="faq-q">What MB/sec value means a video is bloated?</div>
-    <p class="faq-a">It depends on resolution. For 720p, above 0.75 MB/sec is a strong compress candidate. For 1080p, above 1.5 MB/sec. For 4K, above 3.5 MB/sec. These reflect typical bitrates for well-encoded H.265 content — files above these thresholds have meaningful compression headroom.</p>
+    <p class="faq-a">It depends on resolution. For 720p, above 0.75 MB/sec is a strong compress candidate. For 1080p, above 1.5 MB/sec. For 4K, above 3.5 MB/sec. These reflect typical bitrates for well-encoded H.265 content, and files above these thresholds have meaningful compression headroom.</p>
   </div>
   <div class="faq-item">
     <div class="faq-q">Will I lose quality when shrinking oversized videos?</div>
-    <p class="faq-a">For genuinely oversized files — screen recordings, camera exports, editor outputs — re-encoding to H.265 at CRF 25 is visually lossless. The original had more data than any display could use. Well-encoded movies and streaming content are more sensitive, which is why the MB/sec analysis helps you skip those and focus only on the actual waste.</p>
+    <p class="faq-a">For genuinely oversized files such as screen recordings, camera exports, and editor outputs, re-encoding to H.265 at CRF 25 is visually lossless. The original had more data than any display could use. Well-encoded movies and streaming content are more sensitive, which is why the MB/sec analysis helps you skip those and focus only on the actual waste.</p>
   </div>
   <div class="faq-item">
     <div class="faq-q">Does CineCinch modify my original files?</div>
@@ -365,7 +371,7 @@
 </div>
 
 <footer class="site-footer">
-  <p><a href="/">CineCinch</a> — Video analyzer and batch compressor for Windows</p>
+  <p><a href="/">CineCinch</a> · Video analyzer and batch compressor for Windows</p>
   <p>Questions? <a href="mailto:support@cinecinch.com">support@cinecinch.com</a> · <a href="https://x.com/CineCinch" target="_blank" rel="noopener">Follow @CineCinch on 𝕏</a></p>
   <p style="margin-top:12px;">© <span id="yr"></span> CineCinch · <a href="/privacy.html">Privacy & Terms</a></p>
 </footer>

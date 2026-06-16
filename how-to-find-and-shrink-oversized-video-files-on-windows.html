@@ -12,6 +12,12 @@
   <meta property="og:url" content="https://cinecinch.com/how-to-find-and-shrink-oversized-video-files-on-windows">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="CineCinch">
+  <meta property="og:image" content="https://cinecinch.com/screenshot-v2.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Compress Your Plex, Jellyfin, or Kodi Library on Windows">
+  <meta name="twitter:description" content="Reduce your Plex, Jellyfin, or Kodi library size by 50-80% with H.265 compression. Learn which files to target and how to preserve audio and subtitle tracks.">
+  <meta name="twitter:image" content="https://cinecinch.com/screenshot-v2.png">
 
   <script type="application/ld+json">
   {
@@ -42,7 +48,7 @@
       {
         "@type": "Question",
         "name": "What happens to multi-language audio and subtitle tracks when compressing?",
-        "acceptedAnswer": { "@type": "Answer", "text": "CineCinch can preserve all audio tracks (multi-language dubs, commentary, etc.) by enabling 'Keep all audio tracks'. Subtitle support depends on format: text-based subtitles (SRT, ASS, WebVTT) are preserved or converted. Image-based subtitles (PGS, VobSub) cannot be embedded in MP4 and are dropped — if these matter, keep the original file." }
+        "acceptedAnswer": { "@type": "Answer", "text": "CineCinch can preserve all audio tracks (multi-language dubs, commentary, etc.) by enabling 'Keep all audio tracks'. Subtitle support depends on format: text-based subtitles (SRT, ASS, WebVTT) are preserved or converted. Image-based subtitles (PGS, VobSub) cannot be embedded in MP4 and are dropped. If these matter, keep the original file." }
       },
       {
         "@type": "Question",
@@ -178,11 +184,11 @@
   <h2 id="why">Why media server libraries get so large</h2>
   <p>Plex, Jellyfin, and Kodi libraries tend to accumulate storage over time from multiple sources, each with different encoding characteristics:</p>
   <ul>
-    <li><strong>Old H.264 rips and downloads</strong> — files encoded before H.265 was widely supported, at higher bitrates than necessary.</li>
-    <li><strong>MPEG-2 and Xvid files</strong> — legacy codecs from DVDs and early internet video that are dramatically larger than modern equivalents.</li>
-    <li><strong>Camera footage and recordings</strong> — GoPro, DSLR, and phone footage often uses high-bitrate capture settings designed for editing, not long-term storage.</li>
-    <li><strong>Screen recordings and game captures</strong> — typically the worst offenders, with MB/sec values 10–20× higher than well-encoded 1080p content.</li>
-    <li><strong>Remuxed Blu-ray content</strong> — full-quality source files that were never intended for storage, only for editing or archival.</li>
+    <li><strong>Old H.264 rips and downloads:</strong> files encoded before H.265 was widely supported, at higher bitrates than necessary.</li>
+    <li><strong>MPEG-2 and Xvid files:</strong> legacy codecs from DVDs and early internet video that are dramatically larger than modern equivalents.</li>
+    <li><strong>Camera footage and recordings:</strong> GoPro, DSLR, and phone footage often uses high-bitrate capture settings designed for editing, not long-term storage.</li>
+    <li><strong>Screen recordings and game captures:</strong> typically the worst offenders, with MB/sec values 10–20× higher than well-encoded 1080p content.</li>
+    <li><strong>Remuxed Blu-ray content:</strong> full-quality source files that were never intended for storage, only for editing or archival.</li>
   </ul>
   <p>The good news: H.265 (HEVC) can deliver virtually identical visual quality at roughly half the file size compared to H.264. For older codec content, the savings are even greater. A methodical library cleanup pass can often halve total storage without any perceptible quality difference.</p>
 
@@ -205,7 +211,7 @@
   </div>
 
   <h2 id="h265-compat">H.265 compatibility with Plex, Jellyfin, and Kodi</h2>
-  <p>The main concern when re-encoding a media server library is whether clients can play the new files without forcing server-side transcoding. Transcoding consumes significant CPU resources and can degrade playback quality — direct play is always preferable.</p>
+  <p>The main concern when re-encoding a media server library is whether clients can play the new files without forcing server-side transcoding. Transcoding consumes significant CPU resources and can degrade playback quality. Direct play is always preferable.</p>
 
   <table class="compat-table">
     <thead>
@@ -229,7 +235,7 @@
   </div>
 
   <h2 id="target">Which files to compress first</h2>
-  <p>Not every file in your library is worth compressing. The priority should be files with a high MB/sec ratio — those are consuming far more storage than their content requires.</p>
+  <p>Not every file in your library is worth compressing. The priority should be files with a high MB/sec ratio, since those are consuming far more storage than their content requires.</p>
   <p>The most common high-value targets in a Plex/Jellyfin library:</p>
   <ul>
     <li><strong>Screen recordings and game captures:</strong> Almost always 5–20× over-encoded. These compress dramatically with zero perceptible quality loss at H.265 CRF 25.</li>
@@ -239,8 +245,8 @@
   </ul>
   <p>Files to be conservative with:</p>
   <ul>
-    <li><strong>Already-efficient H.265 encodes:</strong> Will see minimal gain. CineCinch flags these as Efficient — skip them.</li>
-    <li><strong>4K Blu-ray remuxes:</strong> Very high quality sources — compressing risks visible degradation on a 4K display. If you care about maximum quality, leave these alone.</li>
+    <li><strong>Already-efficient H.265 encodes:</strong> Will see minimal gain. CineCinch flags these as Efficient, so skip them.</li>
+    <li><strong>4K Blu-ray remuxes:</strong> Very high quality sources, so compressing risks visible degradation on a 4K display. If you care about maximum quality, leave these alone.</li>
     <li><strong>Films you watch regularly in critical quality mode:</strong> Use High Quality (CRF 21) rather than Standard if you must compress these.</li>
   </ul>
 
@@ -248,7 +254,7 @@
   <p>Multi-language libraries require extra attention. Media server collections often contain files with multiple audio dubs, director's commentary, and various subtitle formats.</p>
 
   <h3>Audio tracks</h3>
-  <p>By default, CineCinch maps only the first audio track to the output. For media server libraries, enable <strong>"Keep all audio tracks"</strong> to preserve all audio streams — this is critical if your library has multi-language dubs or commentary tracks you care about.</p>
+  <p>By default, CineCinch maps only the first audio track to the output. For media server libraries, enable <strong>"Keep all audio tracks"</strong> to preserve all audio streams. This is critical if your library has multi-language dubs or commentary tracks you care about.</p>
   <p>All audio is copied directly (not re-encoded), so there's no quality loss to audio regardless of the original format (AC3, DTS, TrueHD, etc.).</p>
 
   <h3>Subtitles</h3>
@@ -267,7 +273,7 @@
   <ol class="step-list">
     <li>
       <span class="step-num">01</span>
-      <div><strong>Point CineCinch at your media server library folder.</strong> CineCinch scans recursively, so you can select the root folder of your entire Plex/Jellyfin/Kodi library — all subfolders (Movies, TV Shows, etc.) will be included.</div>
+      <div><strong>Point CineCinch at your media server library folder.</strong> CineCinch scans recursively, so you can select the root folder of your entire Plex/Jellyfin/Kodi library, and all subfolders (Movies, TV Shows, etc.) will be included.</div>
     </li>
     <li>
       <span class="step-num">02</span>
@@ -279,7 +285,7 @@
     </li>
     <li>
       <span class="step-num">04</span>
-      <div><strong>Filter to Bloated only and review the list.</strong> Uncheck any files you want to exclude — full Blu-ray remuxes, recently purchased content, files with image subtitles you care about, etc.</div>
+      <div><strong>Filter to Bloated only and review the list.</strong> Uncheck any files you want to exclude, such as full Blu-ray remuxes, recently purchased content, files with image subtitles you care about, etc.</div>
     </li>
     <li>
       <span class="step-num">05</span>
@@ -287,7 +293,7 @@
     </li>
     <li>
       <span class="step-num">06</span>
-      <div><strong>Select your quality mode.** Standard (CRF 25) is the recommended starting point for most library content. High Quality (CRF 21) for near-archival quality. High Compression (CRF 29) for recordings and lower-priority content. Advanced users can use Custom mode to set any CRF value and encode speed directly.</div>
+      <div><strong>Select your quality mode.</strong> CineCinch offers four presets plus a Custom mode. Standard (CRF 25) is the recommended starting point for most library content. High Quality (CRF 21) for near-archival quality. High Compression and Max Compression for recordings and lower-priority content. Advanced users can use Custom mode to set any CRF value (15-40) and encode speed directly.</div>
     </li>
     <li>
       <span class="step-num">07</span>
@@ -324,20 +330,20 @@
     <li><strong>Modern H.264 streaming rips:</strong> 15–30% reduction.</li>
     <li><strong>Already-efficient H.265:</strong> 0–10% reduction. Often not worth the encode time.</li>
   </ul>
-  <p>A realistic total library reduction depends heavily on your content mix. Libraries heavy in screen recordings and old codec files can see 60–70% total storage reduction. Libraries consisting primarily of modern, well-encoded content will see more modest gains — typically 25–40%.</p>
+  <p>A realistic total library reduction depends heavily on your content mix. Libraries heavy in screen recordings and old codec files can see 60–70% total storage reduction. Libraries consisting primarily of modern, well-encoded content will see more modest gains, typically 25–40%.</p>
 
   <h2 id="faq">Frequently asked questions</h2>
   <div class="faq-item">
     <div class="faq-q">Does Plex support H.265 (HEVC) files?</div>
-    <p class="faq-a">Yes. Plex Media Server supports H.265 direct play on all modern clients. Some older Plex clients (particularly web browsers using Firefox, and older smart TVs) may transcode H.265 rather than direct play — check your specific clients in Plex's playback quality settings before compressing your entire library.</p>
+    <p class="faq-a">Yes. Plex Media Server supports H.265 direct play on all modern clients. Some older Plex clients (particularly web browsers using Firefox, and older smart TVs) may transcode H.265 rather than direct play, so check your specific clients in Plex's playback quality settings before compressing your entire library.</p>
   </div>
   <div class="faq-item">
     <div class="faq-q">Will re-encoding my library change how Plex or Jellyfin sees the files?</div>
-    <p class="faq-a">If you use a different output filename (e.g. *_compressed.mp4), your media server will see it as a new file. For a seamless replacement, verify quality on the compressed file, then delete the original and rename the compressed file to match — then trigger a library refresh. Plex and Jellyfin will re-match metadata for files with matching names.</p>
+    <p class="faq-a">If you use a different output filename (e.g. *_compressed.mp4), your media server will see it as a new file. For a seamless replacement, verify quality on the compressed file, then delete the original and rename the compressed file to match, then trigger a library refresh. Plex and Jellyfin will re-match metadata for files with matching names.</p>
   </div>
   <div class="faq-item">
     <div class="faq-q">What happens to multi-language audio and subtitle tracks when compressing?</div>
-    <p class="faq-a">Enabling "Keep all audio tracks" preserves all audio streams in the compressed file — multi-language dubs, commentary, and all. Subtitle handling depends on format: text-based subtitles are preserved, image-based subtitles (PGS, VobSub) cannot be embedded in MP4 and are dropped. If this matters, keep your original MKV files.</p>
+    <p class="faq-a">Enabling "Keep all audio tracks" preserves all audio streams in the compressed file, including multi-language dubs, commentary, and all. Subtitle handling depends on format: text-based subtitles are preserved, image-based subtitles (PGS, VobSub) cannot be embedded in MP4 and are dropped. If this matters, keep your original MKV files.</p>
   </div>
   <div class="faq-item">
     <div class="faq-q">How much storage can I save by converting my library to H.265?</div>
@@ -345,7 +351,7 @@
   </div>
   <div class="faq-item">
     <div class="faq-q">Is it safe to compress files that are actively on my Plex/Jellyfin server?</div>
-    <p class="faq-a">Yes, as long as you're not outputting to the same filename. CineCinch reads source files and writes to a new output file — it doesn't modify originals in place. Your media server continues to serve the originals normally while compression runs in the background. Just don't delete originals while Plex or Jellyfin is actively streaming them.</p>
+    <p class="faq-a">Yes, as long as you're not outputting to the same filename. CineCinch reads source files and writes to a new output file, so it doesn't modify originals in place. Your media server continues to serve the originals normally while compression runs in the background. Just don't delete originals while Plex or Jellyfin is actively streaming them.</p>
   </div>
 
 </main>
@@ -368,7 +374,7 @@
 </div>
 
 <footer class="site-footer">
-  <p><a href="/">CineCinch</a> — Video analyzer and batch compressor for Windows</p>
+  <p><a href="/">CineCinch</a> · Video analyzer and batch compressor for Windows</p>
   <p>Questions? <a href="mailto:support@cinecinch.com">support@cinecinch.com</a> · <a href="https://x.com/CineCinch" target="_blank" rel="noopener">Follow @CineCinch on 𝕏</a></p>
   <p style="margin-top:12px;">© <span id="yr"></span> CineCinch · <a href="/privacy.html">Privacy & Terms</a></p>
 </footer>
