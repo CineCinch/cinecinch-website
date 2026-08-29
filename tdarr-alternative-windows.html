@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tdarr vs HandBrake vs CineCinch: Shrinking a Video Library on Windows (2026)</title>
+  <meta name="description" content="An honest comparison of Tdarr, HandBrake, and CineCinch for reclaiming disk space from a media library on Windows: automation vs manual control vs diagnose-first batch compression.">
+  <link rel="canonical" href="https://cinecinch.com/tdarr-alternative-windows">
+
+  <meta property="og:title" content="Tdarr vs HandBrake vs CineCinch: Shrinking a Video Library on Windows (2026)">
+  <meta property="og:description" content="An honest comparison of Tdarr, HandBrake, and CineCinch for reclaiming disk space from a media library on Windows: automation vs manual control vs diagnose-first batch compression.">
+  <meta property="og:url" content="https://cinecinch.com/tdarr-alternative-windows">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CineCinch">
+  <meta property="og:image" content="https://cinecinch.com/screenshot-v2.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tdarr vs HandBrake vs CineCinch: Shrinking a Video Library on Windows (2026)">
+  <meta name="twitter:description" content="An honest comparison of Tdarr, HandBrake, and CineCinch for reclaiming disk space from a media library on Windows: automation vs manual control vs diagnose-first batch compression.">
+  <meta name="twitter:image" content="https://cinecinch.com/screenshot-v2.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "HandBrake Alternatives for Windows: Easier Batch Video Compression",
+    "description": "HandBrake is powerful but complex. Compare the best alternatives for batch H.265 compression on Windows, especially for large video libraries.",
+    "url": "https://cinecinch.com/handbrake-alternative-windows",
+    "publisher": { "@type": "Organization", "name": "CineCinch", "url": "https://cinecinch.com" }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is HandBrake the best video compressor for Windows?",
+        "acceptedAnswer": { "@type": "Answer", "text": "HandBrake is the most feature-rich free video transcoder for Windows, giving you precise control over codecs, bitrates, filters, and output formats. It's the best choice for detailed single-file work. For batch library cleanup (scanning a folder, identifying inefficient files, and compressing them in queue), purpose-built tools like CineCinch are faster to use." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does HandBrake support H.265?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. HandBrake fully supports H.265 (HEVC) encoding via both software (libx265) and hardware acceleration (NVENC, QuickSync, VideoToolbox). You can set CRF, bitrate targets, presets, and more." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the simplest video compressor for Windows?",
+        "acceptedAnswer": { "@type": "Answer", "text": "For compressing a single video with minimal setup, VLC's Convert/Save feature is the simplest option. For batch library cleanup, CineCinch scans your folders, identifies which files actually need compression, and processes them in queue, requiring no knowledge of codec settings." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can CineCinch replace HandBrake?",
+        "acceptedAnswer": { "@type": "Answer", "text": "CineCinch and HandBrake are built for different use cases. HandBrake is better when you need full control over a specific file: changing output format, tweaking filters, or working with subtitles in detail. CineCinch is better when you have a folder of videos and want to find and compress the inefficient ones in bulk, with minimal setup." }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --teal:#14a085; --teal-dark:#0d7377;
+      --bg:#111214; --bg-raised:#1a1c1f; --bg-card:#202326;
+      --border:rgba(255,255,255,0.07); --border-teal:rgba(20,160,133,0.3);
+      --text:#f0f2f0; --body:#b8bdb8; --muted:#6b726b;
+      --font-head:'Bricolage Grotesque',sans-serif; --font-body:'DM Sans',sans-serif;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font-body);font-size:16px;line-height:1.7;color:var(--body);background:var(--bg);}
+    a{color:var(--teal);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+    img,video{display:block;max-width:100%;}
+
+    .site-header{background:rgba(17,18,20,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;position:sticky;top:0;z-index:50;}
+    .site-header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;}
+    .site-header-logo{font-family:var(--font-head);font-weight:700;font-size:1em;color:var(--text);display:flex;align-items:center;gap:8px;}
+    .site-header-logo span{color:var(--teal);}
+    .site-header-cta{font-family:var(--font-head);font-size:0.82em;font-weight:700;color:#fff;background:var(--teal-dark);padding:7px 16px;border-radius:8px;transition:background 0.2s;}
+    .site-header-cta:hover{background:var(--teal);text-decoration:none;}
+
+    .layout{max-width:1100px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr 280px;gap:48px;align-items:start;}
+    @media(max-width:900px){.layout{grid-template-columns:1fr;}.sidebar{display:none;}}
+    .article{padding:48px 0 80px;}
+
+    .label{font-size:0.72em;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;}
+    h1{font-family:var(--font-head);font-size:clamp(1.7em,3.5vw,2.4em);font-weight:800;color:var(--text);line-height:1.15;letter-spacing:-0.02em;margin-bottom:16px;}
+    .hero-sub{font-size:1.05em;color:var(--body);margin-bottom:28px;max-width:620px;}
+    h2{font-family:var(--font-head);font-size:1.35em;font-weight:700;color:var(--text);margin:40px 0 12px;line-height:1.25;}
+    h3{font-family:var(--font-head);font-size:1.05em;font-weight:700;color:var(--text);margin:28px 0 8px;}
+    p{margin-bottom:16px;}
+    ul,ol{padding-left:1.4em;margin-bottom:16px;}
+    li{margin-bottom:6px;}
+    strong{color:var(--text);font-weight:600;}
+
+    .toc{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin-bottom:40px;}
+    .toc-title{font-family:var(--font-head);font-size:0.82em;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;}
+    .toc ol{margin:0;padding-left:1.2em;}
+    .toc li{margin-bottom:5px;font-size:0.9em;}
+    .toc a{color:var(--body);}
+    .toc a:hover{color:var(--teal);}
+
+    .callout{background:rgba(20,160,133,0.07);border:1px solid var(--border-teal);border-left:3px solid var(--teal);border-radius:8px;padding:16px 20px;margin:24px 0;}
+    .callout p{margin:0;font-size:0.92em;}
+
+    .verdict-box{background:var(--bg-card);border:1px solid var(--border-teal);border-radius:10px;padding:20px 24px;margin:24px 0;}
+    .verdict-label{font-size:0.72em;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px;}
+    .verdict-box p{margin:0;font-size:0.92em;}
+
+    .comparison-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:0.88em;}
+    .comparison-table th{background:var(--bg-card);color:var(--text);font-family:var(--font-head);font-weight:700;padding:12px 14px;text-align:left;border-bottom:2px solid var(--border-teal);}
+    .comparison-table td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--body);}
+    .comparison-table tr:last-child td{border-bottom:none;}
+    .tag-good{color:#14a085;font-weight:600;}
+    .tag-ok{color:#e0a000;font-weight:600;}
+    .tag-hard{color:#c42b1c;font-weight:600;}
+
+    .tool-section{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:28px;margin:28px 0;}
+    .tool-section h3{margin-top:0;}
+    .tool-meta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px;}
+    .tool-chip{font-size:0.75em;font-weight:600;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:6px;padding:3px 10px;color:var(--muted);}
+    .tool-chip.good{background:rgba(20,160,133,0.1);border-color:var(--border-teal);color:var(--teal);}
+
+    .faq-item{border-bottom:1px solid var(--border);padding:20px 0;}
+    .faq-item:last-child{border-bottom:none;}
+    .faq-q{font-family:var(--font-head);font-weight:700;color:var(--text);font-size:0.98em;margin-bottom:8px;}
+    .faq-a{font-size:0.92em;margin:0;}
+
+    .sidebar{padding-top:48px;}
+    .sidebar-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px;position:sticky;top:72px;}
+    .sidebar-card h4{font-family:var(--font-head);font-weight:700;color:var(--text);font-size:0.95em;margin-bottom:8px;}
+    .sidebar-card p{font-size:0.85em;margin-bottom:16px;}
+    .sidebar-btn{display:block;text-align:center;font-family:var(--font-head);font-size:0.9em;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--teal-dark),var(--teal));padding:12px 16px;border-radius:8px;margin-bottom:10px;transition:opacity 0.2s;}
+    .sidebar-btn:hover{opacity:0.9;text-decoration:none;}
+    .sidebar-btn.secondary{background:rgba(255,255,255,0.06);border:1px solid var(--border);color:var(--body);}
+    .sidebar-btn.secondary:hover{background:rgba(255,255,255,0.1);}
+    .sidebar-note{font-size:0.78em;color:var(--muted);text-align:center;}
+    .sidebar-links{margin-top:16px;border-top:1px solid var(--border);padding-top:16px;}
+    .sidebar-links a{display:block;font-size:0.82em;color:var(--body);padding:5px 0;border-bottom:1px solid var(--border);}
+    .sidebar-links a:last-child{border-bottom:none;}
+    .sidebar-links a:hover{color:var(--teal);}
+
+    .site-footer{border-top:1px solid var(--border);background:var(--bg-raised);padding:36px 24px;text-align:center;}
+    .site-footer p{font-size:0.84em;color:var(--muted);margin-bottom:6px;}
+    .site-footer a{color:var(--teal);}
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/" class="site-header-logo">CineCinch <span>↗</span></a>
+    <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank" rel="noopener" class="site-header-cta">Download Free Trial</a>
+  </div>
+</header>
+
+<div class="layout">
+<main class="article">
+
+  <p style="margin-bottom:20px;font-size:0.88em;"><a href="/">&#8592; CineCinch Home</a> &nbsp;/&nbsp; <span style="color:var(--muted)">Tdarr vs HandBrake vs CineCinch: Shrinking a Video Library on Windows</span></p>
+
+  <div class="label">Comparison &middot; Library optimization tools</div>
+  <h1>Tdarr vs HandBrake vs CineCinch: Shrinking a Video Library on Windows</h1>
+  <p class="hero-sub">Three honest options for a library that is outgrowing its drives: server-grade automation, a hands-on encoder, and a diagnose-first Windows app. Which one fits how you actually work?</p>
+
+
+  <h2 id="landscape">Three very different tools for the same goal</h2>
+  <p>If your media library is outgrowing its drives, the internet gives you three standard answers: <strong>Tdarr</strong>, <strong>HandBrake</strong>, or a hand-written FFmpeg script. All three can work. They are also built for three different kinds of user, and picking the wrong one costs you a weekend. Here is an honest map, including where CineCinch fits and where it does not.</p>
+
+  <h2 id="tdarr">Tdarr: powerful automation, server-grade setup</h2>
+  <p>Tdarr is the most capable library-transcoding system you can run at home. It watches folders continuously, routes work across multiple machines and GPUs, and its plugin flows can express almost any policy. If you run a rack with Docker and want always-on automation, it is the right tool, and nothing below is meant to talk you out of it.</p>
+  <p>The honest cost is complexity. Tdarr's own documentation describes a server plus node architecture that new users routinely find confusing, and community forums are full of first-run stories: path mapping mistakes, file-type filters that queue ISO images and photos for transcoding, GPU driver and kernel mismatches, and flows that need debugging before the first file is converted. None of that is a flaw for its audience. It is simply the price of a server-grade system, and many people with a Windows PC and a full drive do not want to pay it.</p>
+
+  <h2 id="handbrake">HandBrake: excellent per-file encoder, no library view</h2>
+  <p>HandBrake is a superb free encoder and we recommend it without reservation for one-at-a-time work. Its gap is the library problem: it cannot tell you <em>which</em> of your files are worth re-encoding, and its queue is built per file. Recursive folder queueing has been a requested feature for roughly nine years. When you have 50 folders and hundreds of files, the admin work of building the queue can take longer than deciding to do it.</p>
+
+  <h2 id="cinecinch">CineCinch: diagnose first, then compress the offenders</h2>
+  <p>CineCinch starts from a different question. Not "how do I re-encode these files" but "which files are actually wasting the space?" It scans a folder or a whole drive and ranks every video by megabytes per second of playback. That one number surfaces the true space hogs: a 22-minute file that eats 4 GB floats to the top, while an already-efficient movie of the same size stays out of your way. Then you batch-compress just the offenders to H.265, with quality settings adapted per file to its source codec and resolution. If a re-encode would not actually be smaller, CineCinch throws it away and keeps your original.</p>
+  <p>Being honest about scope, in the same way we were honest about the others: CineCinch is Windows-only, CPU-only x265 with no GPU encoding (a deliberate quality-per-byte tradeoff, and slower than NVENC), and it is a paid app with a free 7-day trial in which scanning is unlimited and compression is capped at 10 files. Everything runs locally. No cloud, no account, no telemetry.</p>
+
+  <h2 id="comparison">Side-by-side</h2>
+  <div style="overflow-x:auto;">
+  <table>
+    <tr><th></th><th>Tdarr</th><th>HandBrake</th><th>CineCinch</th></tr>
+    <tr><td>Tells you which files waste space</td><td>No (rules act on all matches)</td><td>No</td><td>Yes, ranks by MB per second</td></tr>
+    <tr><td>Setup</td><td>Docker or node install, flows, path mapping</td><td>Installer, per-file settings</td><td>Microsoft Store install, point at a folder</td></tr>
+    <tr><td>Whole-drive batch</td><td>Yes, watch folders</td><td>Queue built per file/folder</td><td>Yes, recursive scan and batch</td></tr>
+    <tr><td>Continuous automation</td><td>Yes, its core strength</td><td>No</td><td>No, on-demand runs</td></tr>
+    <tr><td>GPU encoding</td><td>Yes</td><td>Yes</td><td>No, CPU x265 for quality per byte</td></tr>
+    <tr><td>Keeps output only if smaller</td><td>Plugin-dependent</td><td>No</td><td>Yes, built in</td></tr>
+    <tr><td>Platform</td><td>Cross-platform, server-oriented</td><td>Cross-platform desktop</td><td>Windows 10/11 desktop</td></tr>
+    <tr><td>Price</td><td>Free</td><td>Free</td><td>Paid, free 7-day trial</td></tr>
+  </table>
+  </div>
+
+  <h2 id="which">Which one should you use?</h2>
+  <ul>
+    <li><strong>Choose Tdarr</strong> if you run a home server, are comfortable with Docker, and want a system that transcodes new media automatically forever.</li>
+    <li><strong>Choose HandBrake</strong> if you have a handful of specific files and want full manual control of every encoding parameter, for free.</li>
+    <li><strong>Choose CineCinch</strong> if you have a Windows PC, a full drive or NAS share, and you want to see which files are the problem and fix just those, today, without building infrastructure. You can <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank" rel="noopener">scan your whole library free in the trial</a> and decide with the ranked list in front of you.</li>
+  </ul>
+
+  <h2 id="faq">FAQ</h2>
+  <h3>Is CineCinch a Tdarr replacement?</h3>
+  <p>For a multi-node automated server, no, and it does not try to be. It is the on-ramp: the diagnose-and-fix tool for the library that still lives on a desktop or a share you reach from Windows. Some users graduate to Tdarr later; many never need to.</p>
+  <h3>Why CPU-only encoding?</h3>
+  <p>GPU encoders are faster but produce larger files at the same visual quality. For a tool whose whole point is reclaiming disk space, quality per byte wins, so CineCinch uses CPU x265 and is upfront that it is slower.</p>
+  <h3>Will it re-encode files that are already efficient?</h3>
+  <p>It will try only if you select them, and it automatically discards any output that is not smaller than the original. Already-efficient H.265 and AV1 files are ranked low in the scan precisely so you leave them alone.</p>
+
+
+</main>
+
+<aside class="sidebar">
+  <div class="sidebar-card">
+    <h4>Try a simpler batch workflow</h4>
+    <p>CineCinch scans your library, ranks files by inefficiency, and compresses in batch, no codec knowledge required.</p>
+    <a href="https://apps.microsoft.com/detail/9pb21kbs42ms" target="_blank" rel="noopener" class="sidebar-btn">⊞ Download Free Trial</a>
+    <a href="/" class="sidebar-btn secondary">See all features →</a>
+    <p class="sidebar-note">Free 7-day trial · Windows 10/11</p>
+    <div class="sidebar-links">
+      <p style="font-size:0.78em;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;">Related guides</p>
+      <a href="/compress-video-files-windows">How to compress video on Windows</a>
+      <a href="/find-and-shrink-oversized-video-files-windows">Find & shrink oversized videos</a>
+      <a href="/how-to-find-and-shrink-oversized-video-files-on-windows">Compress your Plex/Jellyfin library</a>
+    </div>
+  </div>
+</aside>
+</div>
+
+<footer class="site-footer">
+  <p><a href="/">CineCinch</a> · Video analyzer and batch compressor for Windows</p>
+  <p>Questions? <a href="mailto:support@cinecinch.com">support@cinecinch.com</a> · <a href="https://x.com/CineCinch" target="_blank" rel="noopener">Follow @CineCinch on 𝕏</a></p>
+  <p style="margin-top:12px;">© <span id="yr"></span> CineCinch · <a href="/privacy.html">Privacy & Terms</a></p>
+</footer>
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
